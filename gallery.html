@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Gallery - Cadet College Sanghar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --primary: #002147;
+            --secondary: #b8860b;
+            --gold-light: #f4d03f;
+            --soft-blue: #ecf5ff;
+            --card-shadow: 0 15px 35px rgba(2,36,85,0.1);
+            --card-shadow-hover: 0 25px 50px rgba(2,36,85,0.15);
+            --text: #222;
+            --muted: #556b86;
+            --light-bg: #f8fbff;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        /* Background decorative elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 33, 71, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: url('assets/images/logo.png') center/contain no-repeat;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: heroAppear 1.5s var(--ease-smooth) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes heroAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .college-logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 rgba(255,215,0,0.5); }
+            to { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255,215,0,0.8); }
+        }
+
+        .college-logo img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .graduation-cap {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            color: var(--gold-light);
+            filter: drop-shadow(0 5px 15px rgba(255,215,0,0.5));
+            animation: capFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes capFloat {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(5deg); }
+            75% { transform: translateX(-50%) rotate(-5deg); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+            to { text-shadow: 0 5px 25px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            position: relative;
+            background: white;
+            z-index: 20;
+        }
+
+        /* ========== GALLERY CONTROLS ========== */
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 40px 5%;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, #e6f2ff 100%);
+            position: relative;
+        }
+        
+        .gallery-controls::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23002147" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 2px solid #e0e7ff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-smooth);
+            color: var(--muted);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(2,36,85,0.08);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.1), transparent);
+            transition: left 0.6s var(--ease-smooth);
+            z-index: -1;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(2,36,85,0.15);
+        }
+        
+        .filter-btn:hover::before, .filter-btn.active::before {
+            left: 100%;
+        }
+
+        /* ========== EVENTS SECTION ========== */
+        .events-section {
+            padding: 80px 5%;
+            background: var(--soft-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #00356b;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 1s var(--ease-smooth) forwards;
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-smooth);
+        }
+
+        .event-card:hover .event-image {
+            transform: scale(1.05);
+        }
+
+        .event-date {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .event-content {
+            padding: 25px;
+        }
+
+        .event-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .event-content p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .event-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .event-link:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* ========== GALLERY GRID ========== */
+        .gallery-container {
+            padding: 80px 5%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            cursor: pointer;
+            background: #fff;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-smooth);
+            z-index: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-smooth);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
+        }
+
+        .gallery-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .gallery-info p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        
+        .gallery-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+
+        /* ========== LIGHTBOX MODAL ========== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 40, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s var(--ease-smooth);
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            transform: scale(0.9);
+            transition: transform 0.4s var(--ease-smooth);
+            background: #fff;
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            display: block;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .lightbox-info {
+            background: #fff;
+            padding: 25px;
+            border-top: 1px solid #f0f4f9;
+        }
+
+        .lightbox-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .lightbox-info p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: all 0.4s var(--ease-smooth);
+            z-index: 2001;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: all 0.4s var(--ease-smooth);
+            z-index: 2001;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 2001;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ========== LOAD MORE BUTTON ========== */
+        .load-more-container {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .load-more {
+            background: linear-gradient(135deg, var(--primary) 0%, #00356b 100%);
+            color: #fff;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-bounce);
+            box-shadow: 0 10px 25px rgba(2,36,85,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .load-more::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s var(--ease-smooth);
+        }
+
+        .load-more:hover {
+            background: linear-gradient(135deg, #00356b 0%, var(--primary) 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(2,36,85,0.3);
+        }
+        
+        .load-more:hover::before {
+            left: 100%;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1000px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .events-grid, .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            .events-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .lightbox-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .lightbox-prev {
+                left: 10px;
+            }
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="graduation-cap">🎓</div>
+                <div class="college-logo">
+                    <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo">
+                </div>
+            </div>
+            <h1 class="hero-title">College Gallery</h1>
+            <p class="hero-subtitle">Explore the vibrant life and achievements of Cadet College Sanghar</p>
+        </div>
+        <div class="scroll-indicator" id="scrollToContent">↓</div>
+    </section>
+    
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="main-content">
+        <!-- ========== EVENTS SECTION ========== -->
+        <section class="events-section">
+            <div class="section-title">
+                <h2>Recent Events</h2>
+                <p>Stay updated with the latest happenings and achievements at our institution</p>
+            </div>
+            
+            <div class="events-grid">
+   <div class="events-grid">
+    <!-- Event 1 -->
+    <a href="shooting.html" class="event-card">
+        <div class="event-date">12 Nov 2025</div>
+        <img src="assets/images/shooting/shooting3.webp" alt="Inter House Shooting Competition" class="event-image">
+        <div class="event-content">
+            <h3>The Inter House Shooting Competition</h3>
+            <p>Cadets from all six houses participated in the Inter House Shooting Competition.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 2 -->
+    <a href="iqbalday.html" class="event-card">
+        <div class="event-date">09 Nov 2025</div>
+        <img src="assets/images/iqbal day/iqbalday8.webp" alt="Iqbal Day Celebration" class="event-image">
+        <div class="event-content">
+            <h3>Iqbal Day Celebration</h3>
+            <p>CCS marked Iqbal Day with speeches, lectures, and awards, inspiring cadets through Iqbal's enduring message.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 3 -->
+    <a href="cooking.html" class="event-card">
+        <div class="event-date">09 Nov 2025</div>
+        <img src="assets/images/cooking/cooking1.webp" alt="Inter-House Cooking Competition" class="event-image">
+        <div class="event-content">
+            <h3>Inter-House Cooking Competition</h3>
+            <p>CCS cadets competed in cooking event; dishes judged, teamwork praised, SAL House won overall competition.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 4 -->
+    <a href="class-9-trip.html" class="event-card">
+        <div class="event-date">07 Nov 2025</div>
+        <img src="assets/images/class9/ix11.webp" alt="Educational & Recreational Visit to Karachi" class="event-image">
+        <div class="event-content">
+            <h3>Educational & Recreational Visit to Karachi</h3>
+            <p>CCS cadets toured Mazar-e-Quaid, Maritime Museum, and Lucky One Mall for learning and recreation.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 5 -->
+    <a href="swimming.html" class="event-card">
+        <div class="event-date">03 Nov 2025</div>
+        <img src="assets/images/swimming/swimming3.webp" alt="Inter-House Swimming Competition" class="event-image">
+        <div class="event-content">
+            <h3>Inter-House Swimming Competition</h3>
+            <p>CCS held swimming contest; Effendi House won, Muneeb excelled, and the Chief Guest praised cadets' progress.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 6 -->
+    <a href="class-8-trip.html" class="event-card">
+        <div class="event-date">30 Oct 2025</div>
+        <img src="assets/images/class8/viii7.webp" alt="Excursion Trip – Class VIII" class="event-image">
+        <div class="event-content">
+            <h3>Excursion Trip – Class VIII (Batch 2025)</h3>
+            <p>Class VIII cadets enjoyed Hyderabad trip exploring Sindh Museum, Rani Bagh, and Boulevard Mall together.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 7 -->
+    <a href="china.html" class="event-card">
+        <div class="event-date">25 Oct 2025</div>
+        <img src="assets/images/china/china2.webp" alt="Memorandum of Understanding" class="event-image">
+        <div class="event-content">
+            <h3>Memorandum of Understanding (MoU)</h3>
+            <p>CCS and CCP signed an MoU to start Chinese language courses, boosting global learning opportunities.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 8 -->
+    <a href="maritine.html" class="event-card">
+        <div class="event-date">25 Sep 2025</div>
+        <img src="assets/images/maritine/maritine1.webp" alt="World Maritime Day" class="event-image">
+        <div class="event-content">
+            <h3>World Maritime Day (WMD)</h3>
+            <p>CCS marked World Maritime Day with lectures, documentaries, competitions, and awareness activities highlighting Pakistan's maritime potential.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 9 -->
+    <a href="speelingbee.html" class="event-card">
+        <div class="event-date">22 Sep 2025</div>
+        <img src="assets/images/speelingbee/bee1.webp" alt="Spelling Bee Competition" class="event-image">
+        <div class="event-content">
+            <h3>Spelling Bee Competition</h3>
+            <p>CCS held a senior Spelling Bee where Kazi House won and Effendi House finished runner-up.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+    
+    <!-- Event 10 -->
+    <a href="opening-ceremony.html" class="event-card">
+        <div class="event-date">21 Sep 2025</div>
+        <img src="assets/images/openingceremony/opening4.webp" alt="Opening Ceremony of Inter House Sports Championship" class="event-image">
+        <div class="event-content">
+            <h3>Opening Ceremony of Inter House Sports Championship</h3>
+            <p>IHSC-25 opened with sports contests and performances, inspiring cadets as Chief Guest praised participation values.</p>
+            <span class="event-link">View Event</span>
+        </div>
+    </a>
+</div>
+</div>
+        </section>
+
+        <!-- ========== GALLERY CONTROLS ========== -->
+        <section class="gallery-controls">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="campus">Campus</button>
+            <button class="filter-btn" data-filter="academics">Academics</button>
+            <button class="filter-btn" data-filter="sports">Sports</button>
+            <button class="filter-btn" data-filter="events">Events</button>
+            <button class="filter-btn" data-filter="achievements">Achievements</button>
+        </section>
+
+        <!-- ========== GALLERY GRID ========== -->
+        <section class="gallery-container">
+            <div class="gallery-grid">
+                <!-- Campus Images -->
+                <div class="gallery-item" data-category="campus">
+                    <div class="gallery-category">Campus</div>
+                    <img src="assets/images/campus.webp" alt="Main Campus Building" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Main Campus Building</h3>
+                        <p>The iconic main building of Cadet College Sanghar</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="campus">
+                    <div class="gallery-category">Campus</div>
+                    <img src="assets/images/campus.webp" alt="Academic Block" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Academic Block</h3>
+                        <p>Modern classrooms and laboratories for quality education</p>
+                    </div>
+                </div>
+                
+                <!-- Academics Images -->
+                <div class="gallery-item" data-category="academics">
+                    <div class="gallery-category">Academics</div>
+                    <img src="assets/images/lab.webp" alt="Science Lab" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Science Laboratory</h3>
+                        <p>Students conducting experiments in our advanced science lab</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="academics">
+                    <div class="gallery-category">Academics</div>
+                    <img src="assets/images/library.webp" alt="Library" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>College Library</h3>
+                        <p>Extensive collection of books and digital resources</p>
+                    </div>
+                </div>
+                
+                <!-- Sports Images -->
+                <div class="gallery-item" data-category="sports">
+                    <div class="gallery-category">Sports</div>
+                    <img src="assets/images//dccEf.webp" alt="Cricket Match" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Cricket Tournament</h3>
+                        <p>Annual inter-house cricket competition</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="sports">
+                    <div class="gallery-category">Sports</div>
+                    <img src="assets/images/debate.webp" alt="Athletics" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Athletics Competition</h3>
+                        <p>Cadets showcasing their athletic abilities</p>
+                    </div>
+                </div>
+                
+                <!-- Events Images -->
+                <div class="gallery-item" data-category="events">
+                    <div class="gallery-category">Events</div>
+                    <img src="assets/images/id.webp" alt="Independence Day" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Independence Day Celebration</h3>
+                        <p>Patriotic ceremony with flag hoisting and cultural performances</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <div class="gallery-category">Events</div>
+                    <img src="assets/images/ParentsDay3.webp" alt="Parents Day" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Parents Day Ceremony</h3>
+                        <p>Honoring cadets and their achievements in front of proud parents</p>
+                    </div>
+                </div>
+                
+                <!-- Achievements Images -->
+                <div class="gallery-item" data-category="achievements">
+                    <div class="gallery-category">Achievements</div>
+                    <img src="assets/images/award.webp" alt="Award Ceremony" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Award Ceremony</h3>
+                        <p>Recognizing academic excellence and leadership</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="achievements">
+                    <div class="gallery-category">Achievements</div>
+                    <img src="assets/images/debate.webp" alt="Debate Competition" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Debate Competition Winners</h3>
+                        <p>Our cadets winning regional debate championship</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Images -->
+                <div class="gallery-item" data-category="campus">
+                    <div class="gallery-category">Campus</div>
+                    <img src="assets/images/hostel.webp" alt="Hostel Life" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Hostel Facilities</h3>
+                        <p>Comfortable and disciplined residential environment</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="sports">
+                    <div class="gallery-category">Sports</div>
+                    <img src="assets/images//engineering.webp" alt="Basketball" class="gallery-img">
+                    <div class="gallery-info">
+                        <h3>Basketball Team</h3>
+                        <p>Our college basketball team during practice session</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more-container">
+                <button class="load-more">Load More Photos</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-nav lightbox-prev">&#10094;</button>
+        <button class="lightbox-nav lightbox-next">&#10095;</button>
+        <div class="lightbox-counter">
+            <span class="current-index">1</span> / <span class="total-count">12</span>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img">
+            <div class="lightbox-info">
+                <h3 class="lightbox-title"></h3>
+                <p class="lightbox-description"></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer-component></footer-component>
+    
+    <script src="loader.js"></script>
+    <script>
+        // Scroll to content function
+        document.getElementById('scrollToContent').addEventListener('click', function() {
+            document.querySelector('.main-content').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Gallery Filtering Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Lightbox Functionality
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImg = document.querySelector('.lightbox-img');
+            const lightboxTitle = document.querySelector('.lightbox-title');
+            const lightboxDescription = document.querySelector('.lightbox-description');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxPrev = document.querySelector('.lightbox-prev');
+            const lightboxNext = document.querySelector('.lightbox-next');
+            const currentIndexEl = document.querySelector('.current-index');
+            const totalCountEl = document.querySelector('.total-count');
+            
+            let currentImageIndex = 0;
+            const images = Array.from(galleryItems);
+            
+            // Set total count
+            totalCountEl.textContent = images.length;
+            
+            // Open lightbox when gallery item is clicked
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    currentImageIndex = index;
+                    updateLightbox();
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close lightbox
+            lightboxClose.addEventListener('click', function() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Navigate to previous image
+            lightboxPrev.addEventListener('click', function() {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateLightbox();
+            });
+            
+            // Navigate to next image
+            lightboxNext.addEventListener('click', function() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateLightbox();
+            });
+            
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                } else if (e.key === 'ArrowLeft') {
+                    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                    updateLightbox();
+                } else if (e.key === 'ArrowRight') {
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    updateLightbox();
+                }
+            });
+            
+            // Update lightbox content
+            function updateLightbox() {
+                const currentItem = images[currentImageIndex];
+                const imgSrc = currentItem.querySelector('.gallery-img').getAttribute('src');
+                const title = currentItem.querySelector('h3').textContent;
+                const description = currentItem.querySelector('p').textContent;
+                
+                lightboxImg.setAttribute('src', imgSrc);
+                lightboxTitle.textContent = title;
+                lightboxDescription.textContent = description;
+                currentIndexEl.textContent = currentImageIndex + 1;
+            }
+            
+            // Load More functionality
+            const loadMoreBtn = document.querySelector('.load-more');
+            let itemsToShow = 12;
+            
+            // Initially hide some items
+            galleryItems.forEach((item, index) => {
+                if (index >= itemsToShow) {
+                    item.style.display = 'none';
+                }
+            });
+            
+            loadMoreBtn.addEventListener('click', function() {
+                itemsToShow += 6;
+                
+                galleryItems.forEach((item, index) => {
+                    if (index < itemsToShow) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    }
+                });
+                
+                // Hide button if all items are shown
+                if (itemsToShow >= galleryItems.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

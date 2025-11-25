@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening Ceremony of Inter House Sports Championship (IHSC-25) - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="components.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #002147;
+            --secondary: #b8860b;
+            --accent: #ffd700;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --card-shadow: 0 8px 25px rgba(2,36,85,0.08);
+            --text: #222;
+            --muted: #556b86;
+            --white: #ffffff;
+            --transition: all 0.4s ease;
+            --transition-slow: all 0.8s ease;
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a1931 0%, #1a1a2e 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== EVENT PAGE STYLES ========== */
+        .event-page {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at center, rgba(26, 26, 46, 0.9) 0%, rgba(10, 25, 49, 0.95) 100%);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, transparent 70%);
+            animation: floatElement 15s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+            animation-direction: reverse;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatElement {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* Logo */
+        .event-logo {
+            max-width: 180px;
+            margin: 80px auto 30px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(184, 134, 11, 0.3));
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .event-logo.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .event-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 5px 25px rgba(184, 134, 11, 0.5));
+        }
+
+        /* Event Heading */
+        .event-heading {
+            text-align: center;
+            margin: 0 auto 40px;
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-slow);
+        }
+
+        .event-heading.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .event-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.8s ease 0.5s;
+        }
+
+        .event-heading.visible .event-title::after {
+            transform: scaleX(1);
+        }
+
+        .event-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Event Description */
+        .event-description {
+            background:  linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(10, 25, 49, 0.9));
+            padding: 40px;
+            border-radius: 12px;
+            margin: 0 auto 50px;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            box-shadow: var(--card-shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-slow);
+            max-width: 1200px;
+        }
+
+        .event-description.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .description-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: justify;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-bottom: 60px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 5%;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .gallery-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-bounce);
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            aspect-ratio: 1/1;
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .event-footer {
+            text-align: center;
+            padding: 30px 5%;
+            background: rgba(10, 25, 49, 0.8);
+            border-top: 1px solid rgba(184, 134, 11, 0.2);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-description {
+                padding: 25px;
+            }
+            
+            .event-title {
+                font-size: 2.2rem;
+            }
+            
+            .event-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .description-text {
+                font-size: 1rem;
+            }
+            
+            .event-title {
+                font-size: 1.8rem;
+            }
+            
+            .event-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- Event Page -->
+    <section class="event-page">
+        <!-- Background -->
+        <div class="page-background"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+
+        <!-- Logo -->
+        <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo" class="event-logo">
+
+        <!-- Event Heading -->
+        <div class="event-heading">
+            <h1 class="event-title">Opening Ceremony of Inter House Sports Championship (IHSC-25)</h1>
+            <p class="event-subtitle">Cadet College Sanghar</p>
+        </div>
+
+        <!-- Event Container -->
+        <div class="event-container">
+            <!-- Event Description -->
+            <div class="event-description">
+                <p class="description-text">
+                    The Opening Ceremony of Inter House Sports Championship (IHSC-25) took place on 21 Sep 25. Mr. Khair Muhammad Junejo, former Federal Minister & a Senior Member of the CCS Board of Governors (BoGs) graced the occasion as the Chief Guest.
+In his welcome address, Commodore Zeeshan Ali SI(M), Commandant/Principal, CCS expressed gratitude to the Chief Guest for his presence and highlighted the significance of sports activities at the college. He acknowledged the Chief Guest's consistent support and interest over the years, which has greatly contributed to the institution's progress and achievements. Commodore Zeeshan Ali emphasized the importance of a healthy body and mind, advising the cadets to learn from their mistakes and strive for continuous improvement. The Commandant/ Principal also presented a college souvenir to worth Chief Guest.
+The Chief Guest declared the IHSC 2025 Open and the athletics events commenced, featuring 100m, 200m, and 400m Relay Races, Tug-of-War, and Javelin Throw among the six Houses. The event also showcased the talents of CCS cadets and students from Fatima Jinnah School, who performed tableaus, and cultural performances. 
+In his address to the sports contingent, the Chief Guest offered valuable advice, praising the CCS administration for successfully organizing the event and commending the young cadets for their high spirit of sportsmanship. He emphasized that winning or losing is not the primary focus, but rather the sense of participation and discipline instilled through sports. The event concluded with a tree plantation ceremony and signing the College Visitors' Book.</p>
+            </div>
+
+            <!-- Gallery Section -->
+            <div class="gallery-section">
+                <h2 class="gallery-title">Event Gallery</h2>
+                <div class="gallery-grid">
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening1.webp" alt="Cooking Competition" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening2.webp" alt="Cadet Cooking" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening3.webp" alt="Food Preparation" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening4.webp" alt="Dish Presentation" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening5.webp" alt="Team Cooking" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 6 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening6.webp" alt="Awards Ceremony" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 7 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening7.webp" alt="Champion Celebration" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 8 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening8.webp" alt="Prize Distribution" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                    <!-- Gallery Item 9 -->
+                    <div class="gallery-item">
+                        <img src="assets/images/openingCeremony/opening9.webp" alt="Group Photo" class="gallery-image" onerror="this.src='assets/images/dccEf.webp'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Stagger animations for gallery items
+                    if (entry.target.classList.contains('gallery-item')) {
+                        const index = Array.from(document.querySelectorAll('.gallery-item')).indexOf(entry.target);
+                        entry.target.style.transitionDelay = `${index * 0.1}s`;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe all animated elements
+            const animatedElements = document.querySelectorAll(
+                '.event-logo, .event-heading, .event-description, .gallery-title, .gallery-item'
+            );
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Image fallback handling
+            const allImages = document.querySelectorAll('img');
+            allImages.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.src = 'assets/images/dccEf.webp';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

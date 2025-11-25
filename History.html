@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Cadet College Sanghar</title>
+    
+    <!-- Optimized font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #002147;
+            --secondary: #b8860b;
+            --soft-blue: #f0f8ff;
+            --light-gold: #fff9e6;
+            --card-shadow: 0 8px 25px rgba(2,36,85,0.08);
+            --text: #222;
+            --muted: #556b86;
+            --white: #ffffff;
+            --transition: all 0.4s ease;
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(180deg, #f8fbff 0%, #fbfdff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== HISTORY PAGE STYLES ========== */
+        .history-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Elements - Simplified */
+        .background-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.1) 0%, transparent 70%);
+        }
+
+        .bg-element:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation: floatElement 15s ease-in-out infinite;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 8%;
+            animation: floatElement 18s ease-in-out infinite reverse;
+        }
+
+        .bg-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            left: 12%;
+            animation: floatElement 12s ease-in-out infinite;
+        }
+
+        @keyframes floatElement {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 60px 5% 50px;
+            position: relative;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s ease forwards;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s 0.2s ease forwards;
+        }
+
+        @keyframes titleEntrance {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Timeline Section - Simplified */
+        .timeline-section {
+            position: relative;
+            padding: 0 5% 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .timeline-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .timeline-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            width: 45%;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(2,36,85,0.12);
+        }
+
+        .timeline-content.left {
+            margin-right: auto;
+        }
+
+        .timeline-content.right {
+            margin-left: auto;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: var(--secondary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+
+        .timeline-content.left::before {
+            right: -58px;
+        }
+
+        .timeline-content.right::before {
+            left: -58px;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover .timeline-icon {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        .timeline-text {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* Info Cards Section */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 0 5% 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(40px);
+            opacity: 0;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .info-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(2,36,85,0.12);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .info-card:hover .card-icon {
+            transform: scale(1.1);
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* College Stats */
+        .college-stats {
+            background: var(--soft-blue);
+            padding: 60px 5%;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            margin: 40px 5% 0;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 25px 15px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .stat-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(2,36,85,0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--muted);
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1100px) {
+            .timeline-line {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+            }
+            
+            .timeline-content::before {
+                left: -50px !important;
+                right: auto !important;
+            }
+            
+            .page-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .history-page {
+                padding-top: 80px;
+            }
+            
+            .page-title {
+                font-size: 2.3rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .timeline-content {
+                padding: 25px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-card {
+                padding: 25px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bg-element:nth-child(1) {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .bg-element:nth-child(2) {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .bg-element:nth-child(3) {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+                padding: 20px;
+            }
+            
+            .timeline-content::before {
+                left: -40px !important;
+            }
+            
+            .timeline-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- History Page -->
+    <section class="history-page">
+        <!-- Background Elements -->
+        <div class="background-elements">
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+            <div class="bg-element"></div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">College History</h1>
+            <p class="page-subtitle">A Legacy of Excellence in Education and Leadership Development</p>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-section">
+            <div class="timeline-line"></div>
+            
+            <!-- Introduction -->
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h2 class="timeline-title">Introduction</h2>
+                    <div class="timeline-text">
+                        <p>Cadet College Sanghar is the 4th Cadet College in the province of Sindh. The college was commissioned on the holy day of Eid MilladunNabi (S.A.W) the 20th of August 1994. It is spread over an area of 272 acres and is situated about 10 kilometers from village Jam Nawaz Ali.</p>
+                        <p>The nearest town is Tando Adam which is 35 kilometers from the college and is an important industrial city, located on the main railway line. The District Headquarter is Sanghar which is 60 kilometers away and Mirpurkhas (Sindhri) Airfield is about 40 kilometers from the college.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location & Environment -->
+            <div class="timeline-item">
+                <div class="timeline-content right">
+                    <div class="timeline-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h2 class="timeline-title">Location & Environment</h2>
+                    <div class="timeline-text">
+                        <p>The college is situated amidst beautiful natural surroundings. The serenity, noise and pollution free environment provides an ideal environment for learning, training and sports activities.</p>
+                        <p>The perennial Jumrao Canal is just 1 kilometer away from the college and is an attractive spot for leisure activities. Hyderabad is 90 kilometers and Karachi is 225 kilometers from the college campus.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Administration -->
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h2 class="timeline-title">Administration</h2>
+                    <div class="timeline-text">
+                        <p>The college is under the command and control of Pakistan Navy and is managed by the Board of Governors, Commander Karachi; an Administrative Authority of Pakistan Navy is exofficio Chairman.</p>
+                        <p>The Commandant / Principal is the Member / Secretary of the Board of Governors. The Board is established under The West Pakistan Government Educational and Training Institutions Ordinance 1960. The Commandant / Principal is responsible for the administration of the college, in accordance with the laid down rules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards Section -->
+        <div class="info-cards">
+            <!-- Aim Card -->
+            <div class="info-card">
+                <div class="card-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2 class="card-title">Aim</h2>
+                <div class="card-text">
+                    <p>The aim of establishing Cadet College Sanghar in the under developed and remote part of Sindh, is to uplift the youth of interior Sindh and to produce future leaders for the defence services and other professions by establishing an atmosphere of sound education and disciplined training.</p>
+                </div>
+            </div>
+            
+            <!-- Vision Card -->
+            <div class="info-card">
+                <div class="card-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h2 class="card-title">Vision</h2>
+                <div class="card-text">
+                    <p>To groom the youth, mainly from rural areas, by employing the best educational practices, sound physical training and core ethical values to develop them into good human beings, patriotic citizens and dynamic leaders.</p>
+                </div>
+            </div>
+            
+            <!-- Mission Card -->
+            <div class="info-card">
+                <div class="card-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <h2 class="card-title">Mission</h2>
+                <div class="card-text">
+                    <p>"To impart quality education and shape young boys into principled leaders through conducive environment that supports personality grooming, physical fitness and character development with spirit of service towards the nation".</p>
+                </div>
+            </div>
+            
+            <!-- Scope Card -->
+            <div class="info-card">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="card-title">Scope</h2>
+                <div class="card-text">
+                    <p>The College is planned for formal education from Class VIII to XII. The college offers only science subjects, both at the Secondary and Higher Secondary levels (Pre–Medical & Pre–Engineering Groups).</p>
+                    <p>The syllabi as prescribed by Sindh Text Book Board are followed, but additional material is also used for scholastic enrichment of the students. The college is affiliated with the Board of Intermediate and Secondary Education Shaheed Benazirabad (Nawabshah) and is governed by its regulations of examinations.</p>
+                </div>
+            </div>
+            
+            <!-- Quality Policy Card -->
+            <div class="info-card">
+                <div class="card-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h2 class="card-title">Quality Policy</h2>
+                <div class="card-text">
+                    <p>Cadet College Sanghar aims to impart Quality Education with a sacred mission to produce man of character and merit for the service of the Nation.</p>
+                    <p>This is achieved through dynamic leadership and committed staff, having skill over modern educational techniques and training.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- College Stats -->
+        <div class="college-stats">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-value">1994</div>
+                    <div class="stat-label">Established</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <div class="stat-value">272</div>
+                    <div class="stat-label">Acres Campus</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-value">4th</div>
+                    <div class="stat-label">Cadet College in Sindh</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Grade Levels</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Simplified scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.timeline-item, .info-card, .stat-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

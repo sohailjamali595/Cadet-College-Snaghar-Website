@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #002147;
+            --secondary: #b8860b;
+            --accent: #fdfcf9;
+            --sidebar: #011b36;
+            --sidebar-hover: #002147;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ========== RESET & BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ========== ADMIN LAYOUT ========== */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .admin-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--sidebar) 0%, var(--primary) 100%);
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .admin-brand {
+            text-align: center;
+            padding: 0 25px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+
+        .admin-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd36b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .admin-brand p {
+            color: #ffd36b;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .admin-menu {
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            margin-bottom: 25px;
+        }
+
+        .menu-section h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffd36b;
+            margin-bottom: 15px;
+            padding-left: 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 12px;
+            transition: all 0.3s var(--ease-smooth);
+            cursor: pointer;
+            color: #eaf3ff;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+            color: var(--accent);
+        }
+
+        .menu-item.active {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .admin-main {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .admin-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .admin-title p {
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .admin-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(2,36,85,0.1);
+        }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ========== DASHBOARD CARDS ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s var(--ease-smooth);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(2,36,85,0.15);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .stat-icon.news { background: linear-gradient(135deg, var(--info), #1d4ed8); }
+        .stat-icon.faculty { background: linear-gradient(135deg, var(--success), #047857); }
+        .stat-icon.gallery { background: linear-gradient(135deg, var(--warning), #d97706); }
+        .stat-icon.admissions { background: linear-gradient(135deg, var(--danger), #dc2626); }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* ========== QUICK ACTIONS ========== */
+        .quick-actions {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .action-btn {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(2,36,85,0.15);
+            border-color: var(--secondary);
+        }
+
+        .action-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .action-btn h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .action-btn p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* ========== RECENT ACTIVITY ========== */
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .activity-card, .system-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+        }
+
+        .activity-list {
+            margin-top: 20px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .activity-icon.add { background: var(--success); }
+        .activity-icon.edit { background: var(--info); }
+        .activity-icon.delete { background: var(--danger); }
+        .activity-icon.user { background: var(--warning); }
+
+        .activity-details h5 {
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .activity-details p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .activity-time {
+            color: var(--muted);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        /* ========== SYSTEM STATUS ========== */
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-dot.online { background: var(--success); }
+        .status-dot.warning { background: var(--warning); }
+        .status-dot.offline { background: var(--danger); }
+
+        .status-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .dashboard-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+                transition: transform 0.3s var(--ease-smooth);
+            }
+
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 1001;
+                background: var(--primary);
+                color: white;
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <h1>CCS Admin</h1>
+                <p>Control Panel</p>
+            </div>
+
+            <nav class="admin-menu">
+                <div class="menu-section">
+                    <h3>Main</h3>
+                    <a href="#" class="menu-item active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        Analytics
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <h3>Content Management</h3>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-newspaper"></i>
+                        News & Events
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        Faculty Management
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-images"></i>
+                        Gallery
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-file-alt"></i>
+                        Page Content
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <h3>Admissions</h3>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-user-graduate"></i>
+                        Applications
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Fee Management
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-award"></i>
+                        Scholarships
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <h3>System</h3>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-users-cog"></i>
+                        Users
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-database"></i>
+                        Backup
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <h1>Admin Dashboard</h1>
+                    <p>Welcome back, Administrator! Here's what's happening today.</p>
+                </div>
+                <div class="admin-actions">
+                    <div class="admin-profile">
+                        <div class="profile-img">A</div>
+                        <div>
+                            <strong>Admin User</strong>
+                            <div style="font-size: 0.8rem; color: var(--muted);">Administrator</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-icon news">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>News Articles</p>
+                    </div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-icon faculty">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>45</h3>
+                        <p>Faculty Members</p>
+                    </div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="stat-icon gallery">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Gallery Images</p>
+                    </div>
+                </div>
+
+                <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="stat-icon admissions">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89</h3>
+                        <p>New Applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2 class="section-title">Quick Actions</h2>
+                <div class="actions-grid">
+                    <div class="action-btn fade-in" style="animation-delay: 0.1s;">
+                        <i class="fas fa-plus-circle"></i>
+                        <h4>Add News</h4>
+                        <p>Create new article</p>
+                    </div>
+                    <div class="action-btn fade-in" style="animation-delay: 0.2s;">
+                        <i class="fas fa-edit"></i>
+                        <h4>Edit Faculty</h4>
+                        <p>Update staff info</p>
+                    </div>
+                    <div class="action-btn fade-in" style="animation-delay: 0.3s;">
+                        <i class="fas fa-upload"></i>
+                        <h4>Upload Images</h4>
+                        <p>Add to gallery</p>
+                    </div>
+                    <div class="action-btn fade-in" style="animation-delay: 0.4s;">
+                        <i class="fas fa-cog"></i>
+                        <h4>Settings</h4>
+                        <p>System configuration</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Sections -->
+            <div class="dashboard-sections">
+                <!-- Recent Activity -->
+                <div class="activity-card fade-in" style="animation-delay: 0.5s;">
+                    <h2 class="section-title">Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon add">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h5>New News Article</h5>
+                                <p>"Inter House Shooting Competition" was added</p>
+                            </div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon edit">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h5>Faculty Updated</h5>
+                                <p>Dr. Ahmed's profile was modified</p>
+                            </div>
+                            <div class="activity-time">5 hours ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon user">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h5>New Application</h5>
+                                <p>Admission form submitted</p>
+                            </div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon add">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h5>Gallery Updated</h5>
+                                <p>15 new images uploaded</p>
+                            </div>
+                            <div class="activity-time">2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="system-card fade-in" style="animation-delay: 0.6s;">
+                    <h2 class="section-title">System Status</h2>
+                    <div class="status-list">
+                        <div class="status-item">
+                            <div class="status-info">
+                                <div class="status-dot online"></div>
+                                <span>Website</span>
+                            </div>
+                            <div class="status-value">Online</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-info">
+                                <div class="status-dot online"></div>
+                                <span>Database</span>
+                            </div>
+                            <div class="status-value">Healthy</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-info">
+                                <div class="status-dot warning"></div>
+                                <span>Storage</span>
+                            </div>
+                            <div class="status-value">75% Used</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-info">
+                                <div class="status-dot online"></div>
+                                <span>Backups</span>
+                            </div>
+                            <div class="status-value">Up to date</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Add click effects to action buttons
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Simulate loading animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = (index * 0.1) + 's';
+            });
+        });
+    </script>
+</body>
+</html>

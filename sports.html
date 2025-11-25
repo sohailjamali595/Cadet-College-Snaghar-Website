@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --accent: #fdfcf9ff;
+            --primary: #002147;
+            --secondary: #00356b;
+            --soft-blue: #ecf5ff;
+            --gold: #ffd36b;
+            --sport-red: #e63946;
+            --sport-green: #2a9d8f;
+            --sport-blue: #457b9d;
+            --sport-orange: #f4a261;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== SPORTS PAGE STYLES ========== */
+        .sports-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Elements */
+        .sports-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .sports-bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 211, 107, 0.1);
+            animation: floatSports 15s ease-in-out infinite;
+        }
+
+        .sports-bg-element:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .sports-bg-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 8%;
+            animation-delay: 5s;
+        }
+
+        .sports-bg-element:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            left: 12%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatSports {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        /* Page Header */
+        .sports-header {
+            text-align: center;
+            padding: 60px 5% 80px;
+            position: relative;
+        }
+
+        .sports-title {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s var(--ease-smooth) forwards;
+        }
+
+        .sports-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 2px;
+        }
+
+        .sports-subtitle {
+            font-size: 1.3rem;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s 0.2s var(--ease-smooth) forwards;
+        }
+
+        @keyframes titleEntrance {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Sports Filter */
+        .sports-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 2px solid #e0e7ff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            color: var(--muted);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s var(--ease-smooth);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(2,36,85,0.15);
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Sports Grid */
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sport-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .sport-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(2,36,85,0.15);
+        }
+
+        .sport-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sport-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .sport-card:hover .sport-image img {
+            transform: scale(1.1);
+        }
+
+        .sport-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0,33,71,0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .sport-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .sport-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: all 0.4s var(--ease-bounce);
+        }
+
+        .sport-card:hover .sport-icon {
+            transform: scale(1.2) rotate(15deg);
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        .sport-content {
+            padding: 25px;
+        }
+
+        .sport-description {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .sport-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .sport-stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* Category Colors */
+        .sport-card[data-category="team"] .sport-icon {
+            background: var(--sport-red);
+        }
+
+        .sport-card[data-category="individual"] .sport-icon {
+            background: var(--sport-blue);
+        }
+
+        .sport-card[data-category="indoor"] .sport-icon {
+            background: var(--sport-green);
+        }
+
+        .sport-card[data-category="fitness"] .sport-icon {
+            background: var(--sport-orange);
+        }
+
+        /* Sports Facilities Section */
+        .facilities-section {
+            background: var(--soft-blue);
+            padding: 80px 5%;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .facility-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(2,36,85,0.1);
+        }
+
+        .facility-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--soft-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: all 0.4s var(--ease-bounce);
+        }
+
+        .facility-card:hover .facility-icon {
+            transform: scale(1.1) rotate(10deg);
+            background: var(--gold);
+        }
+
+        .facility-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .facility-description {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* Sports Achievements */
+        .achievements-section {
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .achievements-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .achievement-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .achievement-stat {
+            padding: 30px 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .achievement-stat.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .achievement-stat:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(2,36,85,0.1);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .achievement-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .achievement-label {
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        /* Decorative Elements */
+        .sports-decoration {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: rotate 30s linear infinite;
+        }
+
+        .sports-decoration:nth-child(1) {
+            top: 10%;
+            right: 5%;
+        }
+
+        .sports-decoration:nth-child(2) {
+            bottom: 15%;
+            left: 5%;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1100px) {
+            .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sports-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sports-page {
+                padding-top: 80px;
+            }
+            
+            .sports-title {
+                font-size: 2.5rem;
+            }
+            
+            .sports-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .sports-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sport-card {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .achievement-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sports-bg-element:nth-child(1) {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .sports-bg-element:nth-child(2) {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .sports-bg-element:nth-child(3) {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .sports-title {
+                font-size: 2rem;
+            }
+            
+            .sports-subtitle {
+                font-size: 1rem;
+            }
+            
+            .sports-filter {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            
+            .sport-image {
+                height: 180px;
+            }
+            
+            .achievement-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .achievement-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    <!-- Sports Page -->
+    <section class="sports-page">
+        <!-- Background Elements -->
+        <div class="sports-background">
+            <div class="sports-bg-element"></div>
+            <div class="sports-bg-element"></div>
+            <div class="sports-bg-element"></div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="sports-decoration"></div>
+        <div class="sports-decoration"></div>
+
+        <!-- Page Header -->
+        <div class="sports-header">
+            <h1 class="sports-title">Sports & Athletics</h1>
+            <p class="sports-subtitle">Excellence in Sports, Building Champions for Tomorrow</p>
+        </div>
+
+        <!-- Sports Filter -->
+        <div class="sports-filter">
+            <button class="filter-btn active" data-filter="all">All Sports</button>
+            <button class="filter-btn" data-filter="team">Team Sports</button>
+            <button class="filter-btn" data-filter="individual">Individual Sports</button>
+            <button class="filter-btn" data-filter="indoor">Indoor Sports</button>
+            <button class="filter-btn" data-filter="fitness">Fitness & Training</button>
+        </div>
+
+        <!-- Sports Grid -->
+        <div class="sports-grid">
+            <!-- Football -->
+            <div class="sport-card" data-category="team">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports1.webp" alt="Football">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Football</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">The beautiful game that teaches teamwork, strategy, and endurance. Our cadets compete in regional and national tournaments with exceptional performance.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cricket -->
+            <div class="sport-card" data-category="team">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports2.webp" alt="Cricket">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Cricket</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-baseball-ball"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">The nation's passion. Our cricket academy focuses on technical skills, match strategy, and mental toughness to develop future cricket stars.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hockey -->
+            <div class="sport-card" data-category="team">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports3.webp" alt="Hockey">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Hockey</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-hockey-puck"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Pakistan's national sport. We train cadets in traditional and modern hockey techniques, emphasizing speed, precision, and teamwork.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basketball -->
+            <div class="sport-card" data-category="team">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports4.webp" alt="Basketball">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Basketball</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Fast-paced and dynamic, basketball develops agility, coordination, and strategic thinking. Our teams compete in inter-collegiate tournaments.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volleyball -->
+            <div class="sport-card" data-category="team">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports5.webp" alt="Volleyball">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Volleyball</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-volleyball-ball"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">A sport that combines power, precision, and teamwork. Our volleyball program focuses on serving, spiking, and defensive techniques.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Teams</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badminton -->
+            <div class="sport-card" data-category="individual">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports1.webp" alt="Badminton">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Badminton</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-table-tennis"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">A fast racquet sport that improves reflexes, agility, and strategic thinking. Our cadets have won several regional championships.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">15+</div>
+                            <div class="stat-label">Players</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Tennis -->
+            <div class="sport-card" data-category="indoor">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports2.webp" alt="Table Tennis">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Table Tennis</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-table-tennis"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">The fastest racquet sport that demands lightning reflexes and precision. Our table tennis players have excelled in national competitions.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">12+</div>
+                            <div class="stat-label">Players</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Squash -->
+            <div class="sport-card" data-category="indoor">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports2.webp" alt="Squash">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Squash</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-square"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">A high-intensity racquet sport played in a confined space. Develops fitness, agility, and mental toughness. Our squash court is among the best in the region.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">10+</div>
+                            <div class="stat-label">Players</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Athletics -->
+            <div class="sport-card" data-category="individual">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports3.webp" alt="Athletics">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Athletics</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Track and field events including sprinting, long jump, high jump, and javelin throw. Our athletes have set several college records.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">25+</div>
+                            <div class="stat-label">Athletes</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Records</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swimming -->
+            <div class="sport-card" data-category="individual">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports3.webp" alt="Swimming">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Swimming</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">An essential life skill and competitive sport. Our Olympic-sized pool allows cadets to train in various swimming styles and compete at national levels.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">20+</div>
+                            <div class="stat-label">Swimmers</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gym/Physical Training -->
+            <div class="sport-card" data-category="fitness">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports5.webp" alt="Gym & Physical Training">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Gym & Physical Training</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">State-of-the-art gym facilities with modern equipment. Focus on strength training, conditioning, and overall physical development under expert supervision.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Participation</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Expert</div>
+                            <div class="stat-label">Trainers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross Country -->
+            <div class="sport-card" data-category="fitness">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports1.webp" alt="Cross Country Running">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Cross Country Running</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Long-distance running through varied terrain builds endurance, mental toughness, and resilience. Our cadets participate in regional marathon events.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">30+</div>
+                            <div class="stat-label">Runners</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Medals</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horse Riding -->
+            <div class="sport-card" data-category="individual">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports2.webp" alt="Horse Riding">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Horse Riding</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-horse"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Equestrian sports that teach balance, coordination, and partnership with animals. Our riding school offers both recreational and competitive training.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Riders</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chess -->
+            <div class="sport-card" data-category="indoor">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports4.webp" alt="Chess">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Chess</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-chess"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">The game of kings that develops strategic thinking, patience, and problem-solving skills. Our chess club has produced several national-level players.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">25+</div>
+                            <div class="stat-label">Players</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">9</div>
+                            <div class="stat-label">Trophies</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Daily</div>
+                            <div class="stat-label">Practice</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shooting -->
+            <div class="sport-card" data-category="individual">
+                <div class="sport-image">
+                    <img src="assets/images/sports/sports5.webp" alt="Shooting">
+                    <div class="sport-overlay">
+                        <h3 class="sport-name">Shooting</h3>
+                    </div>
+                    <div class="sport-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                </div>
+                <div class="sport-content">
+                    <p class="sport-description">Precision sport that demands focus, control, and steady hands. Our shooting range is equipped with modern facilities for air rifle and pistol training.</p>
+                    <div class="sport-stats">
+                        <div class="sport-stat">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Shooters</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Medals</div>
+                        </div>
+                        <div class="sport-stat">
+                            <div class="stat-value">Weekly</div>
+                            <div class="stat-label">Training</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facilities Section -->
+        <div class="facilities-section">
+            <div class="section-title">
+                <h2>World-Class Sports Facilities</h2>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3 class="facility-title">Olympic Standard Track</h3>
+                    <p class="facility-description">400-meter synthetic track for athletics training and competitions with professional timing systems.</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
+                    <h3 class="facility-title">Olympic Swimming Pool</h3>
+                    <p class="facility-description">50-meter swimming pool with diving boards and professional coaching staff for all levels.</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="facility-title">Modern Gymnasium</h3>
+                    <p class="facility-description">Fully equipped gym with cardio machines, free weights, and strength training equipment.</p>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-horse"></i>
+                    </div>
+                    <h3 class="facility-title">Equestrian Center</h3>
+                    <p class="facility-description">Professional riding arena with trained horses and certified instructors for equestrian sports.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="achievements-section">
+            <div class="section-title">
+                <h2>Sports Achievements</h2>
+            </div>
+            <div class="achievements-container">
+                <div class="achievement-stats">
+                    <div class="achievement-stat">
+                        <div class="achievement-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="achievement-value">48</div>
+                        <div class="achievement-label">Championship Trophies</div>
+                    </div>
+                    <div class="achievement-stat">
+                        <div class="achievement-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="achievement-value">127</div>
+                        <div class="achievement-label">Individual Medals</div>
+                    </div>
+                    <div class="achievement-stat">
+                        <div class="achievement-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="achievement-value">35</div>
+                        <div class="achievement-label">National Players</div>
+                    </div>
+                    <div class="achievement-stat">
+                        <div class="achievement-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="achievement-value">12</div>
+                        <div class="achievement-label">Sports Records</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Sports Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const sportCards = document.querySelectorAll('.sport-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    sportCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Scroll animation for cards
+            const animatedElements = document.querySelectorAll('.sport-card, .facility-card, .achievement-stat');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Add staggered animation delay to elements
+            animatedElements.forEach((element, index) => {
+                element.style.transitionDelay = `${index * 0.1}s`;
+            });
+
+            // Add hover effects for cards
+            const cards = document.querySelectorAll('.sport-card, .facility-card, .achievement-stat');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('visible')) {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

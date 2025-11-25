@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-curricular Activities - Cadet College Sanghar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --nav-bg-dark: #011b36;
+            --accent: #fdfcf9ff;
+            --primary: #002147;
+            --soft-blue: #ecf5ff;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --gold: #ffd36b;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+        }
+
+        /* ========== RESET & BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 50%, #e6f2ff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== ENHANCED LOGO ANIMATION ========== */
+        .martyrs-logo {
+            max-width: 180px;
+            margin: 40px auto 30px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(184, 134, 11, 0.3));
+            animation: enhancedFloat 8s ease-in-out infinite;
+            transition: all 0.4s ease;
+        }
+        
+        .martyrs-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes enhancedFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ========== ANIMATED LOGO SECTION ========== */
+        .logo-hero {
+            height: 55vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 100px 65px 100px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,33,71,0.95) 0%, rgba(0,20,40,0.95) 100%);
+        }
+        
+        .logo-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 211, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 123, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .logo-hero h1 {
+            color: var(--accent);
+            font-size: 3rem;
+            margin-bottom: 12px;
+            z-index: 2;
+            letter-spacing: 1px;
+            animation: fadeIn 1.2s var(--ease-smooth) forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .logo-hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: expandWidth 1.5s 1s forwards;
+            transform-origin: center;
+            width: 0;
+        }
+        
+        .logo-hero p {
+            color: rgba(253, 252, 249, 0.9);
+            z-index: 2;
+            font-size: 1.3rem;
+            animation: fadeIn 1.5s 0.3s forwards;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes expandWidth {
+            to { width: 100px; }
+        }
+
+        /* ========== ACTIVITIES INTRODUCTION ========== */
+        .intro-section {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--soft-blue), #ffffff);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #00356b;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            position: relative;
+            animation: titleSlideIn 1s var(--ease-smooth) forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        
+        @keyframes titleSlideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: expandWidth 1s 0.5s forwards;
+            transform-origin: center;
+            width: 0;
+        }
+        
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            color: var(--muted);
+            line-height: 1.7;
+            animation: fadeIn 1s 0.7s forwards;
+            opacity: 0;
+        }
+
+        /* ========== ACTIVITIES GRID ========== */
+        .activities-section {
+            padding: 80px 5%;
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .activity-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(2,36,85,0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            transition: all 0.4s var(--ease-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s forwards;
+            position: relative;
+        }
+        
+        .activity-card:nth-child(1) { animation-delay: 0.2s; }
+        .activity-card:nth-child(2) { animation-delay: 0.3s; }
+        .activity-card:nth-child(3) { animation-delay: 0.4s; }
+        .activity-card:nth-child(4) { animation-delay: 0.5s; }
+        .activity-card:nth-child(5) { animation-delay: 0.6s; }
+        .activity-card:nth-child(6) { animation-delay: 0.7s; }
+        .activity-card:nth-child(7) { animation-delay: 0.8s; }
+        .activity-card:nth-child(8) { animation-delay: 0.9s; }
+        .activity-card:nth-child(9) { animation-delay: 1s; }
+        .activity-card:nth-child(10) { animation-delay: 1.1s; }
+        .activity-card:nth-child(11) { animation-delay: 1.2s; }
+        .activity-card:nth-child(12) { animation-delay: 1.3s; }
+        
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            z-index: 10;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 20px 40px rgba(2,36,85,0.15);
+        }
+        
+        .activity-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .activity-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,33,71,0.7) 100%);
+            z-index: 1;
+        }
+        
+        .activity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-smooth);
+        }
+        
+        .activity-card:hover .activity-image img {
+            transform: scale(1.1);
+        }
+        
+        .activity-info {
+            padding: 25px;
+            background: linear-gradient(to bottom, #ffffff, #f8fbff);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .activity-card:hover .activity-info {
+            background: linear-gradient(to bottom, #ffffff, #f0f7ff);
+        }
+        
+        .activity-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .activity-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s var(--ease-smooth);
+        }
+        
+        .activity-card:hover .activity-info h3::after {
+            width: 100%;
+        }
+        
+        .activity-info .description {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 2;
+            line-height: 1.6;
+        }
+        
+        .activity-card:hover .activity-info .description {
+            color: var(--primary);
+        }
+        
+        .activity-type {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .activity-type i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .academic {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+            border: 1px solid rgba(0, 123, 255, 0.2);
+        }
+        
+        .arts {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+        
+        .leadership {
+            background: rgba(111, 66, 193, 0.1);
+            color: #6f42c1;
+            border: 1px solid rgba(111, 66, 193, 0.2);
+        }
+        
+        .religious {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+        
+        .activity-card:hover .activity-type {
+            transform: scale(1.05);
+        }
+
+        /* ========== ACTIVITY HIGHLIGHTS ========== */
+        .highlights-section {
+            padding: 80px 5%;
+            background: linear-gradient(to bottom, #ffffff, var(--soft-blue));
+        }
+        
+        .highlights-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .highlight-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-card:nth-child(1) { animation-delay: 0.3s; }
+        .highlight-card:nth-child(2) { animation-delay: 0.5s; }
+        .highlight-card:nth-child(3) { animation-delay: 0.7s; }
+        
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(2,36,85,0.15);
+        }
+        
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            transition: all 0.4s var(--ease-smooth);
+        }
+        
+        .highlight-card:hover .highlight-icon {
+            transform: scale(1.1);
+            color: var(--gold);
+        }
+        
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .highlight-card p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .activities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-hero {
+                height: 50vh;
+            }
+            
+            .logo-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .activities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            
+            .highlights-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .highlight-card {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            .logo-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- ========== ANIMATED LOGO HERO ========== -->
+    <section class="logo-hero">
+        <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo" class="martyrs-logo">
+        <h1>Co-curricular Activities</h1>
+        <p>Developing Skills, Building Character, Creating Leaders</p>
+    </section>
+    
+    <!-- ========== INTRODUCTION SECTION ========== -->
+    <section class="intro-section">
+        <h2 class="section-title">Beyond the Classroom</h2>
+        <p class="intro-text">
+            At Cadet College Sanghar, we believe that education extends far beyond textbooks and classrooms. 
+            Our comprehensive co-curricular program is designed to nurture talents, develop skills, and build 
+            character through a diverse range of academic, artistic, and leadership activities that challenge and inspire our cadets.
+        </p>
+    </section>
+    
+    <!-- ========== ACTIVITIES GRID ========== -->
+    <section class="activities-section">
+        <h2 class="section-title">Our Activities</h2>
+        
+        <div class="activities-grid">
+            <!-- Activity 1 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/quiz.webp" alt="Quiz Competition" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Quiz Competitions</h3>
+                    <p class="description">Challenge your knowledge across various subjects in our exciting quiz competitions that test quick thinking, memory, and teamwork.</p>
+                    <span class="activity-type academic"><i class="fas fa-brain"></i> Academic</span>
+                </div>
+            </div>
+            
+            <!-- Activity 2 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/spellingbee.webp" alt="Spelling Bee" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Spelling Bee</h3>
+                    <p class="description">Master the English language through our challenging spelling competitions that build vocabulary, pronunciation, and confidence.</p>
+                    <span class="activity-type academic"><i class="fas fa-spell-check"></i> Academic</span>
+                </div>
+            </div>
+            
+            <!-- Activity 3 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/speech.webp" alt="Speech Competition" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Speech Competitions</h3>
+                    <p class="description">Develop public speaking skills, confidence, and articulation through various speech competitions on diverse topics.</p>
+                    <span class="activity-type leadership"><i class="fas fa-microphone"></i> Leadership</span>
+                </div>
+            </div>
+            
+            <!-- Activity 4 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/qiraat.webp" alt="Qiraat Competition" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Qiraat Competition</h3>
+                    <p class="description">Beautiful recitation of the Holy Quran with proper Tajweed rules, promoting spiritual development and Islamic values.</p>
+                    <span class="activity-type religious"><i class="fas fa-quran"></i> Religious</span>
+                </div>
+            </div>
+            
+            <!-- Activity 5 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/eassay.webp" alt="Essay Writing" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Essay Writing</h3>
+                    <p class="description">Enhance writing skills, critical thinking, and expression through structured essay competitions on various themes.</p>
+                    <span class="activity-type academic"><i class="fas fa-pen-fancy"></i> Academic</span>
+                </div>
+            </div>
+            
+            <!-- Activity 6 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/debate.webp" alt="Debate Competition" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Debate Society</h3>
+                    <p class="description">Develop critical thinking and persuasive speaking skills through structured debates on current affairs and important topics.</p>
+                    <span class="activity-type leadership"><i class="fas fa-comments"></i> Leadership</span>
+                </div>
+            </div>
+            
+            <!-- Activity 7 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/art.webp" alt="Art Club" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Art Club</h3>
+                    <p class="description">Express creativity through various mediums including painting, sketching, and sculpture in our dedicated art studio.</p>
+                    <span class="activity-type arts"><i class="fas fa-palette"></i> Arts</span>
+                </div>
+            </div>
+            
+            <!-- Activity 8 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/music.webp" alt="Music Society" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Music Society</h3>
+                    <p class="description">Learn musical instruments, vocal techniques, and performance skills with opportunities to showcase talent at events.</p>
+                    <span class="activity-type arts"><i class="fas fa-music"></i> Arts</span>
+                </div>
+            </div>
+            
+            <!-- Activity 9 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/id.webp" alt="Drama Club" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Drama Club</h3>
+                    <p class="description">Develop confidence and expression through theatrical performances, script writing, and stage management.</p>
+                    <span class="activity-type arts"><i class="fas fa-theater-masks"></i> Arts</span>
+                </div>
+            </div>
+            
+            <!-- Activity 11 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/ParentsDay3.webp" alt="Scouts" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Scouts & Guides</h3>
+                    <p class="description">Learn survival skills, first aid, and community service while developing leadership and teamwork abilities.</p>
+                    <span class="activity-type leadership"><i class="fas fa-hiking"></i> Leadership</span>
+                </div>
+            </div>
+            
+            <!-- Activity 12 -->
+            <div class="activity-card">
+                <div class="activity-image">
+                    <img src="assets/images/cca/naat.webp" alt="Naat Competition" loading="lazy">
+                </div>
+                <div class="activity-info">
+                    <h3>Naat Competition</h3>
+                    <p class="description">Beautiful recitation of Naat Sharif in praise of Prophet Muhammad (PBUH), promoting Islamic culture and spirituality.</p>
+                    <span class="activity-type religious"><i class="fas fa-star-and-crescent"></i> Religious</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== ACTIVITY HIGHLIGHTS ========== -->
+    <section class="highlights-section">
+        <h2 class="section-title">Program Highlights</h2>
+        
+        <div class="highlights-container">
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Competitions & Awards</h3>
+                <p>Regular inter-house and inter-school competitions with recognition and awards for outstanding performance in all activities.</p>
+            </div>
+            
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Expert Guidance</h3>
+                <p>All activities are supervised by qualified instructors and coaches who provide professional guidance and mentorship.</p>
+            </div>
+            
+            <div class="highlight-card">
+                <div class="highlight-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Regular Schedule</h3>
+                <p>Structured timetable with dedicated slots for co-curricular activities ensuring balanced development for all cadets.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Enhanced animations with JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add scroll animations for activity cards
+            const activityCards = document.querySelectorAll('.activity-card');
+            const highlightCards = document.querySelectorAll('.highlight-card');
+            
+            // Create intersection observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all cards
+            activityCards.forEach(card => observer.observe(card));
+            highlightCards.forEach(card => observer.observe(card));
+            
+            // Add click animation to activity cards
+            activityCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

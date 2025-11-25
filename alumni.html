@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni - Cadet College Sanghar</title>
+    
+    <!-- Optimized font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #002147;
+            --secondary: #b8860b;
+            --soft-blue: #ecf5ff;
+            --light-gold: #fff9e6;
+            --card-shadow: 0 8px 25px rgba(2,36,85,0.08);
+            --text: #222;
+            --muted: #556b86;
+            --white: #ffffff;
+            --transition: all 0.4s ease;
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(180deg, #f8fbff 0%, #fbfdff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== ALUMNI PAGE STYLES ========== */
+        .alumni-page {
+            padding-top: 80px;
+            position: relative;
+        }
+
+        /* Logo Section - Keeping original styling */
+        .alumni-logo-section {
+            text-align: center;
+            padding: 40px 5% 30px;
+            background: var(--soft-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alumni-logo {
+            max-width: 180px;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(2,36,85,0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .alumni-logo-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .alumni-logo-section p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        /* Stats Section */
+        .alumni-stats {
+            background: var(--white);
+            padding: 50px 5%;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(2,36,85,0.12);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 30px 5% 20px;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0,33,71,0.1);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--white);
+            border: 2px solid var(--soft-blue);
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Alumni Grid Section */
+        .alumni-section {
+            padding: 50px 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .alumni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .alumni-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            transform: translateY(40px);
+            opacity: 0;
+            border: 1px solid transparent;
+        }
+
+        .alumni-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .alumni-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(2,36,85,0.15);
+            border-color: var(--secondary);
+        }
+
+        .alumni-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .alumni-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .alumni-card:hover .alumni-img {
+            transform: scale(1.08);
+        }
+
+        .alumni-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,33,71,0.8));
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .alumni-card:hover .alumni-overlay {
+            opacity: 1;
+        }
+
+        .alumni-batch {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: rgba(184, 134, 11, 0.9);
+            padding: 6px 12px;
+            border-radius: 20px;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .alumni-card:hover .alumni-batch {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .alumni-content {
+            padding: 20px;
+        }
+
+        .alumni-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .alumni-card:hover .alumni-name {
+            color: var(--secondary);
+        }
+
+        .alumni-profession {
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .alumni-profession::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .alumni-contact {
+            display: flex;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 12px;
+        }
+
+        .alumni-contact i {
+            width: 16px;
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+
+        /* Join Alumni Section */
+        .join-alumni-section {
+            padding: 80px 5%;
+            background: var(--soft-blue);
+            text-align: center;
+        }
+
+        .join-alumni-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,33,71,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .join-alumni-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Alumni Form Section */
+        .alumni-form-section {
+            padding: 50px 5%;
+            background: var(--white);
+            display: none;
+        }
+
+        .alumni-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 40px;
+            position: relative;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .alumni-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 12px 15px;
+            background: var(--soft-blue);
+            border: 1px dashed var(--muted);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-input-label:hover {
+            background: #e0ecff;
+            border-color: var(--secondary);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #c3e6c3;
+        }
+
+        .form-message.error {
+            background: #fde8e8;
+            color: #a94442;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1000px) {
+            .alumni-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .alumni-page {
+                padding-top: 70px;
+            }
+            
+            .alumni-logo-section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .alumni-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filter-container {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .alumni-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .alumni-form-container {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .alumni-logo-section h2 {
+                font-size: 1.6rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.7rem;
+            }
+            
+            .alumni-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .alumni-img-container {
+                height: 200px;
+            }
+            
+            .filter-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .filter-btn {
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- Alumni Page -->
+    <div class="alumni-page">
+        <!-- Logo Section -->
+        <section class="alumni-logo-section">
+            <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Alumni Logo" class="alumni-logo">
+            <h2>Cadet College Sanghar Alumni Association</h2>
+            <p>Connecting generations of excellence and leadership</p>
+        </section>
+        
+        <!-- Stats Section -->
+        <section class="alumni-stats">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <span class="stat-number">1500+</span>
+                    <span class="stat-label">Alumni Worldwide</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Countries Represented</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">Professional Fields</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Annual Events</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Alumni</button>
+                <button class="filter-btn" data-filter="military">Military</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="medical">Medical</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+                <button class="filter-btn" data-filter="business">Business</button>
+                <button class="filter-btn" data-filter="education">Education</button>
+                <button class="filter-btn" data-filter="government">Government</button>
+            </div>
+        </section>
+        
+        <!-- Alumni Grid Section -->
+        <section class="alumni-section">
+            <div class="section-title">
+                <h2>Meet Our Alumni</h2>
+                <p>These distinguished individuals exemplify the excellence and leadership cultivated at Cadet College Sanghar.</p>
+            </div>
+            
+            <div class="alumni-grid" id="alumniGrid">
+                <!-- Alumni cards will be generated by JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Join Alumni Section -->
+        <section class="join-alumni-section">
+            <div class="section-title">
+                <h2>Join Our Alumni Network</h2>
+                <p>Are you an alumnus of Cadet College Sanghar? Join our network to reconnect with fellow alumni and stay updated on college events.</p>
+            </div>
+            <button class="join-alumni-btn" id="joinAlumniBtn">
+                <i class="fas fa-user-plus"></i> Join Alumni Network
+            </button>
+        </section>
+        
+        <!-- Alumni Form Section -->
+        <section class="alumni-form-section" id="alumniFormSection">
+            <div class="alumni-form-container">
+                <h2 class="form-title">Alumni Registration Form</h2>
+                <form class="alumni-form" id="alumniForm" action="https://formspree.io/f/mrbrzprv" method="POST">
+                    <div class="form-group">
+                        <label class="form-label" for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="pno">P_NO *</label>
+                        <input type="text" id="pno" name="pno" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="batch">Batch *</label>
+                        <input type="text" id="batch" name="batch" class="form-input" placeholder="e.g., 2005-2007" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="house">House</label>
+                        <select id="house" name="house" class="form-select">
+                            <option value="">Select House</option>
+                            <option value="Latif">Latif House</option>
+                            <option value="Shehbaz">Shehbaz House</option>
+                            <option value="Jinnah">Jinnah House</option>
+                            <option value="Sadiq">Sadiq House</option>
+                            <option value="Effendi">Effendi House</option>
+                            <option value="Kazi">Kazi House</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profession">Current Profession *</label>
+                        <input type="text" id="profession" name="profession" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="organization">Organization *</label>
+                        <input type="text" id="organization" name="organization" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="location">Current Location</label>
+                        <input type="text" id="location" name="location" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="category">Professional Category *</label>
+                        <select id="category" name="category" class="form-select" required>
+                            <option value="">Select Category</option>
+                            <option value="military">Military</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="medical">Medical</option>
+                            <option value="technology">Technology</option>
+                            <option value="business">Business</option>
+                            <option value="education">Education</option>
+                            <option value="government">Government</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label" for="achievements">Notable Achievements</label>
+                        <textarea id="achievements" name="achievements" class="form-textarea" placeholder="Share your professional achievements, awards, or recognitions"></textarea>
+                    </div>
+                    
+                    <!-- <div class="form-group full-width">
+                        <label class="form-label">Upload Your Photo *</label>
+                        <div class="file-input-container">
+                            <input type="file" id="photo" name="photo" class="file-input" accept="image/*" required>
+                            <label for="photo" class="file-input-label" id="fileInputLabel">
+                                <i class="fas fa-cloud-upload-alt"></i> Choose a photo (JPG, PNG, max 5MB)
+                            </label>
+                        </div>
+                    </div> -->
+                    
+                    <div class="form-group full-width">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Submit Registration
+                        </button>
+                    </div>
+                    
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Alumni data with provided information
+        const alumniData = [
+            { 
+                id: 1, 
+                name: "MOHSIN TUFAIL", 
+                profession: "Managing Partner", 
+                organization: "Street Kitchen",
+                batch: "P_NO: 9658", 
+                 
+                category: "business",
+                img: "assets/images/alumni/1.mohsin.webp"
+            },
+            { 
+                id: 2, 
+                name: "AFNAN RAZA", 
+                profession: "Cardiothoracic Anesthetist", 
+                organization: "National Institute of Cardiovascular Diseases, Karachi",
+                batch: "P_NO: 0410", 
+                 
+                category: "medical",
+                img: "assets/images/alumni/afnan.webp"
+            },
+            { 
+                id: 3, 
+                name: "MUHAMMAD TAHIR SHABIR", 
+                profession: "Lieutenant", 
+                organization: "Pakistan Army",
+                batch: "P_NO: 0617", 
+                 
+                category: "military",
+                img: "assets/images/alumni/tahir shabir.webp"
+            },
+            { 
+                id: 4, 
+                name: "NOMAN SAIF", 
+                profession: "Captain", 
+                organization: "Pakistan Army",
+                batch: "P_NO: 0314", 
+                 
+                category: "military",
+                img: "assets/images/alumni/noman.webp"
+            },
+            { 
+                id: 5, 
+                name: "S.ALI HAIDER RIZVI", 
+                profession: "Branch Manager Customer Service", 
+                organization: "Dawlance Pvt. Ltd",
+                batch: "P_NO: 0571", 
+                 
+                category: "business",
+                img: "assets/images/alumni/s.ali.webp"
+            },
+            { 
+                id: 6, 
+                name: "KHALID ALI", 
+                profession: "Assistant Vice President", 
+                organization: "Al Baraka Bank (Pakistan) Limited",
+                batch: "P_NO: 9525", 
+                
+                category: "business",
+                img: "assets/images/alumni/khalid.webp"
+            },
+            { 
+                id: 7, 
+                name: "USMAN KARIM", 
+                profession: "Head of Engineering Maintenance", 
+                organization: "Pharmatec Pakistan",
+                batch: "P_NO: 0507", 
+                
+                category: "engineering",
+                img: "assets/images/alumni/usman.webp"
+            },
+            { 
+                id: 8, 
+                name: "ZIAGHAM ABBAS", 
+                profession: "Operation Manager", 
+                organization: "Connect Logistics Pvt Ltd",
+                batch: "P_NO: 9716", 
+                 
+                category: "business",
+                img: "assets/images/alumni/ziagham.webp"
+            },
+            { 
+                id: 9, 
+                name: "MUAHMMAD RAHIM", 
+                profession: "Major", 
+                organization: "Pakistan Army",
+                batch: "P_NO: 9536", 
+               
+                category: "military",
+                img: "assets/images/alumni/raheem.webp"
+            },
+            { 
+                id: 10, 
+                name: "SHAH MURAD ABDUL QADEER", 
+                profession: "News Incharge", 
+                organization: "Sindhwatch",
+                batch: "P_NO: 0949", 
+               
+                category: "other",
+                img: "assets/images/alumni/shah murad.webp"
+            },
+            { 
+                id: 11, 
+                name: "FARHAN ABU TALIB", 
+                profession: "CEO", 
+                organization: "Ibne Fazal Trading Agencies",
+                batch: "P_NO: 0489", 
+              
+                category: "business",
+                img: "assets/images/alumni/farhan.webp"
+            },
+            { 
+                id: 12, 
+                name: "ALI ZUHAIB KAKA", 
+                profession: "Medical Officer", 
+                organization: "Ministry of Health Sindh",
+                batch: "P_NO: 9843", 
+                
+                category: "medical",
+                img: "assets/images/alumni/ali zuhaib.webp"
+            },
+            { 
+                id: 13, 
+                name: "SIKANDAR ALI", 
+                profession: "Lieutenant", 
+                organization: "Pakistan Army",
+                batch: "P_NO: 0878", 
+               
+                category: "military",
+                img: "assets/images/alumni/sikandar.webp"
+            },
+            
+            { 
+                id: 14, 
+                name: "MUHAMMAD SHOAIB", 
+                profession: "DPA And Deck Cadet", 
+                organization: "Merchant Navy (RGS Marine Solution and Merchant Navy)",
+                batch: "P_NO: 0782", 
+               
+                category: "other",
+                img: "assets/images/alumni/shoaib.webp"
+            },
+            
+            { 
+                id: 15, 
+                name: "SADIQ ALI", 
+                profession: "Deputy Director", 
+                organization: "Health Department Sindh",
+                batch: "P_NO: 9545", 
+               
+                category: "government",
+                img: "assets/images/alumni/sadiq.webp"
+            },
+            { 
+                id: 16, 
+                name: "ALI ZAHID", 
+                profession: "Associate Vice President", 
+                organization: "Skysoft Tech",
+                batch: "P_NO: 0720", 
+            
+                category: "technology",
+                img: "assets/images/alumni/ali zahid.webp"
+            },
+            { 
+                id: 17, 
+                name: "TAHIR ALI SHAIKH", 
+                profession: "Medical Officer", 
+                organization: "Ministry of Health",
+                batch: "P_NO: 9846", 
+              
+                category: "medical",
+                img: "assets/images/alumni/tahir.webp"
+            },
+            { 
+                id: 18, 
+                name: "MUHAMMAD WAQAS", 
+                profession: "Lieutenant", 
+                organization: "Pakistan Army",
+                batch: "P_NO: 0831", 
+             
+                category: "military",
+                img: "assets/images/alumni/waqas.webp"
+            },
+            { 
+                id: 19, 
+                name: "SHAHRUKH KHAN", 
+                profession: "Doctor", 
+                organization: "ISRA UNIVERSITY HOSPITAL HYD",
+                batch: "P_NO: 0748", 
+              
+                category: "medical",
+                img: "assets/images/alumni/shahrukh.webp"
+            },
+            { 
+                id: 20, 
+                name: "MUHAMMAD JAMALUDDIN", 
+                profession: "Assistant Professor", 
+                organization: "National University of Sciences and Technology (NUST)",
+                batch: "P_NO: 9606", 
+           
+                category: "education",
+                img: "assets/images/alumni/jamaluddin.webp"
+            },
+            
+            
+            { 
+                id: 21, 
+                name: "MUHAMMAD FAROOQ GOHAR", 
+                profession: "Lieutenant PN", 
+                organization: "Pakistan Navy",
+                batch: "P_NO: 0237", 
+                
+                category: "military",
+                img: "assets/images/alumni/farooq.webp"
+            },
+            { 
+                id: 22, 
+                name: "NAVEED AHMED", 
+                profession: "Assistant Professor", 
+                organization: "Isra University",
+                batch: "P_NO: 9726", 
+              
+                category: "education",
+                img: "assets/images/alumni/naveed.webp"
+            },
+            { 
+                id: 23, 
+                name: "MOHSIN ALI KHAN", 
+                profession: "Lieutenant PN", 
+                organization: "Pakistan Navy",
+                batch: "P_NO: 0534", 
+               
+                category: "military",
+                img: "assets/images/alumni/mohsin_1.webp"
+            },
+            { 
+                id: 24, 
+                name: "ASIM MUHAMMAD", 
+                profession: "Flying Officer", 
+                organization: "PAF Air Defence",
+                batch: "P_NO: 0749", 
+               
+                category: "military",
+                img: "assets/images/alumni/asim.webp"
+            },
+            
+            { 
+                id: 25, 
+                name: "HASSAN ALI", 
+                profession: "Supervisor", 
+                organization: "Fetchr Saudi Arabia",
+                batch: "P_NO: 0921", 
+              
+                category: "business",
+                img: "assets/images/alumni/hassan.webp"
+            },
+            { 
+                id: 26, 
+                name: "AZHAR HUSSAIN", 
+                profession: "Merchant Navy", 
+                organization: "Merchant Navy",
+                batch: "P_NO: 9801", 
+               
+                category: "other",
+                img: "assets/images/alumni/azhar.webp"
+            },
+            { 
+                id: 27, 
+                name: "MEHTAB HUSSAIN", 
+                profession: "Shipping Director", 
+                organization: "Trade Link Inc",
+                batch: "P_NO: 0703", 
+                
+                category: "business",
+                img: "assets/images/alumni/mehtab.webp"
+            }
+        ];
+
+        // Function to generate alumni cards
+        function generateAlumniCards(alumni) {
+            const alumniGrid = document.getElementById('alumniGrid');
+            alumniGrid.innerHTML = '';
+            
+            alumni.forEach(person => {
+                const card = document.createElement('div');
+                card.className = `alumni-card ${person.category}`;
+                card.innerHTML = `
+                    <div class="alumni-img-container">
+                        <img src="${person.img}" alt="${person.name}" class="alumni-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjgwIiByPSI0MCIgZmlsbD0iI0I4ODYwQiIvPgo8cGF0aCBkPSJNNDAgMTYwQzQwIDE0MCA4MCAxNDAgMTAwIDE0MEMxMjAgMTQwIDE2MCAxNDAgMTYwIDE2MFYyMDAgSDRWMTYwWiIgZmlsbD0iI0I4ODYwQiIvPgo8L3N2Zz4K'">
+                        <div class="alumni-overlay">
+                            <span class="alumni-batch">${person.batch}</span>
+                        </div>
+                    </div>
+                    <div class="alumni-content">
+                        <h3 class="alumni-name">${person.name}</h3>
+                        <p class="alumni-profession">${person.profession}</p>
+                        <p class="alumni-profession">${person.organization}</p>
+                        
+                    </div>
+                `;
+                alumniGrid.appendChild(card);
+            });
+            
+            // Initialize scroll animations
+            initializeScrollAnimations();
+        }
+
+        // Initialize scroll animations
+        function initializeScrollAnimations() {
+            const alumniCards = document.querySelectorAll('.alumni-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            alumniCards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Filter functionality
+        function setupFilterButtons() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    if (filter === 'all') {
+                        generateAlumniCards(alumniData);
+                    } else {
+                        const filteredAlumni = alumniData.filter(person => person.category === filter);
+                        generateAlumniCards(filteredAlumni);
+                    }
+                });
+            });
+        }
+
+        // Form functionality
+        function setupForm() {
+            const joinBtn = document.getElementById('joinAlumniBtn');
+            const formSection = document.getElementById('alumniFormSection');
+            const form = document.getElementById('alumniForm');
+            const fileInput = document.getElementById('photo');
+            const fileInputLabel = document.getElementById('fileInputLabel');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Toggle form visibility
+            joinBtn.addEventListener('click', () => {
+                formSection.style.display = 'block';
+                formSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Update file input label
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    fileInputLabel.innerHTML = `<i class="fas fa-check"></i> ${this.files[0].name}`;
+                }
+            });
+            
+            // Form submission with FormSpree
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('.submit-btn');
+                const originalBtnText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                submitBtn.disabled = true;
+                
+                // Basic validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ff6b6b';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (!isValid) {
+                    showMessage('Please fill all required fields.', 'error');
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+                
+                // File validation
+                const photoFile = fileInput.files[0];
+                if (photoFile) {
+                    const fileSize = photoFile.size / 1024 / 1024; // in MB
+                    if (fileSize > 5) {
+                        showMessage('Photo size must be less than 5MB.', 'error');
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                }
+                
+                // If all validations pass, submit to FormSpree
+                try {
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        showMessage('Thank you for your registration! Your information has been submitted successfully. You will find your profile on this page within 3-5 business days after verification.', 'success');
+                        
+                        // Reset form
+                        form.reset();
+                        fileInputLabel.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> Choose a photo (JPG, PNG, max 5MB)`;
+                        
+                        // Hide form after successful submission
+                        setTimeout(() => {
+                            formSection.style.display = 'none';
+                            formMessage.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (error) {
+                    showMessage('There was an error submitting your form. Please try again later.', 'error');
+                } finally {
+                    // Reset button state
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+            
+            function showMessage(text, type) {
+                formMessage.textContent = text;
+                formMessage.className = `form-message ${type}`;
+                formMessage.style.display = 'block';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            generateAlumniCards(alumniData);
+            setupFilterButtons();
+            setupForm();
+        });
+    </script>
+</body>
+</html>

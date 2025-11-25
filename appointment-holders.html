@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Holders - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --accent: #fdfcf9ff;
+            --primary: #002147;
+            --secondary: #00356b;
+            --soft-blue: #ecf5ff;
+            --gold: #ffd36b;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== APPOINTMENT HERO SECTION ========== */
+        .appointment-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 72px;
+            background: linear-gradient(135deg, rgba(0,33,71,0.85), rgba(23, 38, 51, 0.9)), url('assets/images/campus.webp') center/cover fixed no-repeat;
+            transition: background-position 0.3s ease;
+        }
+
+        .appointment-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.05;
+            margin-bottom: 12px;
+            z-index: 2;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .appointment-hero p {
+            z-index: 2;
+            margin-bottom: 24px;
+            opacity: .95;
+            font-size: 1.3rem;
+            max-width: 700px;
+        }
+
+        /* ========== APPOINTMENT SECTIONS ========== */
+        .appointment-section {
+            padding: 80px 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 15px auto 0;
+        }
+
+        /* ========== CHIEF CADET CAPTAIN SECTION ========== */
+        .ccc-section {
+            padding: 80px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--soft-blue);
+        }
+
+        .ccc-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            max-width: 400px;
+            width: 100%;
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+        }
+
+        .ccc-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(2,36,85,0.15);
+        }
+
+        .ccc-image {
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ccc-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .ccc-card:hover .ccc-image img {
+            transform: scale(1.1);
+        }
+
+        .ccc-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.4s var(--ease-bounce);
+        }
+
+        .ccc-card:hover .ccc-badge {
+            transform: scale(1.2) rotate(15deg);
+            background: var(--primary);
+            color: var(--gold);
+        }
+
+        .ccc-content {
+            padding: 25px;
+            position: relative;
+            text-align: center;
+        }
+
+        .ccc-content h3 {
+            font-size: 1.7rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            transition: color 0.3s var(--ease-smooth);
+        }
+
+        .ccc-card:hover .ccc-content h3 {
+            color: var(--secondary);
+        }
+
+        .ccc-content .position {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .ccc-content p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .ccc-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ========== COLLEGE APPOINTMENTS ========== */
+        .college-appointments {
+            background: var(--soft-blue);
+        }
+
+        .college-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .appointment-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .appointment-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card-image {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .appointment-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.4s var(--ease-bounce);
+        }
+
+        .appointment-card:hover .card-badge {
+            transform: scale(1.2) rotate(15deg);
+            background: var(--primary);
+            color: var(--gold);
+        }
+
+        .card-content {
+            padding: 25px;
+            position: relative;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            transition: color 0.3s var(--ease-smooth);
+        }
+
+        .appointment-card:hover .card-content h3 {
+            color: var(--secondary);
+        }
+
+        .card-content .position {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-content p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        /* ========== HOUSE APPOINTMENTS ========== */
+        .house-appointments {
+            background: #fff;
+        }
+
+        .house-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .house-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .house-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .house-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            z-index: 1;
+        }
+
+        .house-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .house-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .house-card:hover .house-image img {
+            transform: scale(1.1);
+        }
+
+        .house-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 4px solid #fff;
+            transition: all 0.4s var(--ease-bounce);
+            z-index: 2;
+        }
+
+        .house-card:hover .house-badge {
+            transform: translateX(-50%) scale(1.1);
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        .house-content {
+            padding: 40px 25px 25px;
+            text-align: center;
+        }
+
+        .house-content h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .house-content .position {
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .house-content p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* ========== SLC APPOINTMENTS ========== */
+        .slc-appointments {
+            background: var(--soft-blue);
+        }
+
+        .slc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .slc-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .slc-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            z-index: 1;
+        }
+
+        .slc-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slc-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .slc-card:hover .slc-image img {
+            transform: scale(1.1);
+        }
+
+        .slc-badge {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
+            transition: all 0.4s var(--ease-bounce);
+            z-index: 2;
+        }
+
+        .slc-card:hover .slc-badge {
+            transform: translateX(-50%) scale(1.1);
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        .slc-content {
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+
+        .slc-content h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .slc-content .position {
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .slc-content p {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        /* ========== BADGE ANIMATIONS ========== */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 211, 107, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 211, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 211, 107, 0); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1100px) {
+            .college-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .appointment-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .appointment-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .college-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .house-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .slc-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .appointment-hero {
+                height: 60vh;
+                margin-top: 72px;
+            }
+            
+            .appointment-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .house-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .slc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-image, .house-image {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    <!-- Appointment Hero Section -->
+    <section class="appointment-hero">
+        <h1>Appointment Holders</h1>
+        <p>Meet the distinguished cadets who lead with excellence, discipline, and honor at Cadet College Sanghar</p>
+    </section>
+
+    <!-- Chief Cadet Captain Section -->
+    <section class="ccc-section">
+        <div class="ccc-card">
+            <div class="ccc-image">
+                <img src="assets/images/appointment/ccc.webp" alt="Chief Cadet Captain">
+                <div class="ccc-badge pulse-animation">CCC</div>
+            </div>
+            <div class="ccc-content">
+                <h3>Cadet Zamin Ali</h3>
+                <span class="position">Chief Cadet Captain (CCC)</span>
+                <p>The highest ranking cadet responsible for overall discipline and leadership of the college.</p>
+                <div class="ccc-stats">
+                    <div class="stat">
+                        <div class="stat-value">12th</div>
+                        <div class="stat-label">Grade</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">A+</div>
+                        <div class="stat-label">Academic</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2 Yrs</div>
+                        <div class="stat-label">Service</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- College Appointments Section -->
+    <section class="appointment-section college-appointments">
+        <div class="section-title">
+            <h2>College Appointments</h2>
+            <p>Senior cadets holding prestigious positions of responsibility and leadership</p>
+        </div>
+        
+        <div class="college-grid">
+            <!-- RCC and CHC side by side -->
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/rcc.webp" alt="Regimental Cadet Captain">
+                    <div class="card-badge">RCC</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Haseeb</h3>
+                    <span class="position">Regimental Cadet Captain (RCC)</span>
+                    <p>Responsible for the regimentation, drill, and ceremonial activities of the college.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">12th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">A</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2 Yrs</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/chc.webp" alt="Chief of Honorable Committee">
+                    <div class="card-badge">CHC</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Ahmed Raza</h3>
+                    <span class="position">Chief of Honorable Committee (CHC)</span>
+                    <p>Responsible for maintaining honor code, ethical standards, and cadet welfare.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">12th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">A</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.5 Yrs</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SCC and CCL side by side -->
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/scc.webp" alt="Sports Cadet Captain">
+                    <div class="card-badge">SCC</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Umar Farooq</h3>
+                    <span class="position">Sports Cadet Captain (SCC)</span>
+                    <p>Leads all sports activities, teams, and physical training programs in the college.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">11th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">B+</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2 Yrs</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/ccl.webp" alt="Chief of Club Activity and Literature">
+                    <div class="card-badge">CCL</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Hassan Raza</h3>
+                    <span class="position">Chief of Club Activity & Literature (CCL)</span>
+                    <p>Oversees all literary societies, debate clubs, and extracurricular activities.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">12th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">A</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.5 Yrs</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CACC -->
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/ca.webp" alt="Chief Academic Cadet Captain">
+                    <div class="card-badge">CACC</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Ali Hassan</h3>
+                    <span class="position">Chief Academic Cadet Captain (CACC)</span>
+                    <p>Coordinates academic activities, study schedules, and academic competitions.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">12th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">A+</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.5 Yrs</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PMC -->
+            <div class="appointment-card">
+                <div class="card-image">
+                    <img src="assets/images/appointment/pmc.webp" alt="President Mess Committee">
+                    <div class="card-badge">PMC</div>
+                </div>
+                <div class="card-content">
+                    <h3>Cadet Mubashir</h3>
+                    <span class="position">President Mess Committee (PMC)</span>
+                    <p>Manages dining facilities, food quality, and cadet nutrition requirements.</p>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="stat-value">11th</div>
+                            <div class="stat-label">Grade</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">A-</div>
+                            <div class="stat-label">Academic</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1 Yr</div>
+                            <div class="stat-label">Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- House Appointments Section -->
+    <section class="appointment-section house-appointments">
+        <div class="section-title">
+            <h2>House Appointments</h2>
+            <p>House Cadet Captains leading their respective houses with pride and excellence</p>
+        </div>
+        
+        <div class="house-grid">
+            <!-- House 1 -->
+            <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hccl.webp" alt="Latif House">
+                </div>
+                <div class="house-badge">L</div>
+                <div class="house-content">
+                    <h3>Cadet Ahmed Hassan</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Leading Latif House with discipline and determination towards excellence.</p>
+                </div>
+            </div>
+            
+            <!-- House 2 -->
+            <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hcclsq.webp" alt="Shehbaz House">
+                </div>
+                <div class="house-badge">S</div>
+                <div class="house-content">
+                    <h3>Cadet Muhammad Ali</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Guiding Shehbaz House with wisdom and visionary leadership.</p>
+                </div>
+            </div>
+            
+            <!-- House 3 -->
+            <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hccjn.webp" alt="Jinnah House">
+                </div>
+                <div class="house-badge">J</div>
+                <div class="house-content">
+                    <h3>Cadet Abdullah Khan</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Steering Jinnah House with unwavering commitment and integrity.</p>
+                </div>
+            </div>
+            
+            <!-- House 4 -->
+            <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hccjs.webp" alt="Sadiq House">
+                </div>
+                <div class="house-badge">S</div>
+                <div class="house-content">
+                    <h3>Cadet Farhan Ahmed</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Directing Sadiq House with strategic planning and teamwork.</p>
+                </div>
+            </div>
+            
+            <!-- House 5 -->
+            <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hccef.webp" alt="Effendi House">
+                </div>
+                <div class="house-badge">E</div>
+                <div class="house-content">
+                    <h3>Cadet Saad Malik</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Leading Effendi House with courage and exceptional organizational skills.</p>
+                </div>
+            </div>
+            <!-- House 6 -->
+             <div class="house-card">
+                <div class="house-image">
+                    <img src="assets/images/appointment/hcck.webp" alt="Kazi House">
+                </div>
+                <div class="house-badge">K</div>
+                <div class="house-content">
+                    <h3>Cadet Saad Malik</h3>
+                    <span class="position">House Cadet Captain (HCC)</span>
+                    <p>Leading Effendi House with courage and exceptional organizational skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Senior Leading Cadets Section -->
+    <section class="appointment-section slc-appointments">
+        <div class="section-title">
+            <h2>Senior Leading Cadets</h2>
+            <p>First-year cadets demonstrating exceptional leadership potential in their respective houses</p>
+        </div>
+        
+        <div class="slc-grid">
+            <!-- SLC from Latif House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Latif House">
+                </div>
+                <div class="slc-badge">L</div>
+                <div class="slc-content">
+                    <h3>Cadet Usman Ghani</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Demonstrating exceptional leadership potential in Latif House.</p>
+                </div>
+            </div>
+            
+            <!-- SLC from Shehbaz House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Shehbaz House">
+                </div>
+                <div class="slc-badge">S</div>
+                <div class="slc-content">
+                    <h3>Cadet Bilal Ahmed</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Showing remarkable initiative in Shehbaz House activities.</p>
+                </div>
+            </div>
+            
+            <!-- SLC from Jinnah House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Jinnah House">
+                </div>
+                <div class="slc-badge">J</div>
+                <div class="slc-content">
+                    <h3>Cadet Hamza Shah</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Exemplifying discipline and dedication in Jinnah House.</p>
+                </div>
+            </div>
+            
+            <!-- SLC from Sadiq House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Sadiq House">
+                </div>
+                <div class="slc-badge">S</div>
+                <div class="slc-content">
+                    <h3>Cadet Zain ul Abideen</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Leading by example with integrity in Sadiq House.</p>
+                </div>
+            </div>
+            
+            <!-- SLC from Effendi House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Effendi House">
+                </div>
+                <div class="slc-badge">E</div>
+                <div class="slc-content">
+                    <h3>Cadet Talha Yousuf</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Displaying outstanding organizational skills in Effendi House.</p>
+                </div>
+            </div>
+            
+            <!-- SLC from Kazi House -->
+            <div class="slc-card">
+                <div class="slc-image">
+                    <img src="assets/images/dccEf.webp" alt="SLC Kazi House">
+                </div>
+                <div class="slc-badge">K</div>
+                <div class="slc-content">
+                    <h3>Cadet Rayyan Ahmed</h3>
+                    <span class="position">Senior Leading Cadet (SLC)</span>
+                    <p>Inspiring peers with motivational leadership in Kazi House.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Scroll animation for appointment cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const appointmentCards = document.querySelectorAll('.appointment-card, .house-card, .slc-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            appointmentCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add hover effects for cards
+            appointmentCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px)';
+                    this.style.boxShadow = '0 25px 50px rgba(2,36,85,0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('visible')) {
+                        this.style.transform = 'translateY(0)';
+                    } else {
+                        this.style.transform = 'translateY(50px)';
+                    }
+                    this.style.boxShadow = 'var(--card-shadow)';
+                });
+            });
+
+            // Add random delay to cards for staggered animation
+            appointmentCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board of Governors - Cadet College Sanghar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --nav-bg-dark: #011b36;
+            --accent: #fdfcf9ff;
+            --primary: #002147;
+            --soft-blue: #ecf5ff;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --gold: #ffd36b;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+        }
+
+        /* ========== RESET & BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 50%, #e6f2ff 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== ENHANCED LOGO ========== */
+        .martyrs-logo {
+            max-width: 180px;
+            margin: 80px auto 30px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(184, 134, 11, 0.3));
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .martyrs-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 5px 25px rgba(184, 134, 11, 0.6));
+        }
+
+        /* ========== LOGO SECTION ========== */
+        .logo-hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,33,71,0.95) 0%, rgba(0,20,40,0.95) 100%);
+        }
+        
+        .logo-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 211, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(40, 167, 69, 0.05) 0%, transparent 50%);
+        }
+        
+        .logo-hero h1 {
+            color: var(--accent);
+            font-size: 3rem;
+            margin-bottom: 12px;
+            z-index: 2;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+        }
+        
+        .logo-hero h1.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .logo-hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: width 1.5s 0.5s var(--ease-smooth);
+        }
+        
+        .logo-hero h1.loaded::after {
+            width: 100px;
+        }
+        
+        .logo-hero p {
+            color: rgba(253, 252, 249, 0.9);
+            z-index: 2;
+            font-size: 1.3rem;
+            max-width: 600px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s 0.3s var(--ease-smooth), transform 0.8s 0.3s var(--ease-smooth);
+        }
+        
+        .logo-hero p.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== BOARD MEMBERS SECTION ========== */
+        .board-section {
+            padding: 80px 5%;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #00356b;
+            margin-bottom: 50px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+        }
+        
+        .section-title.loaded {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: width 1s 0.5s var(--ease-smooth);
+        }
+        
+        .section-title.loaded::after {
+            width: 100px;
+        }
+
+        /* ========== CHAIRMAN CARD ========== */
+        .chairman-card {
+            max-width: 900px;
+            margin: 0 auto 100px;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(2,36,85,0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            transition: all 0.6s var(--ease-smooth);
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+        }
+        
+        .chairman-card.loaded {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .chairman-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--primary), var(--gold));
+            z-index: 10;
+        }
+        
+        .chairman-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(2,36,85,0.15), 
+                0 0 30px rgba(255, 211, 107, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.9);
+        }
+        
+        .chairman-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .chairman-image {
+            flex: 1;
+            min-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chairman-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,33,71,0.1) 0%, rgba(0,20,40,0.2) 100%);
+            z-index: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .chairman-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-smooth), filter 0.5s ease;
+            filter: grayscale(20%) brightness(95%);
+        }
+        
+        .chairman-card:hover .chairman-image img {
+            transform: scale(1.08);
+            filter: grayscale(0%) brightness(105%);
+        }
+        
+        .chairman-card:hover .chairman-image::before {
+            opacity: 0.3;
+        }
+        
+        .chairman-details {
+            flex: 1;
+            min-width: 350px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(to bottom right, #ffffff, #f8fbff);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chairman-details::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,211,107,0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.8s var(--ease-smooth);
+        }
+        
+        .chairman-card:hover .chairman-details::before {
+            transform: scale(1);
+        }
+        
+        .chairman-card:hover .chairman-details {
+            background: linear-gradient(to bottom right, #ffffff, #f0f7ff);
+        }
+        
+        .chairman-details h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .chairman-details h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gold);
+            transition: width 0.5s var(--ease-smooth);
+        }
+        
+        .chairman-card:hover .chairman-details h2::after {
+            width: 100%;
+        }
+        
+        .chairman-details .position {
+            color: var(--muted);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .chairman-card:hover .chairman-details .position {
+            color: var(--primary);
+            transform: translateX(10px);
+        }
+        
+        .chairman-details .description {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .chairman-card:hover .chairman-details .description {
+            transform: translateX(5px);
+            color: #444;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), #00356b);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            align-self: flex-start;
+            margin-top: 10px;
+            transform-origin: center;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0, 33, 71, 0.3);
+            transition: all 0.4s var(--ease-bounce);
+        }
+        
+        .badge i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .chairman-card:hover .badge {
+            background: linear-gradient(135deg, #00356b, var(--primary));
+            transform: scale(1.05);
+        }
+
+        /* ========== MEMBERS GRID ========== */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .member-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(2,36,85,0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            transition: all 0.5s var(--ease-smooth);
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+        }
+        
+        .member-card.loaded {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--primary), var(--gold));
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(2,36,85,0.15), 
+                0 0 25px rgba(255, 211, 107, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.9);
+            z-index: 10;
+        }
+        
+        .member-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,33,71,0.7) 100%);
+            z-index: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-smooth), filter 0.5s ease;
+            filter: grayscale(30%) brightness(90%);
+        }
+        
+        .member-card:hover .member-image img {
+            transform: scale(1.15);
+            filter: grayscale(0%) brightness(105%);
+        }
+        
+        .member-card:hover .member-image::before {
+            opacity: 0.4;
+        }
+        
+        .member-info {
+            padding: 25px;
+            background: linear-gradient(to bottom, #ffffff, #f8fbff);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,211,107,0.05) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.8s var(--ease-smooth);
+        }
+        
+        .member-card:hover .member-info::before {
+            transform: scale(1);
+        }
+        
+        .member-card:hover .member-info {
+            background: linear-gradient(to bottom, #ffffff, #f0f7ff);
+            transform: translateY(-5px);
+        }
+        
+        .member-info h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .member-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.4s var(--ease-smooth);
+        }
+        
+        .member-card:hover .member-info h3::after {
+            width: 100%;
+        }
+        
+        .member-card:hover .member-info h3 {
+            transform: translateX(5px);
+        }
+        
+        .member-info .position {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .member-card:hover .member-info .position {
+            color: var(--primary);
+            transform: translateX(8px);
+        }
+        
+        .member-type {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+        
+        .member-type i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .official {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
+            border: 1px solid rgba(0, 123, 255, 0.2);
+        }
+        
+        .non-official {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+        
+        .member-card:hover .member-type {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-card:hover .official {
+            background: rgba(0, 123, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+        
+        .member-card:hover .non-official {
+            background: rgba(40, 167, 69, 0.2);
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .members-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-hero {
+                height: 50vh;
+            }
+            
+            .logo-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .chairman-content {
+                flex-direction: column;
+            }
+            
+            .chairman-image {
+                min-height: 300px;
+            }
+            
+            .chairman-details {
+                padding: 30px;
+            }
+            
+            .members-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            .logo-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chairman-details h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- ========== ANIMATED LOGO HERO ========== -->
+    <section class="logo-hero">
+        <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo" class="martyrs-logo" loading="lazy">
+        <h1>Board of Governors</h1>
+        <p>Leadership and Excellence Guiding Our Institution to New Heights</p>
+    </section>
+    
+    <!-- ========== CHAIRMAN SECTION ========== -->
+    <section class="board-section">
+        <h2 class="section-title">Chairman Board of Governors</h2>
+        
+        <div class="chairman-card">
+            <div class="chairman-content">
+                <div class="chairman-image">
+                    <img src="assets/images/COMKAR.webp" alt="VICE ADMIRAL M FAISAL ABBASI HI(M)" loading="lazy">
+                </div>
+                <div class="chairman-details">
+                    <h2>VICE ADMIRAL M FAISAL ABBASI HI(M)</h2>
+                    <p class="position">COMMANDER KARACHI & CHAIRMAN BOGs CADET COLLEGE SANGHAR</p>
+                    <p class="description">Distinguished naval officer with exemplary leadership and strategic vision, guiding Cadet College Sanghar towards excellence in education and character building. His commitment to fostering discipline and academic excellence has positioned our institution as a premier educational establishment.</p>
+                    <span class="badge"><i class="fas fa-crown"></i> Chairman</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== OFFICIAL MEMBERS SECTION ========== -->
+    <section class="board-section" style="background: var(--soft-blue);">
+        <h2 class="section-title">Official Members - BOGs</h2>
+        
+        <div class="members-grid">
+            <!-- Member 1 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="DEPUTY COMMANDANT AIR WAR COLLEGE" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>DEPUTY COMMANDANT AIR WAR COLLEGE</h3>
+                    <p class="position">PAF FAISAL KARACHI</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 2 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="SECRETARY FINANCE" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>SECRETARY FINANCE</h3>
+                    <p class="position">GOVERNMENT OF SINDH, KARACHI</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 3 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="SECRETARY EDUCATION" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>SECRETARY EDUCATION</h3>
+                    <p class="position">GOVERNMENT OF SINDH, KARACHI</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="CHAIRMAN, DISTRICT COUNSEL" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>CHAIRMAN, DISTRICT COUNSEL</h3>
+                    <p class="position">DISTRICT SANGHAR</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 5 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="COMMODORE TRAINING ASHORE" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>COMMODORE TRAINING ASHORE</h3>
+                    <p class="position">COMKAR HQs KARACHI</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 6 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="DIRECTOR SCHOOLS EDUCATION" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>DIRECTOR SCHOOLS EDUCATION</h3>
+                    <p class="position">SECONDARY & HIGHER SECONDARY</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 7 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="DIRECTOR NAVAL EDUCATIONAL SERVICES" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>DIRECTOR NAVAL EDUCATIONAL SERVICES</h3>
+                    <p class="position">PAK NAVY</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 8 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="CHAIRMAN BISE MIRPURKHAS" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>CHAIRMAN BISE MIRPURKHAS</h3>
+                    <p class="position">BOARD OF INTERMEDIATE & SECONDARY EDUCATION</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 9 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="DC SANGHAR" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>DC SANGHAR</h3>
+                    <p class="position">DISTRICT COMMISSIONER SANGHAR</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 10 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/principal.webp" alt="COMMANDANT / PRINCIPAL" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>COMMANDANT / PRINCIPAL</h3>
+                    <p class="position">CADET COLLEGE SANGHAR</p>
+                    <span class="member-type official"><i class="fas fa-star"></i> Official</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== NON-OFFICIAL MEMBERS SECTION ========== -->
+    <section class="board-section">
+        <h2 class="section-title">Non-Official Members - BOGs</h2>
+        
+        <div class="members-grid">
+            <!-- Member 1 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="MR. KHAIR MUHAMMAD JUNEJO" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>MR. KHAIR MUHAMMAD JUNEJO</h3>
+                    <p class="position">EX-FEDERAL MINISTER</p>
+                    <span class="member-type non-official"><i class="fas fa-user-tie"></i> Non-Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 2 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="NAWABZADA JAM ZULFIQAR ALI KHAN" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>NAWABZADA JAM ZULFIQAR ALI KHAN</h3>
+                    <p class="position">DISTINGUISHED PERSONALITY</p>
+                    <span class="member-type non-official"><i class="fas fa-user-tie"></i> Non-Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 3 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="MR. GHULAM SARWAR KHERO" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>MR. GHULAM SARWAR KHERO</h3>
+                    <p class="position">EX-ADL. SECRETARY SINDH</p>
+                    <span class="member-type non-official"><i class="fas fa-user-tie"></i> Non-Official</span>
+                </div>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <img src="assets/images/DOS.webp" alt="MS. QURAT-UL-AIN MARRI" loading="lazy">
+                </div>
+                <div class="member-info">
+                    <h3>MS. QURAT-UL-AIN MARRI</h3>
+                    <p class="position">SENATOR GOVT: OF PAKISTAN</p>
+                    <span class="member-type non-official"><i class="fas fa-user-tie"></i> Non-Official</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer-component></footer-component>
+    
+    <script>
+        // Performance-optimized animation handler
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loaded class to elements for entrance animations
+            const elementsToAnimate = [
+                document.querySelector('.logo-hero h1'),
+                document.querySelector('.logo-hero p'),
+                document.querySelector('.section-title'),
+                document.querySelector('.chairman-card'),
+                ...document.querySelectorAll('.member-card')
+            ];
+            
+            // Stagger the animations for better performance
+            elementsToAnimate.forEach((element, index) => {
+                if (element) {
+                    setTimeout(() => {
+                        element.classList.add('loaded');
+                    }, index * 100);
+                }
+            });
+            
+            // Lazy load images with Intersection Observer
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
+    <script src="loader.js"></script>
+</body>
+</html>

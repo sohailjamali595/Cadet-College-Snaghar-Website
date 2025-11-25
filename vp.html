@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vice Principals - Cadet College Sanghar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root{
+      --nav-bg: #002147;
+      --nav-bg-dark: #011b36;
+      --accent: #fdfcf9ff;
+      --primary: #002147;
+      --soft-blue: #ecf5ff;
+      --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+      --text: #222;
+      --muted: #556b86;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+    }
+
+    /* ========== RESET & BASE STYLES ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.6;color:var(--text);
+      background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ========== HERO SECTION ========== */
+    .hero-section {
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background: url('assets/images/Logo.webp') center/contain no-repeat;
+    }
+
+    .floating-badges {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .floating-badge {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.7;
+      filter: drop-shadow(0 5px 15px rgba(255,255,255,0.3));
+    }
+
+    .floating-badge:nth-child(1) {
+      top: 15%;
+      left: 10%;
+      font-size: 2.5rem;
+    }
+
+    .floating-badge:nth-child(2) {
+      top: 65%;
+      left: 85%;
+      font-size: 3rem;
+    }
+
+    .floating-badge:nth-child(3) {
+      top: 80%;
+      left: 15%;
+      font-size: 2.2rem;
+    }
+
+    .floating-badge:nth-child(4) {
+      top: 25%;
+      left: 75%;
+      font-size: 2.8rem;
+    }
+
+    .floating-badge:nth-child(5) {
+      top: 45%;
+      left: 5%;
+      font-size: 2.3rem;
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.5s var(--ease-smooth), transform 1.5s var(--ease-smooth);
+    }
+
+    .hero-content.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-weight: 300;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-indicator:hover {
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    /* ========== CURRENT VICE PRINCIPAL SECTION ========== */
+    .current-section {
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f8fbff 0%, #ecf5ff 100%);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: #00356b;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-smooth);
+    }
+
+    .section-title h2.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 3px;
+      transition: width 1.5s 0.5s var(--ease-smooth);
+    }
+
+    .section-title h2.loaded::after {
+      width: 100px;
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 1s 0.8s var(--ease-smooth);
+    }
+
+    .section-title p.loaded {
+      opacity: 1;
+    }
+
+    /* ========== CURRENT VICE PRINCIPAL CARD ========== */
+    .current-principal-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(2,36,85,0.15);
+      transition: all 0.6s var(--ease-smooth);
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .current-principal-card.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .current-principal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 30px;
+      padding: 3px;
+      background: linear-gradient(135deg, #ffd36b, #00356b, #4ecdc4);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 1;
+    }
+
+    .current-principal-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 35px 80px rgba(2,36,85,0.25);
+    }
+
+    .current-card-header {
+      padding: 40px 40px 30px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+      overflow: hidden;
+    }
+
+    .current-badge {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: rgba(255,211,107,0.9);
+      color: #00356b;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 5px 15px rgba(255,211,107,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .current-principal-card:hover .current-badge {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(255,211,107,0.6);
+    }
+
+    .current-photo-container {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid rgba(255,255,255,0.4);
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .current-principal-card:hover .current-photo-container {
+      transform: scale(1.1);
+      border-color: rgba(255,255,255,0.8);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .current-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.8s var(--ease-smooth);
+      filter: grayscale(0.1);
+    }
+
+    .current-principal-card:hover .current-photo {
+      transform: scale(1.1);
+      filter: grayscale(0);
+    }
+
+    .current-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .current-title {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .current-card-body {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .current-card-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .current-details {
+      margin-bottom: 0;
+    }
+
+    .current-detail-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .current-detail-item::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--soft-blue), transparent);
+      transition: left 0.5s var(--ease-smooth);
+    }
+
+    .current-detail-item:hover::before {
+      left: 100%;
+    }
+
+    .current-detail-item:hover {
+      transform: translateX(10px);
+      border-bottom-color: #00356b;
+    }
+
+    .current-detail-icon {
+      width: 28px;
+      height: 28px;
+      margin-right: 15px;
+      background: var(--soft-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--primary);
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .current-detail-item:hover .current-detail-icon {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .current-detail-text {
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .current-achievements {
+      background: var(--soft-blue);
+      padding: 25px;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .current-achievements::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: left 0.7s var(--ease-smooth);
+    }
+
+    .current-principal-card:hover .current-achievements::before {
+      left: 100%;
+    }
+
+    .current-achievements-title {
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .current-achievements-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .current-achievement-item {
+      padding: 8px 0;
+      position: relative;
+      padding-left: 25px;
+      font-weight: 500;
+    }
+
+    .current-achievement-item::before {
+      content: '⭐';
+      position: absolute;
+      left: 0;
+      color: #ffd36b;
+      font-size: 1rem;
+    }
+
+    /* ========== PREVIOUS VICE PRINCIPALS SECTION ========== */
+    .previous-section {
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ========== TIMELINE NAVIGATION ========== */
+    .timeline-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-btn {
+      padding: 12px 25px;
+      background: white;
+      border: 2px solid var(--soft-blue);
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(2,36,85,0.08);
+    }
+
+    .timeline-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s var(--ease-smooth);
+    }
+
+    .timeline-btn:hover::before {
+      left: 100%;
+    }
+
+    .timeline-btn:hover, .timeline-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(2,36,85,0.15);
+    }
+
+    /* ========== PREVIOUS VICE PRINCIPAL CARDS ========== */
+    .principals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .principal-card {
+      background: #fff;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+      transition: all 0.6s var(--ease-smooth);
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .principal-card.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .principal-card:hover {
+      transform: translateY(-20px) scale(1.03);
+      box-shadow: 0 30px 70px rgba(2,36,85,0.2);
+    }
+
+    .card-header {
+      padding: 30px 30px 20px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+      overflow: hidden;
+    }
+
+    .tenure-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .principal-card:hover .tenure-badge {
+      transform: scale(1.05);
+    }
+
+    .principal-photo-container {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid rgba(255,255,255,0.3);
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .principal-card:hover .principal-photo-container {
+      transform: scale(1.1);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .principal-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.8s var(--ease-smooth);
+      filter: grayscale(0.3);
+    }
+
+    .principal-card:hover .principal-photo {
+      transform: scale(1.1);
+      filter: grayscale(0);
+    }
+
+    .principal-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .principal-title {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .principal-details {
+      margin-bottom: 25px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-item::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--soft-blue), transparent);
+      transition: left 0.5s var(--ease-smooth);
+    }
+
+    .detail-item:hover::before {
+      left: 100%;
+    }
+
+    .detail-item:hover {
+      transform: translateX(10px);
+      border-bottom-color: #00356b;
+    }
+
+    .detail-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+      background: var(--soft-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--primary);
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .detail-item:hover .detail-icon {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .detail-text {
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .principal-achievements {
+      background: var(--soft-blue);
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .principal-achievements::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: left 0.7s var(--ease-smooth);
+    }
+
+    .principal-card:hover .principal-achievements::before {
+      left: 100%;
+    }
+
+    .achievements-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .achievements-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .achievement-item {
+      padding: 5px 0;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .achievement-item::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      color: #ffd36b;
+      font-size: 0.9rem;
+    }
+
+    /* ========== LEGACY SECTION ========== */
+    .legacy-section {
+      padding: 80px 5%;
+      background: var(--soft-blue);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .legacy-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .legacy-stat {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.5s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .legacy-stat.loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .legacy-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+    }
+
+    .legacy-stat:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 60px rgba(2,36,85,0.15);
+    }
+
+    .legacy-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+      display: block;
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .legacy-stat:hover .legacy-icon {
+      transform: scale(1.2) rotate(10deg);
+      color: #00356b;
+    }
+
+    .legacy-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: block;
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .legacy-stat:hover .legacy-number {
+      color: #00356b;
+      text-shadow: 0 5px 15px rgba(0,53,107,0.2);
+    }
+
+    .legacy-label {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .legacy-stat:hover .legacy-label {
+      color: #00356b;
+      transform: translateY(5px);
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 1000px){
+      .hero-title {
+        font-size: 3rem;
+      }
+      .principals-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero-section {
+        height: 60vh;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      .timeline-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      .timeline-btn {
+        width: 200px;
+      }
+      .legacy-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px){
+      .hero-title {
+        font-size: 2rem;
+      }
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      .principals-grid {
+        grid-template-columns: 1fr;
+      }
+      .legacy-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header-component></header-component>
+  
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="floating-badges">
+      <div class="floating-badge">🎖️</div>
+      <div class="floating-badge">🏅</div>
+      <div class="floating-badge">⭐</div>
+      <div class="floating-badge">👔</div>
+      <div class="floating-badge">📚</div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Vice Principals</h1>
+      <p class="hero-subtitle">Celebrating the legacy of leadership and dedication that shaped Cadet College Sanghar</p>
+    </div>
+    <div class="scroll-indicator" id="scrollToContent">↓</div>
+  </section>
+  
+  <!-- ========== CURRENT VICE PRINCIPAL SECTION ========== -->
+  <section class="current-section">
+    <div class="section-title">
+      <h2>Current Vice Principal</h2>
+      <p>Leading with vision and dedication to continue our tradition of excellence</p>
+    </div>
+    
+    <div class="current-principal-card">
+      <div class="current-card-header">
+        <div class="current-badge">Current</div>
+        <div class="current-photo-container">
+          <img src="assets/images/faculty/vp.webp" alt="Brigadier (R) Kamran Shah" class="current-photo" loading="lazy">
+        </div>
+        <h3 class="current-name">Manzoor Qadir</h3>
+        <p class="current-title">Vice Principal</p>
+      </div>
+      <div class="current-card-body">
+        <div class="current-details">
+          <div class="current-detail-item">
+            <span class="current-detail-icon">🎓</span>
+            <span class="current-detail-text">M.Sc. Physics</span>
+          </div>
+          <div class="current-detail-item">
+            <span class="current-detail-icon">⏱️</span>
+            <span class="current-detail-text">2022 - Present</span>
+          </div>
+          <div class="current-detail-item">
+            <span class="current-detail-icon">🏛️</span>
+            <span class="current-detail-text">Modern Era Leadership</span>
+          </div>
+          <div class="current-detail-item">
+            <span class="current-detail-icon">📈</span>
+            <span class="current-detail-text">Strategic Development Focus</span>
+          </div>
+          <div class="current-detail-item">
+            <span class="current-detail-icon">🌍</span>
+            <span class="current-detail-text">International Collaborations</span>
+          </div>
+        </div>
+        <div class="current-achievements">
+          <div class="current-achievements-title">Current Initiatives</div>
+          <ul class="current-achievements-list">
+            <li class="current-achievement-item">Digital transformation of academic systems</li>
+            <li class="current-achievement-item">Infrastructure modernization projects</li>
+            <li class="current-achievement-item">Global educational partnerships</li>
+            <li class="current-achievement-item">Enhanced student leadership programs</li>
+            <li class="current-achievement-item">Research and innovation promotion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== PREVIOUS VICE PRINCIPALS SECTION ========== -->
+  <section class="previous-section">
+    <div class="section-title">
+      <h2>Previous Vice Principals</h2>
+      <p>Honoring the distinguished leaders who built the foundation of our excellence</p>
+    </div>
+    
+    <div class="timeline-nav">
+      <button class="timeline-btn active" data-era="all">All Eras</button>
+      <button class="timeline-btn" data-era="foundation">Foundation Era</button>
+      <button class="timeline-btn" data-era="growth">Growth Era</button>
+      <button class="timeline-btn" data-era="modern">Modern Era</button>
+    </div>
+    
+    <div class="principals-grid">
+      <!-- Previous Vice Principal 1 -->
+      <div class="principal-card active" data-era="foundation">
+        <div class="card-header">
+          <div class="tenure-badge">1985-1992</div>
+          <div class="principal-photo-container">
+            <img src="assets/images/DOS.webp" alt="Brigadier (R) Muhammad Ali" class="principal-photo" loading="lazy">
+          </div>
+          <h3 class="principal-name">Brigadier (R) Muhammad Ali</h3>
+          <p class="principal-title">First Vice Principal</p>
+        </div>
+        <div class="card-body">
+          <div class="principal-details">
+            <div class="detail-item">
+              <span class="detail-icon">🎓</span>
+              <span class="detail-text">M.Sc. Military Science</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">7 Years Service</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🏛️</span>
+              <span class="detail-text">Foundation Era Leader</span>
+            </div>
+          </div>
+          <div class="principal-achievements">
+            <div class="achievements-title">Key Contributions:</div>
+            <ul class="achievements-list">
+              <li class="achievement-item">Established academic foundation</li>
+              <li class="achievement-item">Developed initial curriculum</li>
+              <li class="achievement-item">Built faculty team</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Previous Vice Principal 2 -->
+      <div class="principal-card active" data-era="foundation">
+        <div class="card-header">
+          <div class="tenure-badge">1992-1998</div>
+          <div class="principal-photo-container">
+            <img src="assets/images/DOS.webp" alt="Colonel (R) Ahmed Hassan" class="principal-photo" loading="lazy">
+          </div>
+          <h3 class="principal-name">Colonel (R) Ahmed Hassan</h3>
+          <p class="principal-title">Vice Principal</p>
+        </div>
+        <div class="card-body">
+          <div class="principal-details">
+            <div class="detail-item">
+              <span class="detail-icon">🎓</span>
+              <span class="detail-text">M.A. Education</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">6 Years Service</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🏛️</span>
+              <span class="detail-text">Foundation Era</span>
+            </div>
+          </div>
+          <div class="principal-achievements">
+            <div class="achievements-title">Key Contributions:</div>
+            <ul class="achievements-list">
+              <li class="achievement-item">Expanded science programs</li>
+              <li class="achievement-item">Introduced computer education</li>
+              <li class="achievement-item">Enhanced sports facilities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Previous Vice Principal 3 -->
+      <div class="principal-card active" data-era="growth">
+        <div class="card-header">
+          <div class="tenure-badge">1998-2003</div>
+          <div class="principal-photo-container">
+            <img src="assets/images/DOS.webp" alt="Dr. Abdul Qadir" class="principal-photo" loading="lazy">
+          </div>
+          <h3 class="principal-name">Dr. Abdul Qadir</h3>
+          <p class="principal-title">Vice Principal</p>
+        </div>
+        <div class="card-body">
+          <div class="principal-details">
+            <div class="detail-item">
+              <span class="detail-icon">🎓</span>
+              <span class="detail-text">Ph.D. Educational Leadership</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">5 Years Service</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🏛️</span>
+              <span class="detail-text">Growth Era</span>
+            </div>
+          </div>
+          <div class="principal-achievements">
+            <div class="achievements-title">Key Contributions:</div>
+            <ul class="achievements-list">
+              <li class="achievement-item">Modernized curriculum</li>
+              <li class="achievement-item">Established research culture</li>
+              <li class="achievement-item">Improved academic results</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Add remaining 7 previous vice principals here following the same pattern -->
+      
+    </div>
+  </section>
+  
+  <!-- ========== LEGACY SECTION ========== -->
+  <section class="legacy-section">
+    <div class="section-title">
+      <h2>Leadership Legacy</h2>
+      <p>The remarkable impact of our Vice Principals through the years</p>
+    </div>
+    
+    <div class="legacy-stats">
+      <div class="legacy-stat">
+        <span class="legacy-icon">👥</span>
+        <span class="legacy-number">11</span>
+        <span class="legacy-label">Vice Principals</span>
+      </div>
+      
+      <div class="legacy-stat">
+        <span class="legacy-icon">⏱️</span>
+        <span class="legacy-number">39+</span>
+        <span class="legacy-label">Years of Service</span>
+      </div>
+      
+      <div class="legacy-stat">
+        <span class="legacy-icon">🎓</span>
+        <span class="legacy-number">5000+</span>
+        <span class="legacy-label">Cadets Mentored</span>
+      </div>
+      
+      <div class="legacy-stat">
+        <span class="legacy-icon">🏆</span>
+        <span class="legacy-number">150+</span>
+        <span class="legacy-label">Awards & Honors</span>
+      </div>
+    </div>
+  </section>
+  
+  <footer-component></footer-component>
+  
+  <script src="loader.js"></script>
+  <script>
+    // Initialize animations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add loaded class to elements for entrance animations
+      const elementsToAnimate = [
+        document.querySelector('.hero-content'),
+        document.querySelector('.section-title h2'),
+        document.querySelector('.section-title p'),
+        document.querySelector('.current-principal-card'),
+        ...document.querySelectorAll('.principal-card'),
+        ...document.querySelectorAll('.legacy-stat')
+      ];
+      
+      // Stagger the animations for better performance
+      elementsToAnimate.forEach((element, index) => {
+        if (element) {
+          setTimeout(() => {
+            element.classList.add('loaded');
+          }, index * 100);
+        }
+      });
+
+      // Timeline navigation functionality
+      const timelineBtns = document.querySelectorAll('.timeline-btn');
+      const principalCards = document.querySelectorAll('.principal-card');
+      
+      timelineBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          timelineBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          btn.classList.add('active');
+          
+          const selectedEra = btn.getAttribute('data-era');
+          
+          // Show/hide cards based on era
+          principalCards.forEach(card => {
+            if (selectedEra === 'all' || card.getAttribute('data-era') === selectedEra) {
+              card.style.display = 'block';
+              setTimeout(() => {
+                card.classList.add('active');
+              }, 50);
+            } else {
+              card.classList.remove('active');
+              setTimeout(() => {
+                card.style.display = 'none';
+              }, 300);
+            }
+          });
+        });
+      });
+      
+      // Scroll to content function
+      document.getElementById('scrollToContent').addEventListener('click', function() {
+        document.querySelector('.current-section').scrollIntoView({ 
+          behavior: 'smooth' 
+        });
+      });
+      
+      // Add number counting animation to legacy stats
+      const legacyNumbers = document.querySelectorAll('.legacy-number');
+      legacyNumbers.forEach(stat => {
+        const target = parseInt(stat.textContent);
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+        }, 40);
+      });
+    });
+  </script>
+</body>
+</html>

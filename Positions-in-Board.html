@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Position Holders - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root{
+      --nav-bg: #002147;
+      --nav-bg-dark: #011b36;
+      --accent: #fdfcf9ff;
+      --primary: #002147;
+      --soft-blue: #ecf5ff;
+      --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+      --text: #222;
+      --muted: #556b86;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+    }
+
+    /* ========== RESET & BASE STYLES ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.6;color:var(--text);
+      background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ========== HERO SECTION ========== */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background: url('assets/images/logo.png') center/contain no-repeat;
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: heroAppear 1.5s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes heroAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      position: relative;
+      margin-bottom: 30px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .college-logo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      animation: logoGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes logoGlow {
+      from { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 rgba(255,215,0,0.5); }
+      to { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255,215,0,0.8); }
+    }
+
+    .college-logo img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .graduation-cap {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 60px;
+      color: var(--gold);
+      filter: drop-shadow(0 5px 15px rgba(255,215,0,0.5));
+      animation: capFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes capFloat {
+      0%, 100% { transform: translateX(-50%) rotate(0deg); }
+      25% { transform: translateX(-50%) rotate(5deg); }
+      75% { transform: translateX(-50%) rotate(-5deg); }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 15px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+      to { text-shadow: 0 5px 25px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    .main-content {
+      position: relative;
+      top: 100vh;
+      background: white;
+      z-index: 20;
+    }
+
+    /* ========== POSITION HOLDERS SECTION ========== */
+    .position-holders-section {
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: #00356b;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+      animation: titleSlideIn 1s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes titleSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 3px;
+      animation: lineExtend 1.5s var(--ease-smooth) 0.5s forwards;
+      width: 0;
+    }
+
+    @keyframes lineExtend {
+      to {
+        width: 100px;
+      }
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeIn 1s var(--ease-smooth) 0.8s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .achievement-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .achievement-card {
+      background: #fff;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .achievement-card:nth-child(1) {
+      animation: cardAppear 1s var(--ease-smooth) 0.5s forwards;
+    }
+
+    .achievement-card:nth-child(2) {
+      animation: cardAppear 1s var(--ease-smooth) 0.7s forwards;
+    }
+
+    @keyframes cardAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(2,36,85,0.15);
+    }
+
+    .card-header {
+      
+      padding: 30px 30px 20px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+    }
+
+    .medal {
+      position: absolute;
+      top: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    .gold-medal {
+      background: linear-gradient(135deg, var(--gold), #ffed4e);
+      color: #996515;
+    }
+
+    .silver-medal {
+      background: linear-gradient(135deg, var(--silver), #e8e8e8);
+      color: #666;
+    }
+
+    .achievement-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+     margin: 22px auto 10px auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .achievement-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .card-body {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .cadet-photo-container {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid #f0f0f0;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .achievement-card:hover .cadet-photo-container {
+      border-color: #00356b;
+    }
+
+    .cadet-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .achievement-card:hover .cadet-photo {
+      transform: scale(1.05);
+    }
+
+    .cadet-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .cadet-name::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      transition: width 0.4s var(--ease-smooth);
+    }
+
+    .achievement-card:hover .cadet-name::after {
+      width: 100%;
+    }
+
+    .cadet-details {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .achievement-description {
+      background: var(--soft-blue);
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-highlight {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    /* ========== STATS SECTION ========== */
+    .stats-section {
+      padding: 80px 5%;
+      background: var(--soft-blue);
+      position: relative;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .stat-card:nth-child(1) {
+      animation: statAppear 1s var(--ease-smooth) 0.3s forwards;
+    }
+
+    .stat-card:nth-child(2) {
+      animation: statAppear 1s var(--ease-smooth) 0.5s forwards;
+    }
+
+    .stat-card:nth-child(3) {
+      animation: statAppear 1s var(--ease-smooth) 0.7s forwards;
+    }
+
+    .stat-card:nth-child(4) {
+      animation: statAppear 1s var(--ease-smooth) 0.9s forwards;
+    }
+
+    @keyframes statAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(2,36,85,0.12);
+    }
+
+    .stat-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+      display: block;
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .stat-card:hover .stat-icon {
+      transform: scale(1.1);
+      color: #00356b;
+    }
+
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: block;
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .stat-card:hover .stat-number {
+      color: #00356b;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .stat-card:hover .stat-label {
+      color: #00356b;
+    }
+
+    /* ========== CONFETTI ANIMATION ========== */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      opacity: 0;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(1000px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 1000px){
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      .achievement-cards {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero-section {
+        height: 100vh;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      .achievement-card {
+        margin: 0 10px;
+      }
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px){
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      .achievement-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header-component></header-component>
+  
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <div class="logo-container">
+        <div class="graduation-cap">🎓</div>
+        <div class="college-logo">
+          <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo">
+        </div>
+      </div>
+      <h1 class="hero-title">Position Holders</h1>
+      <p class="hero-subtitle">Celebrating Academic Excellence and Outstanding Achievements</p>
+    </div>
+    <div class="scroll-indicator" id="scrollToContent">↓</div>
+  </section>
+  
+  <!-- ========== MAIN CONTENT ========== -->
+  <div class="main-content">
+    <!-- ========== POSITION HOLDERS SECTION ========== -->
+    <section class="position-holders-section">
+      <div class="section-title">
+        <h2>Our Academic Stars</h2>
+        <p>These exceptional cadets have brought honor to Cadet College Sanghar through their remarkable academic achievements</p>
+      </div>
+      
+      <div class="achievement-cards">
+        <!-- First Position Holder -->
+        <div class="achievement-card">
+          <div class="card-header">
+            <div class="medal gold-medal">1st</div>
+            <h3 class="achievement-title">Board of Intermediate & Secondary Education, SBA</h3>
+            <p class="achievement-subtitle">Second Year - Top Position</p>
+          </div>
+          <div class="card-body">
+            <div class="cadet-photo-container">
+              <img src="assets/images/positions/israr.webp" alt="Cadet Israr" class="cadet-photo" loading="lazy">
+            </div>
+            <h3 class="cadet-name">Cadet Israr Ahmed Jamali</h3>
+            <p class="cadet-details">Second Year • Science Group</p>
+            <div class="achievement-description">
+              <p class="achievement-highlight">Secured First Position in Second Year Examinations</p>
+              <p>Outstanding performance with exceptional marks across all subjects, demonstrating remarkable dedication and academic excellence.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Second Position Holder -->
+        <div class="achievement-card">
+          <div class="card-header">
+            <div class="medal gold-medal">1st</div>
+            <h3 class="achievement-title">Board of Intermediate & Secondary Education, SBA</h3>
+            <p class="achievement-subtitle">Matriculation - Top Position</p>
+          </div>
+          <div class="card-body">
+            <div class="cadet-photo-container">
+              <img src="assets/images/positions/waleed.webp" alt="Cadet Waleed" class="cadet-photo" loading="lazy">
+            </div>
+            <h3 class="cadet-name">Cadet Waleed</h3>
+            <p class="cadet-details">Matriculation • Science Group</p>
+            <div class="achievement-description">
+              <p class="achievement-highlight">Secured First Position in Matriculation Examinations</p>
+              <p>Exceptional academic performance with outstanding results, setting a new benchmark for excellence in the matriculation examinations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ========== STATS SECTION ========== -->
+    <section class="stats-section">
+      <div class="section-title">
+        <h2>Our Legacy of Excellence</h2>
+        <p>Cadet College Sanghar continues to produce outstanding scholars year after year</p>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-number">25+</span>
+          <span class="stat-label">Position Holders</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Pass Percentage</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📚</span>
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Distinctions Average</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🎓</span>
+          <span class="stat-number">100%</span>
+          <span class="stat-label">University Placement</span>
+        </div>
+      </div>
+    </section>
+    
+    <footer-component></footer-component>
+  </div>
+  
+  <script src="loader.js"></script>
+  <script>
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#ffd700', '#c0c0c0', '#cd7f32', '#00356b', '#ff6b6b', '#4ecdc4'];
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.position = 'fixed';
+      confettiContainer.style.top = '0';
+      confettiContainer.style.left = '0';
+      confettiContainer.style.width = '100%';
+      confettiContainer.style.height = '100%';
+      confettiContainer.style.pointerEvents = 'none';
+      confettiContainer.style.zIndex = '9999';
+      document.body.appendChild(confettiContainer);
+      
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confettiContainer.appendChild(confetti);
+      }
+      
+      setTimeout(() => {
+        document.body.removeChild(confettiContainer);
+      }, 5000);
+    }
+    
+    // Scroll to content function
+    document.getElementById('scrollToContent').addEventListener('click', function() {
+      document.querySelector('.main-content').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    });
+    
+    // Initialize animations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add scroll animations
+      const faders = document.querySelectorAll('.achievement-card, .stat-card');
+      const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+      
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+      
+      faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+      });
+      
+      // Add confetti on hero section
+      setTimeout(createConfetti, 1000);
+      
+      // Add hover effects to achievement cards
+      const achievementCards = document.querySelectorAll('.achievement-card');
+      achievementCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          createConfetti();
+        });
+      });
+      
+      // Add number counting animation to stats
+      const statNumbers = document.querySelectorAll('.stat-number');
+      statNumbers.forEach(stat => {
+        const target = parseInt(stat.textContent);
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : '+');
+        }, 40);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admission Criteria - Cadet College Sanghar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+<style>
+  /* ========== CSS VARIABLES ========== */
+  :root{
+    --nav-bg: #002147;
+    --nav-bg-dark: #011b36;
+    --accent: #fdfcf9ff;
+    --primary: #002147;
+    --soft-blue: #ecf5ff;
+    --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+    --text: #222;
+    --muted: #556b86;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* ========== RESET & BASE STYLES ========== */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.6;color:var(--text);
+    background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block;height:auto}
+
+  /* ========== ANIMATED LOGO HEADER ========== */
+  .logo-header {
+    padding: 120px 5% 80px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--nav-bg-dark) 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.03"><polygon points="0,0 1000,50 1000,100 0,100"/></svg>');
+    background-size: cover;
+  }
+
+  .logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+    animation: logoFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+  }
+
+  .logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  .college-logo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.8rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s var(--ease-smooth);
+    overflow: hidden;
+  }
+
+  .college-logo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(0,33,71,0.1), transparent 30%);
+    animation: rotate 10s linear infinite;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .college-logo:hover {
+    transform: rotateY(180deg) scale(1.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+
+  .logo-text {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    position: relative;
+    display: inline-block;
+    animation: fadeInUp 1s var(--ease-smooth) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .logo-subtitle {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s 0.2s var(--ease-smooth) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ========== CONTENT SECTIONS ========== */
+  .content-section {
+    padding: 80px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ========== CRITERIA CARDS ========== */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .criteria-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .criteria-card.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .criteria-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    transition: width 0.4s var(--ease-smooth);
+  }
+
+  .criteria-card:hover::before {
+    width: 100%;
+    opacity: 0.05;
+  }
+
+  .criteria-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(2,36,85,0.15);
+  }
+
+  .criteria-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--soft-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.4s var(--ease-smooth);
+  }
+
+  .criteria-card:hover .criteria-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--primary);
+    color: white;
+  }
+
+  .criteria-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    transition: all 0.4s var(--ease-smooth);
+  }
+
+  .criteria-card:hover h3 {
+    color: var(--primary);
+  }
+
+  .criteria-card p {
+    color: var(--muted);
+    margin-bottom: 15px;
+  }
+
+  .criteria-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .criteria-list li {
+    padding: 8px 0;
+    position: relative;
+    padding-left: 25px;
+    color: var(--muted);
+  }
+
+  .criteria-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  /* ========== ELIGIBILITY TIMELINE ========== */
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 60px auto;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    width: 50%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s var(--ease-smooth);
+  }
+
+  .timeline-item.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 50px;
+    text-align: right;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 50px;
+  }
+
+  .timeline-content {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transition: all 0.4s var(--ease-smooth);
+  }
+
+  .timeline-content:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(2,36,85,0.1);
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: 2px -2px 5px rgba(0,0,0,0.05);
+  }
+
+  .timeline-item:nth-child(even) .timeline-content::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .timeline-marker {
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px var(--primary);
+  }
+
+  .timeline-item:nth-child(odd) .timeline-marker {
+    right: -10px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-marker {
+    left: -10px;
+  }
+
+  /* ========== CTA SECTION ========== */
+  .cta-section {
+    text-align: center;
+    padding: 80px 5%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--nav-bg-dark) 100%);
+    color: white;
+    border-radius: 20px;
+    margin: 60px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-section h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s var(--ease-bounce);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 10px 30px rgba(253, 252, 249, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(253, 252, 249, 0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s var(--ease-smooth);
+  }
+
+  .btn:hover::before {
+    left: 100%;
+  }
+
+  /* ========== RESPONSIVE DESIGN ========== */
+  @media (max-width: 768px) {
+    .logo-header {
+      padding: 100px 5% 60px;
+    }
+    
+    .college-logo {
+      width: 120px;
+      height: 120px;
+      font-size: 1.5rem;
+    }
+    
+    .logo-text {
+      font-size: 2rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2rem;
+    }
+    
+    .criteria-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .timeline::before {
+      left: 30px;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 0;
+      text-align: left;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      padding-right: 0;
+      text-align: left;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 0;
+      padding-left: 70px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-marker,
+    .timeline-item:nth-child(even) .timeline-marker {
+      left: 20px;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-content::after,
+    .timeline-item:nth-child(even) .timeline-content::after {
+      left: -10px;
+      right: auto;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .btn {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .logo-header {
+      padding: 80px 5% 40px;
+    }
+    
+    .college-logo {
+      width: 100px;
+      height: 100px;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.7rem;
+    }
+    
+    .logo-subtitle {
+      font-size: 1rem;
+    }
+    
+    .section-header h2 {
+      font-size: 1.7rem;
+    }
+    
+    .criteria-card {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header-component></header-component>
+
+  <main>
+    <!-- ========== HERO SECTION WITH ANIMATED LOGO ========== -->
+    <section class="logo-header">
+      <div class="logo-container">
+        <div class="logo-glow"></div>
+        <div class="college-logo">
+         <img src="assets/images/Logo.webp" alt="">
+        </div>
+      </div>
+      <h1 class="logo-text">Admission Process</h1>
+      <p class="logo-subtitle">Join the prestigious Cadet College Sanghar and embark on a journey of excellence, discipline, and leadership</p>
+    </section>
+
+    <!-- ========== ELIGIBILITY CRITERIA ========== -->
+    <section class="content-section">
+      <div class="section-header">
+        <h2>Eligibility Criteria</h2>
+        <p>Requirements for admission to Cadet College Sanghar</p>
+      </div>
+
+      <div class="criteria-grid">
+        <div class="criteria-card fade-slide">
+          <div class="criteria-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Age Limit</h3>
+          <p>Candidates must meet the following age requirements:</p>
+          <ul class="criteria-list">
+            <li>For Class 8: 12-14 years as of 1st April</li>
+            <li>For Class 9: 13-15 years as of 1st April</li>
+            <li>For Class 11: 15-17 years as of 1st April</li>
+          </ul>
+        </div>
+
+        <div class="criteria-card fade-slide">
+          <div class="criteria-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <h3>Academic Qualification</h3>
+          <p>Minimum academic requirements for admission:</p>
+          <ul class="criteria-list">
+            <li>For Class 8: Passed Class 7 with at least 60% marks</li>
+            <li>For Class 9: Passed Class 8 with at least 60% marks</li>
+            <li>For Class 11: Passed Class 10 with at least 60% marks</li>
+          </ul>
+        </div>
+
+        <div class="criteria-card fade-slide">
+          <div class="criteria-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <h3>Medical Fitness</h3>
+          <p>Candidates must be medically fit:</p>
+          <ul class="criteria-list">
+            <li>Free from any physical disability</li>
+            <li>Normal vision (6/6 without glasses)</li>
+            <li>Normal hearing capability</li>
+            <li>No chronic diseases</li>
+          </ul>
+        </div>
+
+        <div class="criteria-card fade-slide">
+          <div class="criteria-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3>Nationality</h3>
+          <p>Citizenship requirements:</p>
+          <ul class="criteria-list">
+            <li>Must be a citizen of Pakistan</li>
+            <li>Domicile of Sindh province preferred</li>
+            <li>Children of armed forces personnel given preference</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SELECTION PROCESS TIMELINE ========== -->
+    <section class="content-section" style="background: var(--soft-blue); border-radius: 20px;">
+      <div class="section-header">
+        <h2>Selection Process</h2>
+        <p>Step-by-step procedure for admission</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item fade-slide">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Application Submission</h3>
+            <p>Submit the completed application form along with required documents before the deadline.</p>
+            <p><strong>Deadline: March 31, 2025</strong></p>
+          </div>
+        </div>
+        <div class="timeline-item fade-slide">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Written Test</h3>
+            <p>All applicants must appear for the entrance examination covering English, Mathematics, Urdu, and General Knowledge.</p>
+            <p><strong>Date: April 15, 2025</strong></p>
+          </div>
+        </div>
+        <div class="timeline-item fade-slide">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Interview & Medical</h3>
+            <p>Shortlisted candidates will be called for an interview and medical examination at the college campus.</p>
+            <p><strong>Date: April 25-30, 2025</strong></p>
+          </div>
+        </div>
+        <div class="timeline-item fade-slide">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3>Final Selection</h3>
+            <p>Final selection based on test results, interview performance, and medical fitness.</p>
+            <p><strong>Announcement: May 10, 2025</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>Join the prestigious Cadet College Sanghar and become part of a legacy of excellence, discipline, and leadership.</p>
+        <div class="cta-buttons">
+          <a href="admission-process.html" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Apply Now
+          </a>
+          <a href="assets/docs/CSS.pdf" class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y1="13"></line>
+              <line x1="16" y1="17" x2="8" y1="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Download Prospectus
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer-component></footer-component>
+  <script src="loader.js"></script>
+  <script>
+    // ========== SCROLL REVEAL ANIMATIONS ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      const faders = document.querySelectorAll('.fade-slide');
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('appear');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+      faders.forEach(f => io.observe(f));
+    });
+  </script>
+</body>
+</html>

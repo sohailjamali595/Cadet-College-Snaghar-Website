@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Entry Test Syllabus - Cadet College Sanghar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root{
+      --nav-bg: #002147;
+      --nav-bg-dark: #011b36;
+      --accent: #fdfcf9ff;
+      --primary: #002147;
+      --soft-blue: #ecf5ff;
+      --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+      --text: #222;
+      --muted: #556b86;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+    }
+
+    /* ========== RESET & BASE STYLES ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.6;color:var(--text);
+      background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ========== HERO SECTION ========== */
+    .hero-section {
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background: url('assets/images/Logo.webp') center/contain no-repeat;
+    }
+
+    .floating-books {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .floating-book {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: floatAround 15s linear infinite;
+    }
+
+    .floating-book:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+      font-size: 2.5rem;
+    }
+
+    .floating-book:nth-child(2) {
+      top: 60%;
+      left: 80%;
+      animation-delay: 2s;
+      font-size: 3rem;
+    }
+
+    .floating-book:nth-child(3) {
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+      font-size: 2.2rem;
+    }
+
+    .floating-book:nth-child(4) {
+      top: 30%;
+      left: 70%;
+      animation-delay: 6s;
+      font-size: 2.8rem;
+    }
+
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(50px, 50px) rotate(90deg);
+      }
+      50% {
+        transform: translate(100px, 0) rotate(180deg);
+      }
+      75% {
+        transform: translate(50px, -50px) rotate(270deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: heroAppear 1.5s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes heroAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+      to { text-shadow: 0 5px 25px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-weight: 300;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* ========== SYLLABUS SECTION ========== */
+    .syllabus-section {
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: #00356b;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+      animation: titleSlideIn 1s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes titleSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 3px;
+      animation: lineExtend 1.5s var(--ease-smooth) 0.5s forwards;
+      width: 0;
+    }
+
+    @keyframes lineExtend {
+      to {
+        width: 100px;
+      }
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeIn 1s var(--ease-smooth) 0.8s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ========== CLASS SELECTOR ========== */
+    .class-selector {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .class-btn {
+      padding: 15px 30px;
+      background: white;
+      border: 3px solid var(--soft-blue);
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(2,36,85,0.1);
+    }
+
+    .class-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s var(--ease-smooth);
+    }
+
+    .class-btn:hover::before {
+      left: 100%;
+    }
+
+    .class-btn:hover, .class-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(2,36,85,0.2);
+    }
+
+    /* ========== SYLLABUS CARDS ========== */
+    .syllabus-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .syllabus-card {
+      background: #fff;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+      transition: all 0.6s var(--ease-smooth);
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      opacity: 0;
+      transform: translateY(50px) rotateX(10deg);
+    }
+
+    .syllabus-card.active {
+      animation: cardAppear 1s var(--ease-smooth) forwards;
+    }
+
+    @keyframes cardAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+      }
+    }
+
+    .syllabus-card:hover {
+      transform: translateY(-20px) scale(1.03);
+      box-shadow: 0 30px 70px rgba(2,36,85,0.2);
+    }
+
+    .card-header {
+      padding: 30px 30px 20px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+      overflow: hidden;
+    }
+
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .class-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .class-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .class-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .subjects-list {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .subject-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subject-item::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--soft-blue), transparent);
+      transition: left 0.5s var(--ease-smooth);
+    }
+
+    .subject-item:hover::before {
+      left: 100%;
+    }
+
+    .subject-item:hover {
+      transform: translateX(10px);
+      border-bottom-color: #00356b;
+    }
+
+    .subject-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+      background: var(--soft-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--primary);
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .subject-item:hover .subject-icon {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .subject-name {
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ffd36b, #ffb347);
+      color: #00356b;
+      border: none;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(255,179,71,0.3);
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s var(--ease-smooth);
+    }
+
+    .download-btn:hover::before {
+      left: 100%;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255,179,71,0.5);
+      background: linear-gradient(135deg, #ffb347, #ffd36b);
+    }
+
+    .download-btn i {
+      transition: transform 0.4s var(--ease-smooth);
+    }
+
+    .download-btn:hover i {
+      transform: translateY(3px);
+    }
+
+    /* ========== EXAM INFO SECTION ========== */
+    .exam-info {
+      padding: 80px 5%;
+      background: var(--soft-blue);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .info-card {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.5s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .info-card:nth-child(1) {
+      animation: infoAppear 1s var(--ease-smooth) 0.3s forwards;
+    }
+
+    .info-card:nth-child(2) {
+      animation: infoAppear 1s var(--ease-smooth) 0.5s forwards;
+    }
+
+    .info-card:nth-child(3) {
+      animation: infoAppear 1s var(--ease-smooth) 0.7s forwards;
+    }
+
+    @keyframes infoAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+    }
+
+    .info-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 60px rgba(2,36,85,0.15);
+    }
+
+    .info-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+      display: block;
+      transition: all 0.5s var(--ease-smooth);
+    }
+
+    .info-card:hover .info-icon {
+      transform: scale(1.2) rotate(10deg);
+      color: #00356b;
+    }
+
+    .info-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .info-description {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 1000px){
+      .hero-title {
+        font-size: 3rem;
+      }
+      .syllabus-cards {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero-section {
+        height: 60vh;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      .class-selector {
+        flex-direction: column;
+        align-items: center;
+      }
+      .class-btn {
+        width: 200px;
+      }
+      .info-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px){
+      .hero-title {
+        font-size: 2rem;
+      }
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      .syllabus-card {
+        margin: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header-component></header-component>
+  
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="floating-books">
+      <div class="floating-book">📚</div>
+      <div class="floating-book">📖</div>
+      <div class="floating-book">📕</div>
+      <div class="floating-book">📘</div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Entry Test Syllabus</h1>
+      <p class="hero-subtitle">Complete syllabus and preparation materials for Class 8th, 9th, and 1st Year entry tests</p>
+    </div>
+    <div class="scroll-indicator" id="scrollToContent">↓</div>
+  </section>
+
+  <section class="syllabus-section">
+    <div class="section-title">
+      <h2>Entry Test Syllabus</h2>
+      <p>Select your class to view the complete syllabus and download preparation materials</p>
+    </div>
+    
+    <div class="class-selector">
+      <button class="class-btn active" data-class="class8">Class 8th</button>
+      <button class="class-btn" data-class="class9">Class 9th</button>
+      <button class="class-btn" data-class="firstYear">1st Year</button>
+    </div>
+
+    <div class="syllabus-cards">
+      <!-- Class 8 -->
+      <div class="syllabus-card active" id="class8Card">
+        <div class="card-header">
+          <span class="class-icon">🎒</span>
+          <h3 class="class-title">Class 8th Entry Test</h3>
+          <p class="class-subtitle">For admission to 8th Class</p>
+        </div>
+        <div class="card-body">
+          <ul class="subjects-list">
+            <li class="subject-item"><span class="subject-icon">M</span><span class="subject-name">Mathematics</span></li>
+            <li class="subject-item"><span class="subject-icon">E</span><span class="subject-name">English</span></li>
+            <li class="subject-item"><span class="subject-icon">U</span><span class="subject-name">Urdu</span></li>
+            <li class="subject-item"><span class="subject-icon">S</span><span class="subject-name">Science</span></li>
+            <li class="subject-item"><span class="subject-icon">I</span><span class="subject-name">Islamiat</span></li>
+            <li class="subject-item"><span class="subject-icon">G</span><span class="subject-name">General Knowledge</span></li>
+          </ul>
+          <button class="download-btn" onclick="downloadSyllabus()">
+            <i class="fas fa-download"></i> Download Complete Syllabus (PDF)
+          </button>
+        </div>
+      </div>
+
+      <!-- Class 9 -->
+      <div class="syllabus-card" id="class9Card">
+        <div class="card-header">
+          <span class="class-icon">📓</span>
+          <h3 class="class-title">Class 9th Entry Test</h3>
+          <p class="class-subtitle">For admission to 9th Class</p>
+        </div>
+        <div class="card-body">
+          <ul class="subjects-list">
+            <li class="subject-item"><span class="subject-icon">M</span><span class="subject-name">Mathematics</span></li>
+            <li class="subject-item"><span class="subject-icon">E</span><span class="subject-name">English</span></li>
+            <li class="subject-item"><span class="subject-icon">U</span><span class="subject-name">Urdu</span></li>
+            <li class="subject-item"><span class="subject-icon">P</span><span class="subject-name">Physics</span></li>
+            <li class="subject-item"><span class="subject-icon">C</span><span class="subject-name">Chemistry</span></li>
+            <li class="subject-item"><span class="subject-icon">B</span><span class="subject-name">Biology</span></li>
+            <li class="subject-item"><span class="subject-icon">I</span><span class="subject-name">Islamiat</span></li>
+            <li class="subject-item"><span class="subject-icon">G</span><span class="subject-name">General Knowledge</span></li>
+          </ul>
+          <button class="download-btn" onclick="downloadSyllabus()">
+            <i class="fas fa-download"></i> Download Complete Syllabus (PDF)
+          </button>
+        </div>
+      </div>
+
+      <!-- 1st Year -->
+      <div class="syllabus-card" id="firstYearCard">
+        <div class="card-header">
+          <span class="class-icon">🎓</span>
+          <h3 class="class-title">1st Year Entry Test</h3>
+          <p class="class-subtitle">For admission to 1st Year</p>
+        </div>
+        <div class="card-body">
+          <ul class="subjects-list">
+            <li class="subject-item"><span class="subject-icon">M</span><span class="subject-name">Mathematics</span></li>
+            <li class="subject-item"><span class="subject-icon">E</span><span class="subject-name">English</span></li>
+            <li class="subject-item"><span class="subject-icon">U</span><span class="subject-name">Urdu</span></li>
+            <li class="subject-item"><span class="subject-icon">P</span><span class="subject-name">Physics</span></li>
+            <li class="subject-item"><span class="subject-icon">C</span><span class="subject-name">Chemistry</span></li>
+            <li class="subject-item"><span class="subject-icon">B</span><span class="subject-name">Biology/Computer Science</span></li>
+            <li class="subject-item"><span class="subject-icon">I</span><span class="subject-name">Islamiat</span></li>
+            <li class="subject-item"><span class="subject-icon">G</span><span class="subject-name">General Knowledge</span></li>
+            <li class="subject-item"><span class="subject-icon">IQ</span><span class="subject-name">Intelligence Questions</span></li>
+          </ul>
+          <button class="download-btn" onclick="downloadSyllabus()">
+            <i class="fas fa-download"></i> Download Complete Syllabus (PDF)
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== EXAM INFO SECTION ========== -->
+  <section class="exam-info">
+    <div class="section-title">
+      <h2>Exam Information</h2>
+      <p>Important details about the entry test procedure and requirements</p>
+    </div>
+    
+    <div class="info-cards">
+      <div class="info-card">
+        <span class="info-icon">⏱️</span>
+        <h3 class="info-title">Exam Duration</h3>
+        <p class="info-description">The entry test will be 2 hours long with multiple choice questions from all subjects mentioned in the syllabus.</p>
+      </div>
+      
+      <div class="info-card">
+        <span class="info-icon">📝</span>
+        <h3 class="info-title">Test Pattern</h3>
+        <p class="info-description">Total 100 MCQs with equal weightage to all subjects. Each correct answer carries 1 mark with no negative marking.</p>
+      </div>
+      
+      <div class="info-card">
+        <span class="info-icon">📋</span>
+        <h3 class="info-title">Required Documents</h3>
+        <p class="info-description">Bring your admission form, CNIC/B-form, recent photographs, and previous academic certificates.</p>
+      </div>
+    </div>
+  </section>
+  
+  <footer-component></footer-component>
+  
+  <script src="loader.js"></script>
+  <script>
+    // Class selector functionality
+    const classBtns = document.querySelectorAll('.class-btn');
+    const syllabusCards = document.querySelectorAll('.syllabus-card');
+    
+    classBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        classBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const selectedClass = btn.getAttribute('data-class');
+        
+        // Hide all syllabus cards
+        syllabusCards.forEach(card => {
+          card.classList.remove('active');
+          card.style.display = 'none';
+        });
+        
+        // Show selected syllabus card
+        const selectedCard = document.getElementById(`${selectedClass}Card`);
+        if (selectedCard) {
+          selectedCard.style.display = 'block';
+          setTimeout(() => {
+            selectedCard.classList.add('active');
+          }, 50);
+        }
+      });
+    });
+    
+    // Download syllabus function
+   function downloadSyllabus() {
+      const link = document.createElement('a');
+      link.href = 'assets/docs/CSS.pdf';
+      link.download = 'Cadet-College-Syllabus.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    document.getElementById('scrollToContent').addEventListener('click', function() {
+      document.querySelector('.syllabus-section').scrollIntoView({ behavior: 'smooth' });
+    });
+      
+      // Create download notification
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.5s var(--ease-smooth), slideOut 0.5s var(--ease-smooth) 2.5s forwards;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      `;
+      
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <div>
+          <strong>Download Started!</strong><br>
+          ${fileName} (${fileSize})
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Remove notification after animation
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 3000);
+      
+      // In a real implementation, you would link to actual PDF files
+      // For demo purposes, we'll create a blob and download it
+      const pdfContent = `Cadet College Sanghar - ${className.toUpperCase()} Entry Test Syllabus\n\nThis is a demo PDF file. In the actual implementation, this would be the real syllabus document.`;
+      const blob = new Blob([pdfContent], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    
+    
+    // Scroll to content function
+    document.getElementById('scrollToContent').addEventListener('click', function() {
+      document.querySelector('.syllabus-section').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    });
+    
+    // Add CSS for notification animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialize animations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add scroll animations
+      const faders = document.querySelectorAll('.syllabus-card, .info-card');
+      const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+      
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+      
+      faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+      });
+    });
+  </script>
+</body>
+</html>

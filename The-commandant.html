@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Commandant - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --accent: #fdfcf9ff;
+            --primary: #002147;
+            --secondary: #00356b;
+            --soft-blue: #ecf5ff;
+            --gold: #ffd36b;
+            --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+            --text: #222;
+            --muted: #556b86;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== COMMANDANT PAGE STYLES ========== */
+        .commandant-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 211, 107, 0.1);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        /* Commandant Header */
+        .commandant-header {
+            text-align: center;
+            padding: 40px 5% 60px;
+            position: relative;
+        }
+
+        .commandant-title {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s var(--ease-smooth) forwards;
+        }
+
+        .commandant-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 2px;
+        }
+
+        .commandant-subtitle {
+            font-size: 1.3rem;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleEntrance 1s 0.2s var(--ease-smooth) forwards;
+        }
+
+        @keyframes titleEntrance {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Commandant Content */
+        .commandant-content {
+            display: flex;
+            gap: 50px;
+            padding: 0 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .commandant-image {
+            flex: 0 0 400px;
+            position: relative;
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInLeft 1s 0.5s var(--ease-smooth) forwards;
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(2,36,85,0.15);
+            transition: all 0.5s var(--ease-smooth);
+        }
+
+        .image-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 60px rgba(2,36,85,0.2);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-smooth);
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,33,71,0.8));
+            padding: 30px 20px 20px;
+            color: #fff;
+        }
+
+        .image-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .image-overlay p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .commandant-message {
+            flex: 1;
+            transform: translateX(50px);
+            opacity: 0;
+            animation: slideInRight 1s 0.5s var(--ease-smooth) forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Message Cards */
+        .message-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .message-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--gold));
+        }
+
+        .message-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(2,36,85,0.1);
+        }
+
+        .message-number {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            transition: all 0.4s var(--ease-bounce);
+        }
+
+        .message-card:hover .message-number {
+            transform: scale(1.2) rotate(15deg);
+            background: var(--primary);
+            color: var(--gold);
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--muted);
+            padding-right: 20px;
+        }
+
+        /* Signature Section */
+        .signature-section {
+            text-align: center;
+            padding: 60px 5% 100px;
+            background: var(--soft-blue);
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signature-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .signature-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--primary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .signature-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .signature-title {
+            font-size: 1.2rem;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .signature-image {
+            display: inline-block;
+            width: 200px;
+            height: 80px;
+            background: url('assets/images/signature.png') center/contain no-repeat;
+            opacity: 0.8;
+        }
+
+        .floating-quotes {
+            position: absolute;
+            font-size: 15rem;
+            color: rgba(0,33,71,0.03);
+            z-index: 1;
+        }
+
+        .floating-quotes.left {
+            top: 20px;
+            left: 10%;
+        }
+
+        .floating-quotes.right {
+            bottom: 20px;
+            right: 10%;
+        }
+
+        /* Biography Section */
+        .biography-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .biography-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .biography-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .biography-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 2px;
+        }
+
+        .biography-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .biography-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .biography-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(2,36,85,0.1);
+        }
+
+        .biography-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--gold));
+        }
+
+        .biography-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .biography-card h3 i {
+            margin-right: 10px;
+            color: var(--gold);
+        }
+
+        .biography-list {
+            list-style-type: none;
+        }
+
+        .biography-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .biography-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .biography-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 18px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(2,36,85,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .biography-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+
+        .biography-highlight h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .biography-highlight p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .award-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Decorative Elements */
+        .decoration-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: rotate 30s linear infinite;
+        }
+
+        .decoration-element:nth-child(1) {
+            top: 10%;
+            right: 5%;
+        }
+
+        .decoration-element:nth-child(2) {
+            bottom: 15%;
+            left: 5%;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1100px) {
+            .commandant-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .commandant-image {
+                flex: 0 0 auto;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .commandant-title {
+                font-size: 3rem;
+            }
+            
+            .biography-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .commandant-page {
+                padding-top: 80px;
+            }
+            
+            .commandant-title {
+                font-size: 2.5rem;
+            }
+            
+            .commandant-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .message-card {
+                padding: 25px;
+            }
+            
+            .message-text {
+                font-size: 1rem;
+            }
+            
+            .floating-element:nth-child(1) {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .floating-element:nth-child(2) {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .floating-element:nth-child(3) {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .floating-quotes {
+                font-size: 10rem;
+            }
+            
+            .biography-title {
+                font-size: 2rem;
+            }
+            
+            .biography-card {
+                padding: 25px;
+            }
+            
+            .biography-highlight {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .commandant-title {
+                font-size: 2rem;
+            }
+            
+            .commandant-subtitle {
+                font-size: 1rem;
+            }
+            
+            .commandant-image {
+                max-width: 100%;
+            }
+            
+            .image-container img {
+                height: 400px;
+            }
+            
+            .message-card {
+                padding: 20px 20px 20px 25px;
+            }
+            
+            .signature-name {
+                font-size: 1.5rem;
+            }
+            
+            .signature-title {
+                font-size: 1rem;
+            }
+            
+            .floating-quotes {
+                font-size: 8rem;
+            }
+            
+            .biography-title {
+                font-size: 1.8rem;
+            }
+            
+            .biography-card {
+                padding: 20px;
+            }
+            
+            .biography-highlight {
+                padding: 25px;
+            }
+            
+            .biography-highlight h3 {
+                font-size: 1.5rem;
+            }
+            
+            .biography-highlight p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    <!-- Commandant Page -->
+    <section class="commandant-page">
+        <!-- Background Elements -->
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="decoration-element"></div>
+        <div class="decoration-element"></div>
+
+        <!-- Commandant Header -->
+        <div class="commandant-header">
+            <h1 class="commandant-title">Commandant's Message</h1>
+            <p class="commandant-subtitle">Leadership, Vision, and Commitment to Excellence</p>
+        </div>
+
+        <!-- Commandant Content -->
+        <div class="commandant-content">
+            <!-- Commandant Image -->
+            <div class="commandant-image">
+                <div class="image-container">
+                    <img src="assets/images/principal.webp" alt="Commodore Zeeshan Ali SI(M) - Commandant Cadet College Sanghar">
+                    <div class="image-overlay">
+                        <h3>Commodore Zeeshan Ali SI(M)</h3>
+                        <p>Commandant, Cadet College Sanghar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commandant Message -->
+            <div class="commandant-message">
+                <!-- Message Part 1 -->
+                <div class="message-card">
+                    <div class="message-number">1</div>
+                    <p class="message-text">
+                        We, at Cadet College Sanghar are cognizant of the fact that education plays a pivotal role in the development of any society. Therefore; our dedicated efforts are channelized towards providing quality education to youth, developing them physically, intellectually, morally and socially arid thus shaping them into responsible citizens and dynamic leaders of Pakistan. We are also making strides in our quest to be a renowned and leading training institution.
+                    </p>
+                </div>
+
+                <!-- Message Part 2 -->
+                <div class="message-card">
+                    <div class="message-number">2</div>
+                    <p class="message-text">
+                        We offer our cadets academic excellence, customized physical training and vibrant student life. We believe that an outstanding academic education can only be achieved alongside personal growth and development.
+                    </p>
+                </div>
+
+                <!-- Message Part 3 -->
+                <div class="message-card">
+                    <div class="message-number">3</div>
+                    <p class="message-text">
+                        Therefore, we organize a wide range of social, academic, sports and industry events throughout the year, providing students with an opportunity to meet people and choose best career for their life.
+                    </p>
+                </div>
+
+                <!-- Message Part 4 -->
+                <div class="message-card">
+                    <div class="message-number">4</div>
+                    <p class="message-text">
+                        Similarly, it is our persistent endeavour to incorporate latest training techniques and methodologies in our existing system. Thus, Cadet College Sanghar is making rapid and tremendous progress in terms of training and admin infrastructure & facilities, educational standards, quality control thereby achieving outstanding academic performance in Annual examinations as well as laurels in extra-curricular activities.
+                    </p>
+                </div>
+
+                <!-- Message Part 5 -->
+                <div class="message-card">
+                    <div class="message-number">5</div>
+                    <p class="message-text">
+                        I pray to Almighty Allah to bless us with the wisdom and courage to further raise the quality and standards of education.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <div class="floating-quotes left">"</div>
+            <div class="floating-quotes right">"</div>
+            
+            <div class="signature-content">
+                <p class="signature-text">With unwavering commitment to excellence and leadership development</p>
+                <div class="signature-name">Commodore Zeeshan Ali SI(M)</div>
+                <div class="signature-title">Commandant, Cadet College Sanghar</div>
+                <div class="signature-image"></div>
+            </div>
+        </div>
+        
+        <!-- Biography Section -->
+        <div class="biography-section">
+            <div class="biography-container">
+                <h2 class="biography-title">Commandant's Distinguished Career</h2>
+                
+                <div class="biography-content">
+                    <div class="biography-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Education & Training</h3>
+                        <ul class="biography-list">
+                            <li>Early education from Cadet College Petaro</li>
+                            <li>B.Sc (Hons) in Naval Science</li>
+                            <li>M.Sc in War Studies</li>
+                            <li>Master in Management & Security Studies from Turkey</li>
+                            <li>Diploma in Turkish Language from NUML Islamabad</li>
+                            <li>Staff Courses from Pakistan & Turkish Naval War Colleges</li>
+                            <li>Executive Officer Course</li>
+                            <li>Programme in Applied Security Studies from US George Marshal Center at Germany</li>
+                            <li>Long C and Advance Electronic Warfare Course</li>
+                            <li>Ship Diving Officer's Course</li>
+                            <li>NJ5A Jammer Operation Course from China</li>
+                            <li>Standard Tactical Course</li>
+                            <li>Unit Security & Junior Officer Leadership Course</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="biography-card">
+                        <h3><i class="fas fa-ship"></i> Command & Staff Appointments</h3>
+                        <ul class="biography-list">
+                            <li>Commanding Officer PNS KALMAT</li>
+                            <li>Executive Officer PNS HIMALAYA</li>
+                            <li>Officer Incharge RDS NATHIAGALI</li>
+                            <li>Officer Incharge NB JIWANI</li>
+                            <li>Director Naval Anchorages (South)</li>
+                            <li>Deputy Director Security Operations at NHQ</li>
+                            <li>Project Director Naval Anchorages Gwadar</li>
+                            <li>GSO-I at HQs STRATCOM, SPD</li>
+                            <li>Directing Staff (Communication) at PN Tactical School (PNTS)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="biography-highlight">
+                    <div class="award-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Sitara-e-Imtiaz (Military)</h3>
+                    <p>Awarded by the President of Pakistan on 14th August 2021 in recognition of his meritorious services to the nation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Scroll animation for message cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageCards = document.querySelectorAll('.message-card');
+            const biographyCards = document.querySelectorAll('.biography-card, .biography-highlight');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            messageCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            biographyCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add staggered animation delay to cards
+            messageCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Add hover effects for image container
+            const imageContainer = document.querySelector('.image-container');
+            if (imageContainer) {
+                imageContainer.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px)';
+                });
+                
+                imageContainer.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

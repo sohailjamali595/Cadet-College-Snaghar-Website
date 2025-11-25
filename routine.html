@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine - Cadet College Sanghar</title>
+    <link rel="stylesheet" href="components.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --primary: #002147;
+            --secondary: #b8860b;
+            --accent: #ffd700;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --card-shadow: 0 8px 25px rgba(2,36,85,0.08);
+            --text: #222;
+            --muted: #556b86;
+            --white: #ffffff;
+            --transition: all 0.4s ease;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a1931 0%, #1a1a2e 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== ROUTINE PAGE STYLES ========== */
+        .routine-page {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at center, rgba(26, 26, 46, 0.9) 0%, rgba(10, 25, 49, 0.95) 100%);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, transparent 70%);
+            animation: floatElement 15s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+            animation-direction: reverse;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatElement {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* Logo */
+        .routine-logo {
+            max-width: 180px;
+            margin: 80px auto 30px;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(184, 134, 11, 0.3));
+            animation: enhancedFloat 8s ease-in-out infinite, logoGlow 4s ease-in-out infinite alternate;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .routine-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+            animation-play-state: paused;
+        }
+        
+        @keyframes enhancedFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(1deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 5px 15px rgba(184, 134, 11, 0.3)); }
+            100% { filter: drop-shadow(0 5px 25px rgba(184, 134, 11, 0.6)); }
+        }
+
+        /* Header Section */
+        .routine-header {
+            padding: 20px 5% 40px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(10, 25, 49, 0.9), rgba(10, 25, 49, 0.7));
+            border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+        }
+
+        .routine-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
+            display: inline-block;
+        }
+
+        .routine-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .routine-subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Day Selector */
+        .day-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 5%;
+            flex-wrap: wrap;
+        }
+
+        .day-btn {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .day-btn:hover::before {
+            left: 100%;
+        }
+
+        .day-btn:hover {
+            color: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.2);
+        }
+
+        .day-btn.active {
+            background: var(--secondary);
+            color: var(--primary);
+            border-color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Current Time Display */
+        .current-time {
+            text-align: center;
+            padding: 20px 5%;
+            background: rgba(10, 25, 49, 0.5);
+            margin: 0 5% 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(184, 134, 11, 0.2); }
+            100% { box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
+        }
+
+        .time-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .date-display {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Routine Container */
+        .routine-container {
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .routine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .routine-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(10, 25, 49, 0.9));
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            transform: translateY(40px);
+            opacity: 0;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .routine-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .routine-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(184, 134, 11, 0.3);
+        }
+
+        .routine-card.active {
+            border-color: var(--secondary);
+            box-shadow: 0 0 25px rgba(184, 134, 11, 0.3);
+            animation: activePulse 2s infinite alternate;
+        }
+
+        @keyframes activePulse {
+            0% { box-shadow: 0 0 15px rgba(184, 134, 11, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(184, 134, 11, 0.6); }
+        }
+
+        .routine-time {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .time-period {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .time-range {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .routine-activity {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .activity-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+
+        .activity-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-icon {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .current-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        /* Footer */
+        .routine-footer {
+            text-align: center;
+            padding: 30px 5%;
+            background: rgba(10, 25, 49, 0.8);
+            border-top: 1px solid rgba(184, 134, 11, 0.2);
+            margin-top: 50px;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .routine-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .routine-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .routine-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .routine-title {
+                font-size: 2.3rem;
+            }
+            
+            .time-display {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .routine-title {
+                font-size: 2rem;
+            }
+            
+            .routine-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .time-display {
+                font-size: 1.8rem;
+            }
+            
+            .date-display {
+                font-size: 1rem;
+            }
+            
+            .day-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    <!-- Routine Page -->
+    <section class="routine-page">
+        <!-- Background -->
+        <div class="page-background"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+
+        <!-- Logo -->
+        <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo" class="routine-logo">
+
+        <!-- Header Section -->
+        <header class="routine-header">
+            <h1 class="routine-title">Daily Routine</h1>
+            <p class="routine-subtitle">Structured discipline for academic excellence and character building</p>
+        </header>
+
+        <!-- Day Selector -->
+        <div class="day-selector">
+            <button class="day-btn active" data-day="weekday">Weekday</button>
+            <button class="day-btn" data-day="saturday">Saturday</button>
+            <button class="day-btn" data-day="sunday">Sunday</button>
+            <button class="day-btn" data-day="holiday">Holiday</button>
+        </div>
+
+        <!-- Current Time Display -->
+        <div class="current-time">
+            <div class="time-display" id="current-time">00:00:00</div>
+            <div class="date-display" id="current-date">Loading...</div>
+        </div>
+
+        <!-- Routine Container -->
+        <div class="routine-container">
+            <div class="routine-grid" id="routine-grid">
+                <!-- Routine cards will be dynamically generated here -->
+            </div>
+        </div>
+
+       
+    </section>
+    <footer-component></footer-component>
+    <script src="loader.js"></script>
+    <script>
+        // Routine data
+        const routineData = {
+            weekday: [
+                { time: "05:45", period: "Morning", activity: "Reveille (Wake Up)", description: "Start of the day" },
+                { time: "06:00", period: "Morning", activity: "Morning PT", description: "Physical Training" },
+                { time: "06:45", period: "Morning", activity: "Breakfast", description: "Morning meal" },
+                { time: "07:30", period: "Morning", activity: "Assembly", description: "Morning assembly" },
+                { time: "08:00", period: "Morning", activity: "Classes Begin", description: "Academic period 1" },
+                { time: "10:00", period: "Morning", activity: "Break (Stand Easy)", description: "Short break" },
+                { time: "10:15", period: "Morning", activity: "Classes Resume", description: "Academic period 2" },
+                { time: "12:30", period: "Noon", activity: "Classes Off (Secure)", description: "End of morning classes" },
+                { time: "13:00", period: "Noon", activity: "Dinner (Lunch)", description: "Midday meal" },
+                { time: "14:00", period: "Afternoon", activity: "Zohar Prayer", description: "Noon prayer" },
+                { time: "14:30", period: "Afternoon", activity: "Rest Time", description: "Quiet period" },
+                { time: "15:30", period: "Afternoon", activity: "Classes Resume", description: "Academic period 3" },
+                { time: "17:00", period: "Evening", activity: "Asar Prayer", description: "Afternoon prayer" },
+                { time: "17:30", period: "Evening", activity: "Sports Time", description: "Physical activities" },
+                { time: "19:00", period: "Evening", activity: "Maghrib Prayer", description: "Sunset prayer" },
+                { time: "19:30", period: "Evening", activity: "1st Prep (Study)", description: "Study period 1" },
+                { time: "21:00", period: "Night", activity: "Supper (Dinner)", description: "Evening meal" },
+                { time: "21:30", period: "Night", activity: "Isha Prayer", description: "Night prayer" },
+                { time: "22:00", period: "Night", activity: "Night Prep (Study)", description: "Study period 2" },
+                { time: "23:30", period: "Night", activity: "Night Muster", description: "Final roll call" },
+                { time: "00:00", period: "Night", activity: "Pipe Down (Lights Off)", description: "End of day" }
+            ],
+            saturday: [
+                { time: "06:30", period: "Morning", activity: "Reveille (Wake Up)", description: "Start of the day" },
+                { time: "07:00", period: "Morning", activity: "Breakfast", description: "Morning meal" },
+                { time: "08:00", period: "Morning", activity: "Weekly Inspection", description: "Uniform and room inspection" },
+                { time: "10:00", period: "Morning", activity: "Sports Activities", description: "Inter-house competitions" },
+                { time: "13:00", period: "Noon", activity: "Dinner (Lunch)", description: "Midday meal" },
+                { time: "14:30", period: "Afternoon", activity: "Free Time", description: "Personal activities" },
+                { time: "17:30", period: "Evening", activity: "Sports Time", description: "Recreational sports" },
+                { time: "19:30", period: "Evening", activity: "Prep (Study)", description: "Study period" },
+                { time: "22:00", period: "Night", activity: "Recreation", description: "Entertainment activities" },
+                { time: "00:00", period: "Night", activity: "Pipe Down (Lights Off)", description: "End of day" }
+            ],
+            sunday: [
+                { time: "07:00", period: "Morning", activity: "Reveille (Wake Up)", description: "Start of the day" },
+                { time: "08:00", period: "Morning", activity: "Breakfast", description: "Morning meal" },
+                { time: "09:00", period: "Morning", activity: "Free Time", description: "Personal activities" },
+                { time: "12:00", period: "Noon", activity: "Brunch", description: "Combined breakfast and lunch" },
+                { time: "14:00", period: "Afternoon", activity: "Outing Preparation", description: "Prepare for town visits" },
+                { time: "15:00", period: "Afternoon", activity: "Town Outing", description: "Authorized town visits" },
+                { time: "18:00", period: "Evening", activity: "Return from Outing", description: "Back to campus" },
+                { time: "19:30", period: "Evening", activity: "Prep (Study)", description: "Study period" },
+                { time: "22:00", period: "Night", activity: "Recreation", description: "Entertainment activities" },
+                { time: "00:00", period: "Night", activity: "Pipe Down (Lights Off)", description: "End of day" }
+            ],
+            holiday: [
+                { time: "07:30", period: "Morning", activity: "Reveille (Wake Up)", description: "Start of the day" },
+                { time: "08:30", period: "Morning", activity: "Breakfast", description: "Morning meal" },
+                { time: "10:00", period: "Morning", activity: "Free Time", description: "Personal activities" },
+                { time: "13:00", period: "Noon", activity: "Dinner (Lunch)", description: "Midday meal" },
+                { time: "15:00", period: "Afternoon", activity: "Recreational Activities", description: "Games and hobbies" },
+                { time: "18:00", period: "Evening", activity: "Special Events", description: "Cultural activities" },
+                { time: "20:00", period: "Evening", activity: "Supper (Dinner)", description: "Evening meal" },
+                { time: "21:30", period: "Night", activity: "Entertainment", description: "Movies or performances" },
+                { time: "23:30", period: "Night", activity: "Pipe Down (Lights Off)", description: "End of day" }
+            ]
+        };
+
+        // DOM elements
+        const routineGrid = document.getElementById('routine-grid');
+        const dayButtons = document.querySelectorAll('.day-btn');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const currentDateDisplay = document.getElementById('current-date');
+
+        // Initialize with weekday routine
+        let currentDay = 'weekday';
+        renderRoutine(currentDay);
+
+        // Day selector event listeners
+        dayButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                dayButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update routine
+                currentDay = this.getAttribute('data-day');
+                renderRoutine(currentDay);
+            });
+        });
+
+        // Render routine for selected day
+        function renderRoutine(day) {
+            routineGrid.innerHTML = '';
+            
+            routineData[day].forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'routine-card';
+                
+                // Calculate next time for determining current activity
+                const nextTime = routineData[day][index + 1] ? routineData[day][index + 1].time : '23:59';
+                
+                card.innerHTML = `
+                    <div class="routine-time">
+                        <span class="time-period">${item.period}</span>
+                        <span class="time-range">${item.time}</span>
+                    </div>
+                    <div class="routine-activity">
+                        <h3 class="activity-name">${item.activity}</h3>
+                        <p class="activity-desc">
+                            <i class="fas fa-info-circle activity-icon"></i>
+                            ${item.description}
+                        </p>
+                    </div>
+                `;
+                
+                // Add animation delay for staggered effect
+                card.style.transitionDelay = `${index * 0.05}s`;
+                
+                routineGrid.appendChild(card);
+                
+                // Check if this is the current activity
+                setTimeout(() => {
+                    card.classList.add('visible');
+                    checkCurrentActivity(item.time, nextTime, card);
+                }, 100);
+            });
+        }
+
+        // Check current activity and highlight it
+        function checkCurrentActivity(startTime, endTime, card) {
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
+                               now.getMinutes().toString().padStart(2, '0');
+            
+            if (currentTime >= startTime && currentTime < endTime) {
+                card.classList.add('active');
+                
+                // Add current indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'current-indicator';
+                card.querySelector('.routine-time').appendChild(indicator);
+            }
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            
+            // Format time
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Format date
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            currentTimeDisplay.textContent = timeString;
+            currentDateDisplay.textContent = dateString;
+        }
+
+        // Initialize and update time every second
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Re-check current activity every minute
+        setInterval(() => {
+            const cards = document.querySelectorAll('.routine-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+                const indicator = card.querySelector('.current-indicator');
+                if (indicator) indicator.remove();
+            });
+            
+            routineData[currentDay].forEach((item, index) => {
+                const nextTime = routineData[currentDay][index + 1] ? 
+                    routineData[currentDay][index + 1].time : '23:59';
+                const card = cards[index];
+                if (card) checkCurrentActivity(item.time, nextTime, card);
+            });
+        }, 60000);
+    </script>
+</body>
+</html>

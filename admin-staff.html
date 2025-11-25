@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Staff - Cadet College Sanghar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+<style>
+  /* ========== CSS VARIABLES ========== */
+  :root{
+    --nav-bg: #002147;
+    --nav-bg-dark: #011b36;
+    --accent: #fdfcf9ff;
+    --primary: #002147;
+    --soft-blue: #ecf5ff;
+    --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+    --text: #222;
+    --muted: #556b86;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* ========== RESET & BASE STYLES ========== */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.6;color:var(--text);
+    background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block;height:auto}
+
+  /* ========== HERO SECTION ========== */
+  .hero-section {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #002147 0%, #003366 50%, #004080 100%);
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    border-radius: 50%;
+    background: url('assets/images/Logo.webp') center/contain no-repeat;
+  }
+
+  .floating-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .floating-item {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.7;
+    filter: drop-shadow(0 5px 15px rgba(255,255,255,0.3));
+  }
+
+  .floating-item:nth-child(1) {
+    top: 15%;
+    left: 10%;
+    font-size: 2.5rem;
+  }
+
+  .floating-item:nth-child(2) {
+    top: 65%;
+    left: 85%;
+    font-size: 3rem;
+  }
+
+  .floating-item:nth-child(3) {
+    top: 80%;
+    left: 15%;
+    font-size: 2.2rem;
+  }
+
+  .floating-item:nth-child(4) {
+    top: 25%;
+    left: 75%;
+    font-size: 2.8rem;
+  }
+
+  .floating-item:nth-child(5) {
+    top: 45%;
+    left: 5%;
+    font-size: 2.3rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s var(--ease-smooth), transform 1.5s var(--ease-smooth);
+  }
+
+  .hero-content.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.9);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-weight: 300;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .scroll-indicator:hover {
+    transform: translateX(-50%) translateY(-5px);
+  }
+
+  /* ========== ADMIN STAFF SECTION ========== */
+  .admin-section {
+    padding: 100px 5%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+  }
+
+  .section-title h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-smooth);
+  }
+
+  .section-title h2.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ffd36b, var(--primary));
+    border-radius: 3px;
+    transition: width 1.5s 0.5s var(--ease-smooth);
+  }
+
+  .section-title h2.loaded::after {
+    width: 100px;
+  }
+
+  .section-title p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 1s 0.8s var(--ease-smooth);
+  }
+
+  .section-title p.loaded {
+    opacity: 1;
+  }
+
+  /* ========== ADMIN STAFF GRID ========== */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .admin-card {
+    background: #fff;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+    transition: all 0.6s var(--ease-smooth);
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .admin-card.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .admin-card:hover {
+    transform: translateY(-20px) scale(1.03);
+    box-shadow: 0 30px 70px rgba(2,36,85,0.2);
+  }
+
+  .admin-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), #ffd36b);
+    z-index: 2;
+  }
+
+  .admin-card-header {
+    padding: 30px 30px 20px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(135deg, var(--primary), var(--nav-bg-dark));
+    color: white;
+    overflow: hidden;
+  }
+
+  .admin-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .admin-card:hover .admin-badge {
+    transform: scale(1.05);
+  }
+
+  .admin-photo-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid rgba(255,255,255,0.3);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.5s var(--ease-smooth);
+  }
+
+  .admin-card:hover .admin-photo-container {
+    transform: scale(1.1);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  }
+
+  .admin-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s var(--ease-smooth);
+    filter: grayscale(0.3);
+  }
+
+  .admin-card:hover .admin-photo {
+    transform: scale(1.1);
+    filter: grayscale(0);
+  }
+
+  .admin-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .admin-designation {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .admin-card-body {
+    padding: 30px;
+  }
+
+  .admin-details {
+    margin-bottom: 25px;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .detail-item::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--soft-blue), transparent);
+    transition: left 0.5s var(--ease-smooth);
+  }
+
+  .detail-item:hover::before {
+    left: 100%;
+  }
+
+  .detail-item:hover {
+    transform: translateX(10px);
+    border-bottom-color: var(--primary);
+  }
+
+  .detail-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    background: var(--soft-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--primary);
+    transition: all 0.3s var(--ease-smooth);
+  }
+
+  .detail-item:hover .detail-icon {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  .detail-text {
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .admin-responsibilities {
+    background: var(--soft-blue);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .admin-responsibilities::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: left 0.7s var(--ease-smooth);
+  }
+
+  .admin-card:hover .admin-responsibilities::before {
+    left: 100%;
+  }
+
+  .responsibilities-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  .responsibilities-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .responsibility-item {
+    padding: 5px 0;
+    position: relative;
+    padding-left: 20px;
+    transition: all 0.3s var(--ease-smooth);
+  }
+
+  .responsibility-item:hover {
+    transform: translateX(5px);
+    color: var(--primary);
+  }
+
+  .responsibility-item::before {
+    content: '►';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 0.8rem;
+    transition: all 0.3s var(--ease-smooth);
+  }
+
+  .responsibility-item:hover::before {
+    transform: translateX(3px);
+    color: #ff6b35;
+  }
+
+  /* ========== BACK BUTTON ========== */
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    margin: 40px auto;
+    transition: all 0.4s var(--ease-smooth);
+    box-shadow: 0 8px 20px rgba(2,36,85,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s var(--ease-smooth);
+  }
+
+  .back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(2,36,85,0.3);
+    background: #00356b;
+  }
+
+  .back-button:hover::before {
+    left: 100%;
+  }
+
+  .back-container {
+    text-align: center;
+    padding: 20px 5%;
+  }
+
+  /* ========== RESPONSIVE DESIGN ========== */
+  @media (max-width: 1000px){
+    .hero-title {
+      font-size: 3rem;
+    }
+    .admin-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px){
+    .hero-section {
+      height: 60vh;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+    .section-title h2 {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 520px){
+    .hero-title {
+      font-size: 2rem;
+    }
+    .section-title h2 {
+      font-size: 1.8rem;
+    }
+    .admin-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <header-component></header-component>
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="floating-icons">
+      <div class="floating-item">👨‍💼</div>
+      <div class="floating-item">📊</div>
+      <div class="floating-item">🏛️</div>
+      <div class="floating-item">📋</div>
+      <div class="floating-item">⚙️</div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Administrative Staff</h1>
+      <p class="hero-subtitle">Meet the dedicated team that ensures the smooth operation of Cadet College Sanghar</p>
+    </div>
+    <div class="scroll-indicator" id="scrollToContent">↓</div>
+  </section>
+
+  <!-- ========== ADMIN STAFF SECTION ========== -->
+  <section class="admin-section">
+    <div class="section-title">
+      <h2>Our Administrative Team</h2>
+      <p>Professional administrators committed to excellence in college management and operations</p>
+    </div>
+    
+    <div class="admin-grid">
+      <!-- Staff Member 1 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Vice Principal</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/farooq.webp" alt="Mr. Muhammad Farooq Aslam Ch." class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Mr. Muhammad Farooq Aslam Ch.</h3>
+          <p class="admin-designation">Vice Principal (Admin)</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">👨‍💼</span>
+              <span class="detail-text">Senior Administrator</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">15+ Years Experience</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎓</span>
+              <span class="detail-text">Masters in Education</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Chairman Accommodation Committee</li>
+              <li class="responsibility-item">Member & Secretary College Council</li>
+              <li class="responsibility-item">Member College Appointment Committee</li>
+              <li class="responsibility-item">Officer Incharge Mess</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 2 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Adjutant</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/hamza.webp" alt="Lt. Ali Hamza Goraya PN" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Lt. Ali Hamza Goraya PN</h3>
+          <p class="admin-designation">Adjutant Cadet College Sanghar</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">⚓</span>
+              <span class="detail-text">Pakistan Navy Officer</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">8+ Years Service</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎖️</span>
+              <span class="detail-text">Leadership Specialist</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Sports Officer CCS</li>
+              <li class="responsibility-item">O/IC Security & Discipline</li>
+              <li class="responsibility-item">Member College Council</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 3 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Religious Officer</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/sarwar.webp" alt="Lt. Muhammad Sarwar PN" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Lt. Muhammad Sarwar PN</h3>
+          <p class="admin-designation">Religious Motivational Officer</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">🕌</span>
+              <span class="detail-text">Religious Affairs</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">10+ Years Service</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📚</span>
+              <span class="detail-text">Islamic Studies Scholar</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Officer Incharge Religious Affairs</li>
+              <li class="responsibility-item">Officer Incharge Masjid</li>
+              <li class="responsibility-item">Member of College Council</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 4 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Finance</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/anjum.webp" alt="Syed Muhammad Anjum Iqbal" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Syed Muhammad Anjum Iqbal</h3>
+          <p class="admin-designation">Bursar</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">💰</span>
+              <span class="detail-text">Finance Head</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">12+ Years Experience</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">📊</span>
+              <span class="detail-text">Chartered Accountant</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Head of Finance</li>
+              <li class="responsibility-item">Budget Management</li>
+              <li class="responsibility-item">Financial Planning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 5 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Medical</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/nasir.webp" alt="Dr. Nasir" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Dr. Nasir</h3>
+          <p class="admin-designation">Medical Officer</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">👨‍⚕️</span>
+              <span class="detail-text">Medical Doctor</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">20+ Years Experience</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎓</span>
+              <span class="detail-text">MBBS, FCPS</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Medical Officer</li>
+              <li class="responsibility-item">Member of College Council</li>
+              <li class="responsibility-item">Nutrition Incharge</li>
+              <li class="responsibility-item">Hygiene Incharge</li>
+              <li class="responsibility-item">Overall Medical Incharge</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 6 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Engineering</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/rasheed.webp" alt="Engineer Abdul Rasheed Detho" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Engineer Abdul Rasheed Detho</h3>
+          <p class="admin-designation">Maintenance Engineer</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">🔧</span>
+              <span class="detail-text">Civil Engineer</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">18+ Years Experience</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🏗️</span>
+              <span class="detail-text">B.E. Civil Engineering</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Repair, Maintenance</li>
+              <li class="responsibility-item">Civil Project Supervision</li>
+              <li class="responsibility-item">Infrastructure Management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Staff Member 7 -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-badge">Administration</div>
+          <div class="admin-photo-container">
+            <img src="assets/images/admin/qaimudin.webp" alt="Mr. Qaimuddin Jarwar" class="admin-photo" loading="lazy">
+          </div>
+          <h3 class="admin-name">Mr. Qaimuddin Jarwar</h3>
+          <p class="admin-designation">Office Superintendent</p>
+        </div>
+        <div class="admin-card-body">
+          <div class="admin-details">
+            <div class="detail-item">
+              <span class="detail-icon">📁</span>
+              <span class="detail-text">Office Management</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">⏱️</span>
+              <span class="detail-text">25+ Years Experience</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🎯</span>
+              <span class="detail-text">Administration Expert</span>
+            </div>
+          </div>
+          <div class="admin-responsibilities">
+            <div class="responsibilities-title">Key Responsibilities:</div>
+            <ul class="responsibilities-list">
+              <li class="responsibility-item">Office Administration</li>
+              <li class="responsibility-item">Document Management</li>
+              <li class="responsibility-item">Coordination</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== BACK BUTTON ========== -->
+  <div class="back-container">
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      Back to Home
+    </a>
+  </div>
+<footer-component></footer-component>
+  <script src="loader.js"></script>
+  <script>
+    // ========== INITIALIZE ANIMATIONS ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add loaded class to elements for entrance animations
+      const elementsToAnimate = [
+        document.querySelector('.hero-content'),
+        document.querySelector('.section-title h2'),
+        document.querySelector('.section-title p'),
+        ...document.querySelectorAll('.admin-card')
+      ];
+      
+      // Stagger the animations for better performance
+      elementsToAnimate.forEach((element, index) => {
+        if (element) {
+          setTimeout(() => {
+            element.classList.add('loaded');
+          }, index * 100);
+        }
+      });
+      
+      // ========== SCROLL TO CONTENT ==========
+      document.getElementById('scrollToContent').addEventListener('click', function() {
+        document.querySelector('.admin-section').scrollIntoView({ 
+          behavior: 'smooth' 
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Academic Departments - Cadet College Sanghar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root{
+      --nav-bg: #002147;
+      --nav-bg-dark: #011b36;
+      --accent: #fdfcf9ff;
+      --primary: #002147;
+      --soft-blue: #ecf5ff;
+      --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+      --text: #222;
+      --muted: #556b86;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      
+      /* Department Colors */
+      --ics: #7c3aed;
+      --pre-med: #dc2626;
+      --pre-eng: #059669;
+      --urdu: #3b82f6;
+      --english: #8b5cf6;
+      --sindhi: #06b6d4;
+      --chinese: #ef4444;
+      --physics: #f59e0b;
+      --maths: #10b981;
+      --arabic: #6366f1;
+      --chemistry: #ec4899;
+      --computer: #14b8a6;
+      --biology: #84cc16;
+      --islamiat: #f97316;
+    }
+
+    /* ========== RESET & BASE STYLES ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.6;color:var(--text);
+      background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ========== ENHANCED LOGO ANIMATION ========== */
+    .departments-logo {
+      max-width: 180px;
+      margin: 80px auto 30px;
+      display: block;
+      filter: drop-shadow(0 5px 15px rgba(2,36,85,0.1));
+      animation: enhancedFloat 8s ease-in-out infinite, logoGlow 4s ease-in-out infinite alternate;
+      transition: all 0.6s var(--ease-bounce);
+    }
+    
+    .departments-logo:hover {
+      transform: scale(1.1) rotate(5deg);
+      animation-play-state: paused;
+    }
+    
+    @keyframes enhancedFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-15px) rotate(1deg); }
+      50% { transform: translateY(0px) rotate(0deg); }
+      75% { transform: translateY(-10px) rotate(-1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    
+    @keyframes logoGlow {
+      0% { filter: drop-shadow(0 5px 15px rgba(2,36,85,0.1)); }
+      100% { filter: drop-shadow(0 5px 25px rgba(2,36,85,0.3)); }
+    }
+
+    /* ========== DEPARTMENTS PAGE HEADER ========== */
+    .departments-header {
+      text-align: center;
+      padding: 20px 5% 40px;
+      position: relative;
+    }
+    
+    .departments-header h1 {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .departments-header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 2px;
+    }
+    
+    .departments-header p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ========== DEPARTMENT CARDS SECTION ========== */
+    .departments-section {
+      padding: 40px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: #00356b;
+      margin-bottom: 15px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 2px;
+    }
+    
+    .departments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+    }
+    
+    .department-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.5s var(--ease-smooth);
+      position: relative;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+    
+    .department-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 30px 70px rgba(2,36,85,0.15);
+    }
+    
+    .department-header {
+      padding: 25px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .department-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+    }
+    
+    .department-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .department-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .department-content {
+      padding: 30px;
+    }
+    
+    .department-hod {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: var(--soft-blue);
+      border-radius: 12px;
+    }
+    
+    .hod-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 15px;
+      border: 3px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .hod-info h4 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    
+    .hod-info p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    .department-description {
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+    }
+    
+    .department-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .department-feature {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f4f9;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .department-feature:last-child {
+      border-bottom: none;
+    }
+    
+    .department-feature::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      transition: left 0.4s var(--ease-smooth);
+      z-index: -1;
+    }
+    
+    .department-feature:hover {
+      padding-left: 15px;
+      transform: translateX(5px);
+    }
+    
+    .department-feature svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      transition: all 0.3s var(--ease-smooth);
+    }
+    
+    .department-feature:hover svg {
+      transform: scale(1.2);
+    }
+    
+    .department-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .department-image {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 150px;
+      position: relative;
+      transition: all 0.4s var(--ease-smooth);
+    }
+    
+    .department-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-smooth);
+    }
+    
+    .department-image:hover img {
+      transform: scale(1.1);
+    }
+    
+    .department-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.4));
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-smooth);
+    }
+    
+    .department-image:hover::after {
+      opacity: 1;
+    }
+    
+    /* Department-specific colors */
+    .ics-department .department-header { background: var(--ics); }
+    .ics-department .department-feature::before { background: rgba(124, 58, 237, 0.08); }
+    .ics-department .department-feature:hover svg { fill: var(--ics); }
+    
+    .pre-med-department .department-header { background: var(--pre-med); }
+    .pre-med-department .department-feature::before { background: rgba(220, 38, 38, 0.08); }
+    .pre-med-department .department-feature:hover svg { fill: var(--pre-med); }
+    
+    .pre-eng-department .department-header { background: var(--pre-eng); }
+    .pre-eng-department .department-feature::before { background: rgba(5, 150, 105, 0.08); }
+    .pre-eng-department .department-feature:hover svg { fill: var(--pre-eng); }
+    
+    .urdu-department .department-header { background: var(--urdu); }
+    .urdu-department .department-feature::before { background: rgba(59, 130, 246, 0.08); }
+    .urdu-department .department-feature:hover svg { fill: var(--urdu); }
+    
+    .english-department .department-header { background: var(--english); }
+    .english-department .department-feature::before { background: rgba(139, 92, 246, 0.08); }
+    .english-department .department-feature:hover svg { fill: var(--english); }
+    
+    .sindhi-department .department-header { background: var(--sindhi); }
+    .sindhi-department .department-feature::before { background: rgba(6, 182, 212, 0.08); }
+    .sindhi-department .department-feature:hover svg { fill: var(--sindhi); }
+    
+    .chinese-department .department-header { background: var(--chinese); }
+    .chinese-department .department-feature::before { background: rgba(239, 68, 68, 0.08); }
+    .chinese-department .department-feature:hover svg { fill: var(--chinese); }
+    
+    .physics-department .department-header { background: var(--physics); }
+    .physics-department .department-feature::before { background: rgba(245, 158, 11, 0.08); }
+    .physics-department .department-feature:hover svg { fill: var(--physics); }
+    
+    .maths-department .department-header { background: var(--maths); }
+    .maths-department .department-feature::before { background: rgba(16, 185, 129, 0.08); }
+    .maths-department .department-feature:hover svg { fill: var(--maths); }
+    
+    .arabic-department .department-header { background: var(--arabic); }
+    .arabic-department .department-feature::before { background: rgba(99, 102, 241, 0.08); }
+    .arabic-department .department-feature:hover svg { fill: var(--arabic); }
+    
+    .chemistry-department .department-header { background: var(--chemistry); }
+    .chemistry-department .department-feature::before { background: rgba(236, 72, 153, 0.08); }
+    .chemistry-department .department-feature:hover svg { fill: var(--chemistry); }
+    
+    .computer-department .department-header { background: var(--computer); }
+    .computer-department .department-feature::before { background: rgba(20, 184, 166, 0.08); }
+    .computer-department .department-feature:hover svg { fill: var(--computer); }
+    
+    .biology-department .department-header { background: var(--biology); }
+    .biology-department .department-feature::before { background: rgba(132, 204, 22, 0.08); }
+    .biology-department .department-feature:hover svg { fill: var(--biology); }
+    
+    .islamiat-department .department-header { background: var(--islamiat); }
+    .islamiat-department .department-feature::before { background: rgba(249, 115, 22, 0.08); }
+    .islamiat-department .department-feature:hover svg { fill: var(--islamiat); }
+
+    /* ========== LABS & FACILITIES SECTION ========== */
+    .facilities-section {
+      padding: 80px 5%;
+      background: var(--soft-blue);
+    }
+    
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .facility-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.5s var(--ease-smooth);
+      position: relative;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+    
+    .facility-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 60px rgba(2,36,85,0.15);
+    }
+    
+    .facility-image {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .facility-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-smooth);
+    }
+    
+    .facility-card:hover .facility-image img {
+      transform: scale(1.1);
+    }
+    
+    .facility-content {
+      padding: 25px;
+    }
+    
+    .facility-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      transition: color 0.3s var(--ease-smooth);
+    }
+    
+    .facility-card:hover .facility-name {
+      color: #00356b;
+    }
+    
+    .facility-description {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ========== STATISTICS SECTION ========== */
+    .stats-section {
+      padding: 80px 5%;
+      background: #fff;
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .stat-card {
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+    }
+    
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--soft-blue);
+      transition: all 0.4s var(--ease-smooth);
+    }
+    
+    .stat-card:hover .stat-icon {
+      transform: scale(1.1) rotate(5deg);
+      background: var(--primary);
+    }
+    
+    .stat-card:hover .stat-icon svg {
+      fill: #fff;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .stat-label {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ========== CTA SECTION ========== */
+    .cta-section {
+      padding: 80px 5%;
+      background: linear-gradient(135deg, var(--primary) 0%, #00356b 100%);
+      color: #fff;
+      text-align: center;
+    }
+    
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .cta-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+    
+    .cta-description {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .cta-button {
+      background: #ffd36b;
+      color: var(--primary);
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-bounce);
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s var(--ease-smooth);
+    }
+    
+    .cta-button:hover {
+      background: #e9c709;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    /* ========== SCROLL ANIMATIONS ========== */
+    .fade-slide{
+      opacity:0;
+      transform:translateY(40px);
+      transition:opacity 1s var(--ease-smooth),transform 1s var(--ease-smooth)
+    }
+    .appear{
+      opacity:1;
+      transform:none
+    }
+    
+    @keyframes floatUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 1000px){
+      .departments-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px){
+      .departments-header h1{font-size:2.2rem}
+      .section-title h2{font-size:1.8rem}
+      .department-images{grid-template-columns: 1fr}
+      .facilities-grid{grid-template-columns: 1fr}
+      .stats-container{grid-template-columns: repeat(2, 1fr)}
+      .cta-title{font-size:1.8rem}
+      .department-hod {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hod-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+    
+    @media (max-width: 520px){
+      .departments-header h1{font-size:1.8rem; letter-spacing: 0.2px;}
+      .stats-container{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header-component></header-component>
+  
+  <!-- ========== DEPARTMENTS PAGE LOGO ========== -->
+  <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo" class="departments-logo">
+  
+  <!-- ========== DEPARTMENTS PAGE HEADER ========== -->
+  <section class="departments-header">
+    <h1>Academic Departments</h1>
+    <p>Explore our specialized academic programs designed to prepare students for success in their chosen fields</p>
+  </section>
+  
+  <!-- ========== DEPARTMENT CARDS SECTION ========== -->
+  <section class="departments-section fade-slide" aria-labelledby="departments-heading">
+    <div class="section-title">
+      <h2 id="departments-heading">Our Academic Programs</h2>
+      <p>Specialized tracks and individual subjects to match your career aspirations</p>
+    </div>
+    
+    <div class="departments-grid">
+      <!-- ICS Department -->
+      <div class="department-card ics-department">
+        <div class="department-header">
+          <h3 class="department-name">ICS (Intermediate in Computer Science)</h3>
+          <p class="department-subtitle">Technology & Innovation Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/hassan.webp" alt="HOD Computer Science">
+            </div>
+            <div class="hod-info">
+              <h4>Mr. Ahmed Khan</h4>
+              <p>Head of Computer Science Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our ICS program provides a strong foundation in computer science, programming, and information technology. Students gain hands-on experience with modern technologies and develop problem-solving skills for the digital age.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Computer Programming & Algorithms</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Database Management Systems</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Web Development & Design</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Networking & Cybersecurity</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/computer.webp" alt="Computer Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/computer.webp" alt="Programming Class">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pre-Medical Department -->
+      <div class="department-card pre-med-department">
+        <div class="department-header">
+          <h3 class="department-name">Pre-Medical</h3>
+          <p class="department-subtitle">Biology & Health Sciences Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/shahab.webp" alt="HOD Biology">
+            </div>
+            <div class="hod-info">
+              <h4>Dr. Saima Ali</h4>
+              <p>Head of Biology Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Pre-Medical program prepares students for careers in medicine, dentistry, and other health sciences. With state-of-the-art laboratories and experienced faculty, students develop a deep understanding of biological sciences.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Advanced Biology & Anatomy</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Chemistry & Biochemistry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Medical Laboratory Techniques</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Health Sciences & Ethics</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/lab.webp " alt="Biology Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/lab.webp" alt="Chemistry Lab">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pre-Engineering Department -->
+      <div class="department-card pre-eng-department">
+        <div class="department-header">
+          <h3 class="department-name">Pre-Engineering</h3>
+          <p class="department-subtitle">Mathematics & Physics Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/shahid.webp" alt="HOD Physics">
+            </div>
+            <div class="hod-info">
+              <h4>Prof. Naveed Ahmed</h4>
+              <p>Head of Physics Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Pre-Engineering program builds a strong foundation in mathematics and physics, preparing students for engineering disciplines. With practical applications and problem-solving approaches, students develop analytical thinking skills.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Advanced Mathematics & Calculus</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Physics & Applied Mechanics</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Engineering Drawing & Design</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Electronics & Computer Applications</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/computer.webp" alt="Physics Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/computer.webp" alt="Engineering Class">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Urdu Department -->
+      <div class="department-card urdu-department">
+        <div class="department-header">
+          <h3 class="department-name">Urdu</h3>
+          <p class="department-subtitle">Language & Literature Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/anjum.webp" alt="HOD Urdu">
+            </div>
+            <div class="hod-info">
+              <h4>Prof. Fatima Hassan</h4>
+              <p>Head of Urdu Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Urdu department focuses on developing proficiency in the national language through classical and modern literature. Students explore rich poetic traditions and develop strong communication skills in both written and spoken Urdu.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Classical & Modern Poetry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Prose & Essay Writing</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Grammar & Composition</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Literary Criticism & Analysis</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/urdu-class.jpg" alt="Urdu Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/urdu-library.jpg" alt="Urdu Literature">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- English Department -->
+      <div class="department-card english-department">
+        <div class="department-header">
+          <h3 class="department-name">English</h3>
+          <p class="department-subtitle">Language & Communication Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/sharaf.webp" alt="HOD English">
+            </div>
+            <div class="hod-info">
+              <h4>Ms. Sarah Johnson</h4>
+              <p>Head of English Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our English department emphasizes proficiency in the global language of communication. Students develop strong reading, writing, and speaking skills through exposure to diverse literary works and practical communication exercises.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>British & American Literature</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Creative & Academic Writing</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Grammar & Vocabulary Building</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Public Speaking & Debating</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/english-class.jpg" alt="English Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/english-debate.jpg" alt="English Debate">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sindhi Department -->
+      <div class="department-card sindhi-department">
+        <div class="department-header">
+          <h3 class="department-name">Sindhi</h3>
+          <p class="department-subtitle">Regional Language & Culture Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/akbar.webp" alt="HOD Sindhi">
+            </div>
+            <div class="hod-info">
+              <h4>Prof. Ali Raza</h4>
+              <p>Head of Sindhi Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Sindhi department celebrates the rich cultural heritage of Sindh through its language and literature. Students explore classical Sindhi poetry, folk tales, and develop appreciation for regional linguistic diversity.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Classical Sindhi Poetry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Sindhi Prose & Grammar</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Folk Literature & Culture</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Modern Sindhi Literature</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/sindhi-class.jpg" alt="Sindhi Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/sindhi-culture.jpg" alt="Sindhi Culture">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chinese Department -->
+      <div class="department-card chinese-department">
+        <div class="department-header">
+          <h3 class="department-name">Chinese</h3>
+          <p class="department-subtitle">Foreign Language & Culture Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/dos.webp" alt="HOD Chinese">
+            </div>
+            <div class="hod-info">
+              <h4>Ms. Li Wei</h4>
+              <p>Head of Chinese Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Chinese department introduces students to one of the world's most important languages. Through immersive learning, students develop proficiency in Mandarin while gaining insights into Chinese culture and traditions.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Mandarin Pronunciation & Tones</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Chinese Characters & Writing</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Conversational Chinese</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Chinese Culture & Traditions</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/chinese-class.jpg" alt="Chinese Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/chinese-culture.jpg" alt="Chinese Culture">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Physics Department -->
+      <div class="department-card physics-department">
+        <div class="department-header">
+          <h3 class="department-name">Physics</h3>
+          <p class="department-subtitle">Fundamental Science Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/shahid.webp" alt="HOD Physics">
+            </div>
+            <div class="hod-info">
+              <h4>Dr. Ahmed Raza</h4>
+              <p>Head of Physics Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Physics department explores the fundamental laws governing the universe. Through theoretical concepts and practical experiments, students develop analytical thinking and problem-solving skills applicable to various scientific fields.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Mechanics & Motion</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Electricity & Magnetism</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Thermodynamics & Waves</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Modern Physics & Electronics</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/physics-lab.jpg" alt="Physics Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/physics-experiment.jpg" alt="Physics Experiment">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mathematics Department -->
+      <div class="department-card maths-department">
+        <div class="department-header">
+          <h3 class="department-name">Mathematics</h3>
+          <p class="department-subtitle">Analytical Thinking Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/yameen.webp" alt="HOD Mathematics">
+            </div>
+            <div class="hod-info">
+              <h4>Prof. Usman Siddiqui</h4>
+              <p>Head of Mathematics Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Mathematics department develops logical reasoning and problem-solving abilities through the study of numbers, patterns, and relationships. Students learn to apply mathematical concepts to real-world situations across various disciplines.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Algebra & Calculus</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Geometry & Trigonometry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Statistics & Probability</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Mathematical Modeling</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/maths-class.jpg" alt="Mathematics Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/maths-problem.jpg" alt="Mathematics Problem Solving">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Arabic Department -->
+      <div class="department-card arabic-department">
+        <div class="department-header">
+          <h3 class="department-name">Arabic</h3>
+          <p class="department-subtitle">Classical Language Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/brohi.webp" alt="HOD Arabic">
+            </div>
+            <div class="hod-info">
+              <h4>Sheikh Abdul Rahman</h4>
+              <p>Head of Arabic Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Arabic department focuses on developing proficiency in the language of the Quran and classical Islamic texts. Students learn to read, write, and understand Arabic while exploring its rich literary and cultural heritage.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Quranic Arabic</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Grammar & Syntax</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Classical Literature</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Conversational Arabic</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/arabic-class.jpg" alt="Arabic Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/arabic-calligraphy.jpg" alt="Arabic Calligraphy">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chemistry Department -->
+      <div class="department-card chemistry-department">
+        <div class="department-header">
+          <h3 class="department-name">Chemistry</h3>
+          <p class="department-subtitle">Molecular Science Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/shehzad.webp" alt="HOD Chemistry">
+            </div>
+            <div class="hod-info">
+              <h4>Dr. Farhan Ahmed</h4>
+              <p>Head of Chemistry Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Chemistry department explores the composition, properties, and transformations of matter. Through laboratory experiments and theoretical study, students understand the molecular basis of the physical world.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Organic Chemistry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Inorganic Chemistry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Physical Chemistry</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Analytical Chemistry</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/chemistry-lab.jpg" alt="Chemistry Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/chemistry-experiment.jpg" alt="Chemistry Experiment">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Biology Department -->
+      <div class="department-card biology-department">
+        <div class="department-header">
+          <h3 class="department-name">Biology</h3>
+          <p class="department-subtitle">Life Sciences Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/shahab.webp" alt="HOD Biology">
+            </div>
+            <div class="hod-info">
+              <h4>Dr. Saima Ali</h4>
+              <p>Head of Biology Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Biology department explores the diversity and complexity of living organisms. Through laboratory work and field studies, students develop an understanding of biological systems from molecular to ecological levels.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Cell Biology & Genetics</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Human Anatomy & Physiology</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Ecology & Environmental Science</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Evolution & Diversity</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/biology-lab.jpg" alt="Biology Lab">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/biology-field.jpg" alt="Biology Field Study">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Islamiat Department -->
+      <div class="department-card islamiat-department">
+        <div class="department-header">
+          <h3 class="department-name">Islamiat</h3>
+          <p class="department-subtitle">Islamic Studies Focus</p>
+        </div>
+        <div class="department-content">
+          <div class="department-hod">
+            <div class="hod-image">
+              <img src="assets/images/faculty/brohi.webp" alt="HOD Islamiat">
+            </div>
+            <div class="hod-info">
+              <h4>Maulana Abdul Qadir</h4>
+              <p>Head of Islamiat Department</p>
+            </div>
+          </div>
+          <p class="department-description">
+            Our Islamiat department provides comprehensive knowledge of Islamic teachings, history, and jurisprudence. Students develop a deep understanding of their faith and learn to apply Islamic principles in contemporary contexts.
+          </p>
+          
+          <ul class="department-features">
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Quranic Studies & Tafseer</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Hadith & Seerah</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Islamic History & Civilization</span>
+            </li>
+            <li class="department-feature">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span>Fiqh & Islamic Ethics</span>
+            </li>
+          </ul>
+          
+          <div class="department-images">
+            <div class="department-image">
+              <img src="assets/images/islamiat-class.jpg" alt="Islamiat Class">
+            </div>
+            <div class="department-image">
+              <img src="assets/images/islamic-art.jpg" alt="Islamic Art">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== LABS & FACILITIES SECTION ========== -->
+  <section class="facilities-section fade-slide" aria-labelledby="facilities-heading">
+    <div class="section-title">
+      <h2 id="facilities-heading">Our Laboratories & Facilities</h2>
+      <p>State-of-the-art learning environments for hands-on education</p>
+    </div>
+    
+    <div class="facilities-grid">
+      <div class="facility-card">
+        <div class="facility-image">
+          <img src="assets/images/computer.webp" alt="Computer Laboratory">
+        </div>
+        <div class="facility-content">
+          <h3 class="facility-name">Computer Laboratory</h3>
+          <p class="facility-description">
+            Equipped with modern computers, programming software, and high-speed internet for ICS students to practice coding and develop software applications.
+          </p>
+        </div>
+      </div>
+      
+      <div class="facility-card">
+        <div class="facility-image">
+          <img src="assets/images/lab.webp" alt="Science Laboratory">
+        </div>
+        <div class="facility-content">
+          <h3 class="facility-name">Science Laboratory</h3>
+          <p class="facility-description">
+            Fully equipped with modern apparatus for physics, chemistry, and biology experiments, allowing students to apply theoretical knowledge practically.
+          </p>
+        </div>
+      </div>
+      
+      <div class="facility-card">
+        <div class="facility-image">
+          <img src="assets/images/lab.webp" alt="College Library">
+        </div>
+        <div class="facility-content">
+          <h3 class="facility-name">College Library</h3>
+          <p class="facility-description">
+            Extensive collection of academic books, reference materials, and digital resources to support research and self-study across all departments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== STATISTICS SECTION ========== -->
+  <section class="stats-section fade-slide" aria-labelledby="stats-heading">
+    <div class="section-title">
+      <h2 id="stats-heading">Department Achievements</h2>
+      <p>Excellence in education and student success</p>
+    </div>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+        <span class="stat-number">95%</span>
+        <span class="stat-label">Pass Rate</span>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+        <span class="stat-number">150+</span>
+        <span class="stat-label">University Admissions</span>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </div>
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Years of Excellence</span>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+        <span class="stat-number">25+</span>
+        <span class="stat-label">Qualified Faculty</span>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========== CTA SECTION ========== -->
+  <section class="cta-section fade-slide">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Choose Your Path?</h2>
+      <p class="cta-description">
+        Join Cadet College Sanghar and embark on an educational journey that will shape your future. Our dedicated faculty and exceptional facilities ensure you receive the best possible preparation for your career.
+      </p>
+      <a href="admission-process.html">
+  <button class="cta-button">Apply for Admission</button>
+</a>
+
+    </div>
+  </section>
+  
+  <footer-component></footer-component>
+  
+  <script src="loader.js"></script>
+  <script>
+    // Initialize scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const faders = document.querySelectorAll('.fade-slide');
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('appear');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+      faders.forEach(f => io.observe(f));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="components.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jinnah House - Cadet College Sanghar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+<style>
+  /* ========== CSS VARIABLES ========== */
+  :root{
+    --nav-bg: #002147;
+    --nav-bg-dark: #011b36;
+    --accent: #fdfcf9ff;
+    --primary: #002147;
+    --soft-blue: #ecf5ff;
+    --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+    --text: #222;
+    --muted: #556b86;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --house-primary: #1e3a8a;
+    --house-secondary: #1e40af;
+    --house-glow: rgba(30, 58, 138, 0.3);
+    --house-accent: #ffd36b;
+  }
+
+  /* ========== RESET & BASE STYLES ========== */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.6;color:var(--text);
+    background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block;height:auto}
+
+  /* ========== ENHANCED HERO SECTION ========== */
+  .hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#fff;
+    padding:28px;
+    position:relative;
+    overflow:hidden;
+    
+    background: 
+      linear-gradient(135deg, 
+        rgba(30, 58, 138, 0.85) 0%, 
+        rgba(204, 11, 204, 0.75) 50%,
+        rgba(0, 33, 71, 0.9) 100%),
+      url("assets/images/houses/latif.webp") center/cover no-repeat fixed;
+    transition: all 0.3s var(--ease-smooth);
+  }
+  
+  /* Optimized particles background */
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(2, 255, 23, 0.4);
+    border-radius: 50%;
+    animation: floatParticle 20s infinite linear;
+    will-change: transform, opacity;
+  }
+
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Enhanced hero content animations */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+  }
+
+  .house-name {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(45deg, #fff, var(--house-accent), #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: shimmer 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 211, 107, 0.5);
+    position: relative;
+  }
+
+  .house-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--house-accent), transparent);
+    border-radius: 2px;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .house-motto {
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    padding: 0 40px;
+    opacity: 0;
+    animation: slideInMotto 1.5s 0.8s var(--ease-smooth) forwards;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  @keyframes slideInMotto {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .house-motto::before,
+  .house-motto::after {
+    content: '"';
+    font-size: 3rem;
+    color: var(--accent);
+    position: absolute;
+    top: -15px;
+    animation: quotePulse 2s infinite;
+  }
+
+  @keyframes quotePulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .house-motto::before {
+    left: 0;
+  }
+
+  .house-motto::after {
+    right: 0;
+  }
+
+  .hero-tagline {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    opacity: 0;
+    animation: fadeInUp 1s 1.2s var(--ease-smooth) forwards;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  /* Enhanced floating action button */
+  .hero-cta{
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.6s var(--ease-bounce);
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeInUp 1s 1.5s var(--ease-smooth) forwards;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.8s var(--ease-smooth);
+  }
+
+  .hero-cta:hover{
+    transform: translateY(-8px) scale(1.05);
+    background: var(--accent);
+    color: var(--primary);
+    box-shadow: 0 20px 40px rgba(255, 211, 107, 0.4);
+    border-color: transparent;
+  }
+
+  .hero-cta:hover::before {
+    left: 100%;
+  }
+
+  /* Enhanced scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    animation: bounce 2s infinite;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    40% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+
+  /* ========== ENHANCED LEADERSHIP SECTION ========== */
+  .leadership-section {
+    padding: 120px 5%;
+    background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .leadership-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%231e3a8a" opacity="0.02"><circle cx="50" cy="50" r="2"/></svg>');
+    background-size: 50px 50px;
+    animation: floatBackground 20s linear infinite;
+  }
+
+  @keyframes floatBackground {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50px); }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    color: var(--house-primary);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--house-primary), var(--house-secondary));
+    border-radius: 2px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .leader-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 
+      0 20px 40px rgba(2,36,85,0.1),
+      0 0 0 1px rgba(255,255,255,0.8);
+    transition: all 0.6s var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    will-change: transform, opacity;
+  }
+
+  .leader-card.appear {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .leader-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--house-primary), var(--house-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-smooth);
+  }
+
+  .leader-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .leader-card:hover {
+    transform: translateY(-20px) scale(1.02);
+    box-shadow: 
+      0 30px 60px rgba(30, 58, 138, 0.15),
+      0 0 0 1px rgba(255,255,255,0.9);
+  }
+
+  .leader-img-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+  }
+
+  .leader-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 
+      0 15px 35px rgba(30, 58, 138, 0.2),
+      inset 0 0 0 8px var(--house-primary);
+    transition: all 0.6s var(--ease-smooth);
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+  }
+
+  .leader-card:hover .leader-img {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 
+      0 20px 40px rgba(30, 58, 138, 0.3),
+      inset 0 0 0 4px var(--house-primary);
+  }
+
+  .leader-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--house-glow) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+  }
+
+  .leader-role {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--house-primary), var(--house-secondary));
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+  }
+
+  .leader-name {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-weight: 800;
+  }
+
+  .leader-bio {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  .leader-qualification {
+    font-style: italic;
+    color: var(--house-primary);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* ========== ENHANCED GALLERY SECTION ========== */
+  .gallery-section {
+    padding: 120px 5%;
+    background: linear-gradient(135deg, var(--soft-blue) 0%, #f0f7ff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 60px auto 0;
+  }
+
+  .gallery-item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+      0 15px 35px rgba(2,36,85,0.1),
+      0 0 0 1px rgba(255,255,255,0.8);
+    transition: all 0.6s var(--ease-smooth);
+    position: relative;
+    height: 280px;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    will-change: transform, opacity;
+  }
+
+  .gallery-item.appear {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--house-primary), transparent);
+    opacity: 0;
+    transition: all 0.6s var(--ease-smooth);
+    z-index: 2;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 
+      0 25px 50px rgba(30, 58, 138, 0.2),
+      0 0 0 1px rgba(255,255,255,0.9);
+  }
+
+  .gallery-item:hover::before {
+    opacity: 0.1;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s var(--ease-smooth);
+    transform: scale(1.1);
+    will-change: transform;
+  }
+
+  .gallery-item:hover .gallery-img {
+    transform: scale(1.15);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 25px 20px;
+    transform: translateY(100%);
+    transition: all 0.6s var(--ease-smooth);
+    z-index: 3;
+  }
+
+  .gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+  }
+
+  .caption-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .caption-desc {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  /* ========== OPTIMIZED FLOATING ELEMENTS ========== */
+  .floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .floating-element {
+    position: absolute;
+    background: rgba(30, 58, 138, 0.05);
+    border-radius: 50%;
+    animation: floatElement 15s infinite linear;
+    will-change: transform, opacity;
+  }
+
+  @keyframes floatElement {
+    0% {
+      transform: translateY(100vh) rotate(0deg) scale(0.5);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* ========== NEW ACHIEVEMENTS SECTION ========== */
+  .achievements-section {
+    padding: 120px 5%;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 60px auto 0;
+  }
+
+  .achievement-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 
+      0 15px 35px rgba(2,36,85,0.08),
+      0 0 0 1px rgba(255,255,255,0.8);
+    transition: all 0.6s var(--ease-smooth);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .achievement-card.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--house-primary), var(--house-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-smooth);
+  }
+
+  .achievement-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .achievement-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 
+      0 25px 50px rgba(30, 58, 138, 0.12),
+      0 0 0 1px rgba(255,255,255,0.9);
+  }
+
+  .achievement-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--house-primary), var(--house-secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2);
+  }
+
+  .achievement-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--house-primary);
+    margin-bottom: 10px;
+  }
+
+  .achievement-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .achievement-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* ========== RESPONSIVE DESIGN ========== */
+  @media (max-width: 768px) {
+    .house-name {
+      font-size: 3rem;
+    }
+    
+    .house-motto {
+      font-size: 1.5rem;
+    }
+    
+    .hero-tagline {
+      font-size: 1.1rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+    }
+    
+    .leadership-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .leader-img-container {
+      width: 150px;
+      height: 150px;
+    }
+    
+    .achievements-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .house-name {
+      font-size: 2.5rem;
+    }
+    
+    .house-motto {
+      font-size: 1.3rem;
+      padding: 0 20px;
+    }
+    
+    .section-header h2 {
+      font-size: 2rem;
+    }
+    
+    .leader-name {
+      font-size: 1.5rem;
+    }
+    
+    .hero-cta {
+      padding: 15px 30px;
+      font-size: 1rem;
+    }
+    
+    .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ========== UTILITY ANIMATIONS ========== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+</head>
+<body>
+  <header-component></header-component>
+
+  <!-- Floating background elements -->
+  <div class="floating-elements" id="floatingElements"></div>
+
+  <main>
+    <!-- ========== ENHANCED HERO SECTION ========== -->
+<section class="hero" role="region" aria-label="Latif House Introduction">
+  <!-- Optimized animated particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <h1 class="house-name">Latif House</h1>
+    <p class="house-motto">Fortune Favours the Braves</p>
+    <p class="hero-tagline">Inspired by Sufi wisdom - Building courage since 1999</p>
+    <button class="hero-cta" id="exploreHouse">Discover Our Legacy</button>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll to Explore</span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top: 8px;">
+      <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+    </svg>
+  </div>
+</section>
+
+    <!-- ========== ENHANCED LEADERSHIP SECTION ========== -->
+    <section class="leadership-section" aria-labelledby="leadership-heading">
+      <div class="section-header">
+        <h2 id="leadership-heading">House Leadership</h2>
+        <p>The dedicated mentors and leaders who shape the future of Latif House</p>
+      </div>
+
+      <div class="leadership-grid">
+        <!-- House Master -->
+<div class="leader-card fade-slide">
+  <div class="leader-img-container">
+    <div class="leader-glow"></div>
+    <img src="assets/images/faculty/anjum.webp" alt="House Master" class="leader-img">
+  </div>
+  <span class="leader-role">House Master</span>
+  <h3 class="leader-name">Mr. M Shafique Anjum</h3>
+  <p class="leader-bio">Lecturer in Urdu and Head of Urdu Department. Divisional Officer of H. A. Effendi Division. Officer Incharge of Debating Society and Incharge of Urdu Section of Magazine. Brings extensive experience in language education and student leadership development.</p>
+  <p class="leader-qualification">M.A (Urdu), B.Ed • Joined: 2010</p>
+</div>
+
+<!-- Assistant House Master -->
+<div class="leader-card fade-slide">
+  <div class="leader-img-container">
+    <div class="leader-glow"></div>
+    <img src="assets/images/faculty/asif.webp" alt="Assistant House Master" class="leader-img">
+  </div>
+  <span class="leader-role">Assistant House Master</span>
+  <h3 class="leader-name">Mr. Asif Ali Chandio</h3>
+  <p class="leader-bio">Lecturer in English with strong communication skills and educational expertise. Serves as Deputy Divisional Officer of Effendi Division and Secretary of College Welfare Committee. Dedicated to fostering academic excellence and student well-being.</p>
+  <p class="leader-qualification">M.A (English) • Joined: 2014</p>
+</div>
+        <!-- House Cadet Captain -->
+        <div class="leader-card fade-slide">
+          <div class="leader-img-container">
+            <div class="leader-glow"></div>
+            <img src="assets/images/appointment/hccl.webp" alt="House Cadet Captain Jinnah House" class="leader-img">
+          </div>
+          <span class="leader-role">House Cadet Captain</span>
+          <h3 class="leader-name">Cadet Ali Hassan</h3>
+          <p class="leader-bio">Exemplifying the true spirit of Latif House, Cadet Ali has demonstrated exceptional leadership, academic excellence, and sportsmanship. His journey from a shy newcomer to House Captain inspires every cadet.</p>
+          <p class="leader-qualification">Class X • Pre-Engineering • 4.0 GPA</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NEW ACHIEVEMENTS SECTION ========== -->
+    <section class="achievements-section" aria-labelledby="achievements-heading">
+      <div class="section-header">
+        <h2 id="achievements-heading">Our Achievements</h2>
+        <p>Celebrating excellence and milestones that define Latif House legacy</p>
+      </div>
+      
+      <div class="achievements-grid">
+        <div class="achievement-card fade-slide">
+          <div class="achievement-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="achievement-number">24</div>
+          <div class="achievement-title">Championship Titles</div>
+          <div class="achievement-desc">Inter-house competitions won in the last 5 years</div>
+        </div>
+        
+        <div class="achievement-card fade-slide">
+          <div class="achievement-icon">
+            <i class="fas fa-medal"></i>
+          </div>
+          <div class="achievement-number">156</div>
+          <div class="achievement-title">Academic Awards</div>
+          <div class="achievement-desc">Recognitions for academic excellence and merit</div>
+        </div>
+        
+        <div class="achievement-card fade-slide">
+          <div class="achievement-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="achievement-number">500+</div>
+          <div class="achievement-title">Alumni Network</div>
+          <div class="achievement-desc">Successful graduates making impact worldwide</div>
+        </div>
+        
+        <div class="achievement-card fade-slide">
+          <div class="achievement-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="achievement-number">15</div>
+          <div class="achievement-title">Years of Excellence</div>
+          <div class="achievement-desc">Sustained tradition of leadership and character building</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ENHANCED GALLERY SECTION ========== -->
+    <section class="gallery-section" aria-labelledby="gallery-heading">
+      <div class="section-header">
+        <h2 id="gallery-heading">Latif House Gallery</h2>
+        <p>Experience the vibrant life and legacy of our prestigious house</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports1.webp" alt="Jinnah House Building" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Historic Main Building</div>
+            <div class="caption-desc">The iconic architecture that has housed generations of leaders</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports2.webp" alt="Jinnah House Dining Hall" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Grand Dining Hall</div>
+            <div class="caption-desc">Where camaraderie is built over meals and conversations</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports3.webp" alt="Jinnah House Study Room" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Academic Excellence Center</div>
+            <div class="caption-desc">State-of-the-art facilities for focused learning and growth</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports4.webp" alt="Jinnah House Sports Team" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Champion Sports Team</div>
+            <div class="caption-desc">Winners of multiple inter-house championships and trophies</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports5.webp" alt="Jinnah House Cultural Event" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Cultural Excellence</div>
+            <div class="caption-desc">Celebrating traditions and creating new milestones</div>
+          </div>
+        </div>
+        
+        <div class="gallery-item fade-slide">
+          <img src="assets/images/sports/sports1.webp" alt="Jinnah House Awards" class="gallery-img">
+          <div class="gallery-caption">
+            <div class="caption-title">Legacy of Achievements</div>
+            <div class="caption-desc">Proud moments and historic accomplishments on display</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer-component></footer-component>
+  <script src="loader.js"></script>
+  <script>
+    // ========== OPTIMIZED PARTICLE ANIMATION ==========
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 40; // Reduced for better performance
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 3 + 1; // Smaller particles
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 15 + 10; // Faster animation
+        const animationDelay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}%`;
+        particle.style.animationDuration = `${animationDuration}s`;
+        particle.style.animationDelay = `${animationDelay}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // ========== OPTIMIZED FLOATING ELEMENTS ==========
+    function createFloatingElements() {
+      const container = document.getElementById('floatingElements');
+      const elementCount = 8; // Reduced for better performance
+      
+      for (let i = 0; i < elementCount; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        
+        // Random properties
+        const size = Math.random() * 80 + 20;
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 20 + 15;
+        const animationDelay = Math.random() * 10;
+        
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+        element.style.left = `${left}%`;
+        element.style.animationDuration = `${animationDuration}s`;
+        element.style.animationDelay = `${animationDelay}s`;
+        
+        container.appendChild(element);
+      }
+    }
+
+    // ========== OPTIMIZED SCROLL ANIMATIONS ==========
+    function initScrollAnimations() {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('appear');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements with animation classes
+      document.querySelectorAll('.fade-slide, .leader-card, .gallery-item, .achievement-card').forEach(el => {
+        observer.observe(el);
+      });
+    }
+
+    // ========== ENHANCED INTERACTIONS ==========
+    function initInteractions() {
+      // Enhanced CTA button
+      const ctaButton = document.getElementById('exploreHouse');
+      if (ctaButton) {
+        ctaButton.addEventListener('click', function() {
+          // Smooth scroll to leadership section
+          document.querySelector('.leadership-section').scrollIntoView({
+            behavior: 'smooth'
+          });
+          
+          // Add ripple effect
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = event.clientX - rect.left - size / 2;
+          const y = event.clientY - rect.top - size / 2;
+          
+          ripple.style.width = ripple.style.height = `${size}px`;
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+          ripple.classList.add('ripple');
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      }
+      
+      // Enhanced card hover effects
+      document.querySelectorAll('.leader-card, .achievement-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.zIndex = '10';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.zIndex = '';
+        });
+      });
+    }
+
+    // ========== PERFORMANCE OPTIMIZATIONS ==========
+    function initPerformanceOptimizations() {
+      // Use requestAnimationFrame for smoother animations
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+      
+      function updateOnScroll() {
+        // Add parallax or scroll-based effects here if needed
+        ticking = false;
+      }
+      
+      window.addEventListener('scroll', function() {
+        lastScrollY = window.scrollY;
+        
+        if (!ticking) {
+          requestAnimationFrame(updateOnScroll);
+          ticking = true;
+        }
+      });
+      
+      // Preload critical images
+      const criticalImages = [
+        'assets/images/jinnah-house-building.jpg',
+        'assets/images/house-master-jinnah.jpg'
+      ];
+      
+      criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+
+    // ========== INITIALIZE EVERYTHING ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      createFloatingElements();
+      initScrollAnimations();
+      initInteractions();
+      initPerformanceOptimizations();
+      
+      // Add CSS for ripple effect
+      const style = document.createElement('style');
+      style.textContent = `
+        .ripple {
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          transform: scale(0);
+          animation: ripple-animation 0.6s linear;
+          pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
+</body>
+</html>

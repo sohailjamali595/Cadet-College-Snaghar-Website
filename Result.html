@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Check Your Result - Cadet College Sanghar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ========== CSS VARIABLES ========== */
+    :root{
+      --nav-bg: #002147;
+      --nav-bg-dark: #011b36;
+      --accent: #fdfcf9ff;
+      --primary: #002147;
+      --soft-blue: #ecf5ff;
+      --card-shadow: 0 12px 30px rgba(2,36,85,0.06);
+      --text: #222;
+      --muted: #556b86;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+
+    /* ========== RESET & BASE STYLES ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.6;color:var(--text);
+      background: linear-gradient(180deg,#f8fbff 0%, #fbfdff 100%);
+      -webkit-font-smoothing:antialiased;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ========== HERO SECTION ========== */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+      /* REMOVED position: fixed to fix footer issue */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background: url('assets/images/logo.png') center/contain no-repeat;
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: heroAppear 1.5s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes heroAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      position: relative;
+      margin-bottom: 30px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .college-logo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      animation: logoGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes logoGlow {
+      from { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 rgba(255,215,0,0.5); }
+      to { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255,215,0,0.8); }
+    }
+
+    .college-logo img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .graduation-cap {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 60px;
+      color: var(--gold);
+      filter: drop-shadow(0 5px 15px rgba(255,215,0,0.5));
+      animation: capFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes capFloat {
+      0%, 100% { transform: translateX(-50%) rotate(0deg); }
+      25% { transform: translateX(-50%) rotate(5deg); }
+      75% { transform: translateX(-50%) rotate(-5deg); }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 15px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+      to { text-shadow: 0 5px 25px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    .main-content {
+      position: relative;
+      /* REMOVED top: 100vh to fix footer issue */
+      background: white;
+      z-index: 20;
+      min-height: 100vh; /* Ensure main content has proper height */
+    }
+
+    /* ========== RESULT CHECKER SECTION ========== */
+    .result-checker-section {
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+      min-height: 80vh; /* Reduced min-height to accommodate footer */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: #00356b;
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      position: relative;
+      display: inline-block;
+      animation: titleSlideIn 1s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes titleSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(90deg, #ffd36b, #00356b);
+      border-radius: 3px;
+      animation: lineExtend 1.5s var(--ease-smooth) 0.5s forwards;
+      width: 0;
+    }
+
+    @keyframes lineExtend {
+      to {
+        width: 100px;
+      }
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeIn 1s var(--ease-smooth) 0.8s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .result-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+      overflow: hidden;
+      animation: containerAppear 1s var(--ease-smooth) 1s forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes containerAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-header {
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 8s infinite linear;
+    }
+
+    @keyframes pulse {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .result-header h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .result-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+
+    .result-body {
+      padding: 50px 40px;
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 20px;
+      font-size: 1.2rem;
+      color: var(--muted);
+      z-index: 2;
+    }
+
+    .roll-number-input {
+      width: 100%;
+      padding: 18px 20px 18px 60px;
+      border: 2px solid #e0e7ff;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--primary);
+      transition: all 0.3s var(--ease-smooth);
+      background: #f8fbff;
+    }
+
+    .roll-number-input:focus {
+      outline: none;
+      border-color: #00356b;
+      box-shadow: 0 0 0 3px rgba(0,53,107,0.1);
+      background: white;
+    }
+
+    .check-button {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #00356b, #002147);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .check-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,53,107,0.3);
+    }
+
+    .check-button:active {
+      transform: translateY(0);
+    }
+
+    .check-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.6s var(--ease-smooth);
+    }
+
+    .check-button:hover::after {
+      left: 100%;
+    }
+
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0,53,107,0.1);
+      border-top: 5px solid #00356b;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .result-display {
+      display: none;
+      margin-top: 40px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      animation: resultAppear 0.8s var(--ease-smooth) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes resultAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-pass {
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      border: 2px solid var(--success);
+    }
+
+    .result-fail {
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      border: 2px solid var(--danger);
+    }
+
+    .result-icon {
+      font-size: 5rem;
+      margin-bottom: 25px;
+      display: block;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+      animation: iconBounce 0.8s var(--ease-bounce) forwards;
+    }
+
+    @keyframes iconBounce {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .result-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .result-pass .result-title {
+      color: var(--success);
+    }
+
+    .result-fail .result-title {
+      color: var(--danger);
+    }
+
+    .result-details {
+      font-size: 1.3rem;
+      color: var(--muted);
+      margin-bottom: 25px;
+      line-height: 1.8;
+    }
+
+    .result-message {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.7);
+      font-weight: 600;
+    }
+
+    .result-pass .result-message {
+      color: var(--success);
+    }
+
+    .result-fail .result-message {
+      color: var(--danger);
+    }
+
+    .try-again {
+      margin-top: 25px;
+      padding: 15px 30px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .try-again:hover {
+      background: #00356b;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8d7da;
+      color: var(--danger);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      animation: shake 0.5s var(--ease-smooth);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    /* Confetti animation for pass result */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(1000px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 1000px){
+      .hero-title {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero-section {
+        height: 100vh;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      .result-body {
+        padding: 40px 25px;
+      }
+      .result-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 520px){
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      .result-header h3 {
+        font-size: 1.8rem;
+      }
+      .result-body {
+        padding: 30px 20px;
+      }
+      .result-title {
+        font-size: 1.8rem;
+      }
+      .result-details {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+    <header-component></header-component>
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <div class="logo-container">
+        <div class="graduation-cap">🎓</div>
+        <div class="college-logo">
+          <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo">
+        </div>
+      </div>
+      <h1 class="hero-title">Check Your Result</h1>
+      <p class="hero-subtitle">Enter your roll number to view your test/interview results</p>
+    </div>
+    <div class="scroll-indicator" id="scrollToContent">↓</div>
+  </section>
+  
+  <!-- ========== MAIN CONTENT ========== -->
+  <div class="main-content">
+    <!-- ========== RESULT CHECKER SECTION ========== -->
+    <section class="result-checker-section">
+      <div class="section-title">
+        <h2>Test/Interview Result</h2>
+        <p>Enter your examination roll number to check your result instantly</p>
+      </div>
+      
+      <div class="result-container">
+        <div class="result-header">
+          <h3>Cadet College Sanghar</h3>
+          <p>Test/Interview Results</p>
+        </div>
+        
+        <div class="result-body">
+          <div class="input-group">
+            <label for="rollNumber">Enter Your Roll Number</label>
+            <div class="input-container">
+              <span class="input-icon">🔢</span>
+              <input type="text" id="rollNumber" class="roll-number-input" placeholder="e.g., 12345" maxlength="10">
+            </div>
+          </div>
+          
+          <button id="checkResult" class="check-button">Check Result</button>
+          
+          <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Fetching your result...</p>
+          </div>
+          
+          <div class="error-message" id="errorMessage">
+            Roll number not found. Please check and try again.
+          </div>
+          
+          <div class="result-display" id="resultDisplay">
+            <!-- Result will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- FOOTER SHOULD BE INSIDE MAIN CONTENT -->
+    <footer-component></footer-component>
+  </div>
+
+  <script src="loader.js"></script>
+  <script>
+    // Google Sheets CSV URL
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSiY9Ue4IlpV-rka3ZQ3OzN_nicFbUIew_F9QH75oXJW66Izn612xUVZ14GpmwFPQcnbWeMMxcUCx_D/pub?gid=0&single=true&output=csv';
+    
+    // DOM elements
+    const rollNumberInput = document.getElementById('rollNumber');
+    const checkResultBtn = document.getElementById('checkResult');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const errorMessage = document.getElementById('errorMessage');
+    const resultDisplay = document.getElementById('resultDisplay');
+    
+    // Store results data
+    let resultsData = {};
+    
+    // Load results data from CSV
+    async function loadResultsData() {
+      try {
+        const response = await fetch(CSV_URL);
+        const csvText = await response.text();
+        
+        // Parse CSV data
+        const rows = csvText.split('\n');
+        
+        for (let i = 1; i < rows.length; i++) {
+          if (rows[i].trim() === '') continue;
+          
+          const cells = rows[i].split(',');
+          if (cells.length >= 2) {
+            const rollNumber = cells[0].trim();
+            const status = cells[1].trim().toLowerCase();
+            resultsData[rollNumber] = status;
+          }
+        }
+        
+        console.log('Results data loaded successfully:', resultsData);
+      } catch (error) {
+        console.error('Error loading results data:', error);
+        // Fallback to sample data if CSV loading fails
+        resultsData = {
+          '1001': 'pass',
+          '1002': 'fail', 
+          '1003': 'pass',
+          '1004': 'pass',
+          '1005': 'fail'
+        };
+      }
+    }
+    
+    // Scroll to content function
+    document.getElementById('scrollToContent').addEventListener('click', function() {
+      document.querySelector('.main-content').scrollIntoView({ 
+        behavior: 'smooth' 
+      });
+    });
+    
+    // Check result function
+    checkResultBtn.addEventListener('click', function() {
+      const rollNumber = rollNumberInput.value.trim();
+      
+      if (!rollNumber) {
+        showError('Please enter a roll number');
+        return;
+      }
+      
+      // Show loading spinner
+      loadingSpinner.style.display = 'block';
+      errorMessage.style.display = 'none';
+      resultDisplay.style.display = 'none';
+      
+      // Simulate API call delay
+      setTimeout(() => {
+        checkResult(rollNumber);
+      }, 1000);
+    });
+    
+    // Function to check result
+    function checkResult(rollNumber) {
+      // Hide loading spinner
+      loadingSpinner.style.display = 'none';
+      
+      if (resultsData[rollNumber]) {
+        displayResult(rollNumber, resultsData[rollNumber]);
+      } else {
+        showError('Roll number not found. Please check and try again.');
+      }
+    }
+    
+    // Function to display result
+    function displayResult(rollNumber, status) {
+      const isPass = status === 'pass';
+      
+      resultDisplay.innerHTML = `
+        <div class="result-icon">${isPass ? '🎉' : '😔'}</div>
+        <h3 class="result-title">${isPass ? 'Congratulations!' : 'Better Luck Next Time'}</h3>
+        <p class="result-details">
+          <strong>Roll Number: ${rollNumber}</strong><br>
+          Status: <strong>${isPass ? 'PASS' : 'FAIL'}</strong>
+        </p>
+        <div class="result-message">
+          ${isPass 
+            ? 'You have successfully passed the test/interview. Well done!' 
+            : 'Unfortunately, you did not pass this time. Keep trying!'}
+        </div>
+        <button class="try-again" id="tryAgain">Check Another Result</button>
+      `;
+      
+      resultDisplay.className = `result-display ${isPass ? 'result-pass' : 'result-fail'}`;
+      resultDisplay.style.display = 'block';
+      
+      // Add confetti for pass result
+      if (isPass) {
+        createConfetti();
+      }
+      
+      // Add event listener to try again button
+      document.getElementById('tryAgain').addEventListener('click', function() {
+        resetForm();
+      });
+    }
+    
+    // Function to create confetti effect
+    function createConfetti() {
+      const colors = ['#ffd700', '#c0c0c0', '#cd7f32', '#00356b', '#ff6b6b', '#4ecdc4'];
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.position = 'absolute';
+      confettiContainer.style.top = '0';
+      confettiContainer.style.left = '0';
+      confettiContainer.style.width = '100%';
+      confettiContainer.style.height = '100%';
+      confettiContainer.style.pointerEvents = 'none';
+      confettiContainer.style.zIndex = '1';
+      resultDisplay.appendChild(confettiContainer);
+      
+      for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.animationDelay = Math.random() * 1 + 's';
+        confettiContainer.appendChild(confetti);
+      }
+      
+      setTimeout(() => {
+        if (confettiContainer.parentNode) {
+          confettiContainer.parentNode.removeChild(confettiContainer);
+        }
+      }, 5000);
+    }
+    
+    // Function to show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      loadingSpinner.style.display = 'none';
+      resultDisplay.style.display = 'none';
+    }
+    
+    // Function to reset form
+    function resetForm() {
+      rollNumberInput.value = '';
+      errorMessage.style.display = 'none';
+      resultDisplay.style.display = 'none';
+      rollNumberInput.focus();
+    }
+    
+    // Allow Enter key to submit form
+    rollNumberInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkResultBtn.click();
+      }
+    });
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Load results data
+      await loadResultsData();
+      
+      // Add scroll animations
+      const faders = document.querySelectorAll('.result-container');
+      const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+      
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+      
+      faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+      });
+      
+      // Focus on input field
+      rollNumberInput.focus();
+    });
+  </script>
+</body>
+</html>

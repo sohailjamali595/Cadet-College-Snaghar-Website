@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="components.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Faculty - Cadet College Sanghar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --nav-bg: #002147;
+            --primary: #002147;
+            --secondary: #b8860b;
+            --gold-light: #f4d03f;
+            --soft-blue: #ecf5ff;
+            --card-shadow: 0 15px 35px rgba(2,36,85,0.1);
+            --card-shadow-hover: 0 25px 50px rgba(2,36,85,0.15);
+            --text: #222;
+            --muted: #556b86;
+            --light-bg: #f8fbff;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* Department Colors - All navy blue */
+            --mathematics: #002147;
+            --science: #002147;
+            --humanities: #002147;
+            --languages: #002147;
+            --islamic: #002147;
+            --computer: #002147;
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        /* Background decorative elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 33, 71, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #002147 0%, #00356b 50%, #004d99 100%);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: url('assets/images/logo.png') center/contain no-repeat;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: heroAppear 1.5s var(--ease-smooth) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes heroAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .college-logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 rgba(255,215,0,0.5); }
+            to { box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(255,215,0,0.8); }
+        }
+
+        .college-logo img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .graduation-cap {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            color: var(--gold-light);
+            filter: drop-shadow(0 5px 15px rgba(255,215,0,0.5));
+            animation: capFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes capFloat {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(5deg); }
+            75% { transform: translateX(-50%) rotate(-5deg); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+            to { text-shadow: 0 5px 25px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            position: relative;
+            background: white;
+            z-index: 20;
+        }
+
+        /* ========== FILTER SECTION ========== */
+        .filter-section {
+            padding: 40px 5%;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, #e6f2ff 100%);
+            position: relative;
+        }
+        
+        .filter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.03"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23002147" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .filter-btn {
+            background: #fff;
+            border: 2px solid #e0e7ff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-smooth);
+            color: var(--muted);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(2,36,85,0.08);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.1), transparent);
+            transition: left 0.6s var(--ease-smooth);
+            z-index: -1;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(2,36,85,0.15);
+        }
+        
+        .filter-btn:hover::before, .filter-btn.active::before {
+            left: 100%;
+        }
+
+        /* ========== LEADERSHIP SECTION ========== */
+        .leadership-section {
+            padding: 80px 5%;
+            background: var(--soft-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #00356b;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .leadership-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 1s var(--ease-smooth) forwards;
+            cursor: pointer;
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .leadership-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* Fixed leadership image display */
+        .leadership-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: top center; /* Focus on the face area */
+            transition: transform 0.6s var(--ease-smooth);
+        }
+
+        .leadership-card:hover .leadership-image {
+            transform: scale(1.05);
+        }
+
+        .leadership-content {
+            padding: 25px;
+        }
+
+        .leadership-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .leadership-content p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* ========== FACULTY GRID SECTION ========== */
+        .faculty-section {
+            padding: 80px 5%;
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .faculty-card {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s var(--ease-smooth);
+            cursor: pointer;
+            background: #fff;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 1s var(--ease-smooth) forwards;
+        }
+        
+        .faculty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-smooth);
+            z-index: 1;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .faculty-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Fixed faculty image display */
+        .faculty-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: top center; /* Focus on the face area */
+            transition: transform 0.6s var(--ease-smooth);
+        }
+
+        .faculty-card:hover .faculty-img {
+            transform: scale(1.08);
+        }
+
+        .faculty-info {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .faculty-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faculty-info .designation {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .faculty-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+
+        .faculty-details {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f4f9;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 120px;
+        }
+        
+        .detail-value {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .responsibilities {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--soft-blue);
+        }
+        
+        .responsibilities strong {
+            color: var(--primary);
+        }
+
+        /* ========== STATISTICS SECTION ========== */
+        .stats-section {
+            padding: 80px 5%;
+            background: var(--soft-blue);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ffd36b, #00356b);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(2,36,85,0.1);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--soft-blue);
+            transition: all 0.4s var(--ease-smooth);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--primary);
+        }
+
+        .stat-card:hover .stat-icon svg {
+            fill: #fff;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* ========== FULL-SCREEN IMAGE VIEWER ========== */
+        .fullscreen-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s var(--ease-smooth);
+        }
+
+        .fullscreen-viewer.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .viewer-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .viewer-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: grab;
+        }
+
+        .viewer-img:active {
+            cursor: grabbing;
+        }
+
+        .viewer-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 4001;
+        }
+
+        .viewer-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #fff;
+            transition: all 0.3s var(--ease-smooth);
+            backdrop-filter: blur(10px);
+        }
+
+        .viewer-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .viewer-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            z-index: 4001;
+        }
+
+        .viewer-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .viewer-info p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+        }
+
+        .zoom-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 4001;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1000px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .leadership-grid, .faculty-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            .leadership-grid, .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .detail-row {
+                flex-direction: column;
+            }
+            .detail-value {
+                text-align: left;
+            }
+            .viewer-controls {
+                top: 10px;
+                right: 10px;
+            }
+            .viewer-info {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            .zoom-indicator {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .filter-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .viewer-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header-component></header-component>
+    
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero-section">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="graduation-cap">🎓</div>
+                <div class="college-logo">
+                    <img src="assets/images/Logo.webp" alt="Cadet College Sanghar Logo">
+                </div>
+            </div>
+            <h1 class="hero-title">Our Distinguished Faculty</h1>
+            <p class="hero-subtitle">Meet the experienced and dedicated educators who shape the future leaders at Cadet College Sanghar</p>
+        </div>
+        <div class="scroll-indicator" id="scrollToContent">↓</div>
+    </section>
+    
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="main-content">
+        <!-- ========== FILTER SECTION ========== -->
+        <section class="filter-section">
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Faculty</button>
+                <button class="filter-btn" data-filter="mathematics">Mathematics</button>
+                <button class="filter-btn" data-filter="science">Science</button>
+                <button class="filter-btn" data-filter="humanities">Humanities</button>
+                <button class="filter-btn" data-filter="languages">Languages</button>
+                <button class="filter-btn" data-filter="islamic">Islamic Studies</button>
+                <button class="filter-btn" data-filter="computer">Computer Science</button>
+            </div>
+        </section>
+
+        <!-- ========== LEADERSHIP SECTION ========== -->
+        <section class="leadership-section">
+            <div class="section-title">
+                <h2>Academic Leadership</h2>
+                <p>Our administrative team guiding the academic excellence at Cadet College Sanghar</p>
+            </div>
+            
+            <div class="leadership-grid" id="leadershipGrid">
+                <!-- Leadership cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ========== FACULTY GRID SECTION ========== -->
+        <section class="faculty-section">
+            <div class="section-title">
+                <h2>Faculty Members</h2>
+                <p>Our dedicated educators with extensive experience and expertise</p>
+            </div>
+            
+            <div class="faculty-grid" id="facultyGrid">
+                <!-- Faculty cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ========== STATISTICS SECTION ========== -->
+        <section class="stats-section">
+            <div class="section-title">
+                <h2>Faculty Excellence</h2>
+                <p>Our commitment to quality education through exceptional faculty</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <span class="stat-number">45+</span>
+                    <span class="stat-label">Faculty Members</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Years Average Experience</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </div>
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Academic Departments</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" width="30" height="30" fill="#00356b">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </div>
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Student Satisfaction</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Full-Screen Image Viewer -->
+    <div class="fullscreen-viewer">
+        <div class="viewer-container">
+            <div class="viewer-controls">
+                <button class="viewer-btn" id="zoomInBtn">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="viewer-btn" id="zoomOutBtn">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="viewer-btn" id="resetZoomBtn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="viewer-btn" id="closeViewerBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="viewer-image-container">
+                <img src="" alt="" class="viewer-img" id="viewerImage">
+            </div>
+            <div class="viewer-info">
+                <h3 id="viewerName"></h3>
+                <p id="viewerDesignation"></p>
+            </div>
+            <div class="zoom-indicator">
+                Zoom: <span id="zoomLevel">100%</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer-component></footer-component>
+    
+    <script src="loader.js"></script>
+    <script>
+        // Enhanced faculty data with complete information
+        const facultyData = [
+            { 
+                id: 1, 
+                name: "Prof. Manzoor Qadir Kandhro", 
+                designation: "Vice Principal (Academic)", 
+                department: "mathematics",
+                dateOfBirth: "1967-08-14",
+                dateOfJoining: "2001-08-01",
+                qualification: "M. Sc. (Physics), LLB",
+                assignment: "Member College Appointment Holders Committee, Member of College & Academic Council. Incharge College Bedminton Team",
+                remarks: "-",
+                img: "assets/images/faculty/vp.webp"
+            },
+            { 
+                id: 2, 
+                name: "Mr. Feroz Gul Khoso", 
+                designation: "Director of Studies (Assistant Professor)", 
+                department: "science",
+                dateOfBirth: "1977-02-02",
+                dateOfJoining: "2003-02-09",
+                qualification: "M. Sc. (Computer Sc.), B.Ed",
+                assignment: "Member College Appointment Holders Committee, Member of College & Academic Council.",
+                remarks: "-",
+                img: "assets/images/faculty/DOS.webp"
+            },
+            { 
+                id: 3, 
+                name: "Mr. M Yameen Qureshi", 
+                designation: "Assistant Professor (Mathematics)", 
+                department: "mathematics",
+                dateOfBirth: "1973-09-19",
+                dateOfJoining: "2001-02-01",
+                qualification: "M. Sc. (Mathematics)",
+                assignment: "Head of Mathematics Department and Chairman Purchase Committee",
+                remarks: "-",
+                img: "assets/images/faculty/yameen.webp"
+            },
+            { 
+                id: 4, 
+                name: "Mr. Shahzad Ahmed Gill", 
+                designation: "Assistant Professor (Chemistry)", 
+                department: "science",
+                dateOfBirth: "1981-02-15",
+                dateOfJoining: "2006-09-10",
+                qualification: "M. Sc. (Chemistry), B. Ed.",
+                assignment: "Head of Chemistry Department, Officer Incharge: (Admissions, Exams & Records, College Volleyball Team, Science Club)",
+                remarks: "M.Phil in Progress",
+                img: "assets/images/faculty/shehzad.webp"
+            },
+            { 
+                id: 5, 
+                name: "Mr. Ghulam Akbar Mangi", 
+                designation: "Assistant Professor (Sindhi)", 
+                department: "languages",
+                dateOfBirth: "1975-05-25",
+                dateOfJoining: "2007-09-11",
+                qualification: "M A (Sindhi) , B. Ed.",
+                assignment: "Head of Sindhi Department & Senior Divisional Officer",
+                remarks: "-",
+                img: "assets/images/faculty/akbar.webp"
+            },
+            { 
+                id: 6, 
+                name: "Mr. Shahid Hussain", 
+                designation: "Assistant Professor (Physics)", 
+                department: "science",
+                dateOfBirth: "1980-02-02",
+                dateOfJoining: "2006-09-01",
+                qualification: "M. Sc. (Physics), B.Ed",
+                assignment: "Head of Physics Department, Divisional Officer MA Jinnah Division, Incharge: (Physics Club, College Football & Basketball Team)",
+                remarks: "-",
+                img: "assets/images/faculty/shahid.webp"
+            },
+            { 
+                id: 7, 
+                name: "Mr. Sharaf Ali", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1982-02-02",
+                dateOfJoining: "2008-09-01",
+                qualification: "M A (English)",
+                assignment: "Head of English Department, Chief Editor Newsletter (CCS Times) and Editor English Section of Magazine",
+                remarks: "-",
+                img: "assets/images/faculty/sharaf.webp"
+            },
+            { 
+                id: 8, 
+                name: "Mr. M Shafique Anjum", 
+                designation: "Lecturer in Urdu", 
+                department: "languages",
+                dateOfBirth: "1975-05-25",
+                dateOfJoining: "2010-11-22",
+                qualification: "M A (Urdu) , B. Ed",
+                assignment: "Head of Urdu Department, Divisional Officer (H. A. Effendi Division), Officer Incharge: Debating Society and Incharge: Urdu Section of Magazine",
+                remarks: "-",
+                img: "assets/images/faculty/anjum.webp"
+            },
+            { 
+                id: 9, 
+                name: "Mr. Abdul Aziz Brohi", 
+                designation: "Lecturer in Islamic Studies", 
+                department: "islamic",
+                dateOfBirth: "1977-01-01",
+                dateOfJoining: "2011-11-21",
+                qualification: "M A (Islamic Culture & Studies)",
+                assignment: "Head of Islamic Studies Department and Officer Incharge Main Academic & Admin Block",
+                remarks: "-",
+                img: "assets/images/faculty/brohi.webp"
+            },
+            { 
+                id: 10, 
+                name: "Mr. Muhammad Hassan", 
+                designation: "Lecturer in Computer Science", 
+                department: "computer",
+                dateOfBirth: "1980-03-01",
+                dateOfJoining: "2011-11-21",
+                qualification: "MS in Computer Science",
+                assignment: "Head of IT Department, Officer Incharge (CCTV Maintenance)",
+                remarks: "-",
+                img: "assets/images/faculty/hassan.webp"
+            },
+            { 
+                id: 11, 
+                name: "Mr. Muhammad Adnan Qureshi", 
+                designation: "Lecturer in Islamic Studies", 
+                department: "islamic",
+                dateOfBirth: "1983-12-12",
+                dateOfJoining: "2012-02-06",
+                qualification: "M.A (Islamic Culture & Studies)",
+                assignment: "Deputy OIC Admission",
+                remarks: "-",
+                img: "assets/images/faculty/adnan.webp"
+            },
+            { 
+                id: 12, 
+                name: "Mr. Zubair Ahmed Abbasi", 
+                designation: "Lecturer in Mathematics", 
+                department: "mathematics",
+                dateOfBirth: "1984-11-13",
+                dateOfJoining: "2012-08-28",
+                qualification: "M. Sc. (Mathematics)",
+                assignment: "Divisional Officer (Jam Sadiq Division)",
+                remarks: "-",
+                img: "assets/images/faculty/zubair.webp"
+            },
+            { 
+                id: 13, 
+                name: "Mr. Muhammad Khurseed Butt", 
+                designation: "Lecturer in Pak & Social Studies", 
+                department: "humanities",
+                dateOfBirth: "1969-02-17",
+                dateOfJoining: "2012-08-30",
+                qualification: "M A (Pakistan Studies & Pol. Science)",
+                assignment: "Head of Pakistan & Social Studies Department, Officer Incharge: (Dramatic Club of College), Library and Photostat Cell",
+                remarks: "-",
+                img: "assets/images/faculty/khurseed.webp"
+            },
+            { 
+                id: 14, 
+                name: "Mr. Irfan Ali Sohu", 
+                designation: "Lecturer in Pak & Social Studies", 
+                department: "humanities",
+                dateOfBirth: "1984-02-12",
+                dateOfJoining: "2013-08-26",
+                qualification: "M A (Pakistan Studies)",
+                assignment: "Director Public Relations (DPR) Member Quiz & Drama Club, O/IC Creative Writing of Cadets' Club, Divisional Officer (Latif Division)",
+                remarks: "-",
+                img: "assets/images/faculty/sohu.webp"
+            },
+            { 
+                id: 15, 
+                name: "Mr. Pervez Ali Dahani", 
+                designation: "Lecturer in Chemistry", 
+                department: "science",
+                dateOfBirth: "1986-04-28",
+                dateOfJoining: "2014-12-15",
+                qualification: "M. Sc. (Chemistry)",
+                assignment: "Divisional Officer (Allama I. I. Kazi Division)",
+                remarks: "-",
+                img: "assets/images/faculty/dahani.webp"
+            },
+            { 
+                id: 16, 
+                name: "Mr. Asif Ali Chandio", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1990-04-28",
+                dateOfJoining: "2014-02-15",
+                qualification: "M A (English)",
+                assignment: "Deputy Divisional Officer (Effendi Division) and Secretary College Welfare Committee",
+                remarks: "-",
+                img: "assets/images/faculty/asif.webp"
+            },
+            { 
+                id: 17, 
+                name: "Muhammad Asghar Abbasi", 
+                designation: "Lecturer in Computer Science", 
+                department: "computer",
+                dateOfBirth: "1987-01-05",
+                dateOfJoining: "2021-01-01",
+                qualification: "MS",
+                assignment: "OIC DPR, Incharge IT Lab",
+                remarks: "",
+                img: "assets/images/faculty/asgharA.webp"
+            },
+            { 
+                id: 18, 
+                name: "Mr. Shahab-ur-Rehman", 
+                designation: "Lecturer in Zoology", 
+                department: "science",
+                dateOfBirth: "1973-09-10",
+                dateOfJoining: "2022-08-01",
+                qualification: "MS",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/shahab.webp"
+            },
+            { 
+                id: 19, 
+                name: "Mr. Asad Ali Jiskani", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1995-12-15",
+                dateOfJoining: "2022-08-01",
+                qualification: "BS English (Hons)",
+                assignment: "Divisional Officer (DS Division)",
+                remarks: "",
+                img: "assets/images/faculty/asad.webp"
+            },
+            { 
+                id: 20, 
+                name: "Mr. Zuhaib Ahmed", 
+                designation: "Lecturer in Chemistry", 
+                department: "science",
+                dateOfBirth: "1997-03-17",
+                dateOfJoining: "2022-08-01",
+                qualification: "",
+                assignment: "Deputy Divisional Officer (Kazi Division)",
+                remarks: "",
+                img: "assets/images/faculty/zuhaib.webp"
+            },
+            { 
+                id: 21, 
+                name: "Mr. Ghulam Asghar", 
+                designation: "Lecturer in Sindhi", 
+                department: "languages",
+                dateOfBirth: "1999-07-08",
+                dateOfJoining: "2022-08-01",
+                qualification: "",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/asgharS.webp"
+            },
+            { 
+                id: 22, 
+                name: "Mrs. Nabila Israr", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1988-04-18",
+                dateOfJoining: "2022-08-01",
+                qualification: "Master in English",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/nabila.webp"
+            },
+            {id: 23, 
+                name: "Mr. Samiullah", 
+                designation: "Lecturer in Urdu", 
+                department: "languages",
+                dateOfBirth: "1987-01-01",
+                dateOfJoining: "2017-10-12",
+                qualification: "M A (Urdu) , B. Ed",
+                assignment: "Deputy House Master",
+                remarks: "",
+                img: "assets/images/faculty/sami.webp"
+            },
+            { 
+                id: 24, 
+                name: "Mr. Ali Murad Laghari", 
+                designation: "Lecturer in Urdu", 
+                department: "languages",
+                dateOfBirth: "1995-02-01",
+                dateOfJoining: "2022-10-24",
+                qualification: "MA in URDU",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/murad.webp"
+            },
+            { 
+                id: 25, 
+                name: "Ahsanullah Qazi", 
+                designation: "Lecturer in Pak & Social Studies", 
+                department: "humanities",
+                dateOfBirth: "1993-02-15",
+                dateOfJoining: "2023-12-01",
+                qualification: "MA",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/ihsaanullah.webp"
+            },
+            { 
+                id: 26, 
+                name: "MR. HAFIZ BASIT", 
+                designation: "Lecturer in Botany", 
+                department: "science",
+                dateOfBirth: "1999-01-01",
+                dateOfJoining: "2023-01-01",
+                qualification: "MSC",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/basit.webp"
+            },
+            { 
+                id: 27, 
+                name: "MR. SAJID ALI", 
+                designation: "Lecturer in Urdu", 
+                department: "languages",
+                dateOfBirth: "1980-12-11",
+                dateOfJoining: "2024-08-16",
+                qualification: "M.A in Urdu",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/sajid.webp"
+            },
+            { 
+                id: 28, 
+                name: "MS. SALMA LAGHARI", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1997-04-03",
+                dateOfJoining: "2024-08-16",
+                qualification: "M.A in English",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/salma.webp"
+            },
+            { 
+                id: 29, 
+                name: "MR. JAI PARKASH", 
+                designation: "Lecturer in Chemistry", 
+                department: "science",
+                dateOfBirth: "1997-05-04",
+                dateOfJoining: "2024-08-16",
+                qualification: "BS Chemistry",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/jp.webp"
+            },
+            { 
+                id: 30, 
+                name: "MS. PARAS", 
+                designation: "Lecturer in English", 
+                department: "languages",
+                dateOfBirth: "1999-09-12",
+                dateOfJoining: "2024-08-16",
+                qualification: "M.A English",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/paras.webp"
+            },
+            { 
+                id: 31, 
+                name: "MR. AMJAD ALI", 
+                designation: "Lecturer in Chemistry", 
+                department: "science",
+                dateOfBirth: "1998-12-10",
+                dateOfJoining: "2024-08-16",
+                qualification: "BS Chemistry",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/amjad.webp"
+            },
+            { 
+                id: 32, 
+                name: "MR. KAMRAN ALI", 
+                designation: "Lecturer in Math", 
+                department: "mathematics",
+                dateOfBirth: "1999-01-12",
+                dateOfJoining: "2024-08-16",
+                qualification: "BS Mathematics",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/kamran.webp"
+            },
+            { 
+                id: 33, 
+                name: "MR. SARFRAZ BIN ESSA", 
+                designation: "Lecturer Computer Science", 
+                department: "computer",
+                dateOfBirth: "2001-03-12",
+                dateOfJoining: "2024-08-16",
+                qualification: "Bachelor of Science in Information Technology",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/sarfraz.webp"
+            },
+            { 
+                id: 34, 
+                name: "Mr. Mehboob Ali", 
+                designation: "Lecturer in Maths", 
+                department: "mathematics",
+                dateOfBirth: "1997-05-13",
+                dateOfJoining: "2024-08-16",
+                qualification: "BS Mathematics",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/mehboob.webp"
+            },
+            { 
+                id: 35, 
+                name: "Mr. Anees U Rehman", 
+                designation: "Lecturer in Islamic Studies", 
+                department: "islamic",
+                dateOfBirth: "1991-01-01",
+                dateOfJoining: "2025-08-15",
+                qualification: "M.Phil in Usooludin",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/anees.webp"
+            },
+            { 
+                id: 36, 
+                name: "Mr. Nek Muhammad", 
+                designation: "Lecturer in Physics", 
+                department: "science",
+                dateOfBirth: "2001-02-10",
+                dateOfJoining: "2025-08-15",
+                qualification: "BS Physics",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/nek.webp"
+            },
+            { 
+                id: 37, 
+                name: "Mr. Zeeshan", 
+                designation: "Lecturer in Physics", 
+                department: "science",
+                dateOfBirth: "1999-04-14",
+                dateOfJoining: "2025-08-16",
+                qualification: "Bs(Hons) Physics",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/zeeshan.webp"
+            },
+            { 
+                id: 38, 
+                name: "Syed Nayab Alamdar Naqvi", 
+                designation: "Lecturer in Biology", 
+                department: "science",
+                dateOfBirth: "1997-03-11",
+                dateOfJoining: "2025-08-18",
+                qualification: "M.Sc Botany",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/nayab.webp"
+            },
+            { 
+                id: 39, 
+                name: "Mr. Zubair Ahmed", 
+                designation: "Lecturer in Physics", 
+                department: "science",
+                dateOfBirth: "1998-06-06",
+                dateOfJoining: "2025-09-01",
+                qualification: "Msc Physics",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/zubairAh.webp"
+            },
+            { 
+                id: 40, 
+                name: "Mr. Yasir Abbas", 
+                designation: "Lecturer in Maths", 
+                department: "mathematics",
+                dateOfBirth: "1992-12-15",
+                dateOfJoining: "2025-10-20",
+                qualification: "M.Phil in Math",
+                assignment: "",
+                remarks: "",
+                img: "assets/images/faculty/yasir.webp"
+            }
+        ];
+
+        // Leadership data (first 3 faculty members)
+        const leadershipData = facultyData.slice(0, 3);
+
+        // Full-screen viewer functionality
+        let currentZoom = 1;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+        const maxZoom = 5;
+        const minZoom = 0.5;
+        const zoomStep = 0.25;
+
+        // Function to generate leadership cards
+        function generateLeadershipCards() {
+            const leadershipGrid = document.getElementById('leadershipGrid');
+            leadershipGrid.innerHTML = '';
+            
+            leadershipData.forEach(person => {
+                const card = document.createElement('div');
+                card.className = 'leadership-card';
+                
+                card.innerHTML = `
+                    <img src="${person.img}" alt="${person.name}" class="leadership-image">
+                    <div class="leadership-content">
+                        <h3>${person.name}</h3>
+                        <p>${person.designation}</p>
+                        <p>${person.assignment}</p>
+                    </div>
+                `;
+                
+                // Add click event to open image viewer
+                card.addEventListener('click', () => {
+                    openImageViewer(person.img, person.name, person.designation);
+                });
+                
+                leadershipGrid.appendChild(card);
+            });
+        }
+
+        // Function to generate faculty cards
+        function generateFacultyCards(faculty) {
+            const facultyGrid = document.getElementById('facultyGrid');
+            facultyGrid.innerHTML = '';
+            
+            faculty.forEach(person => {
+                const card = document.createElement('div');
+                card.className = `faculty-card ${person.department}`;
+                
+                // Format date for display
+                const formatDate = (dateString) => {
+                    if (!dateString) return 'N/A';
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                };
+
+                card.innerHTML = `
+                    <div class="faculty-category">${getDepartmentName(person.department)}</div>
+                    <img src="${person.img}" alt="${person.name}" class="faculty-img">
+                    <div class="faculty-info">
+                        <h3>${person.name}</h3>
+                        <p class="designation">${person.designation}</p>
+                        <div class="faculty-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Date of Birth:</span>
+                                <span class="detail-value">${formatDate(person.dateOfBirth)}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Date of Joining:</span>
+                                <span class="detail-value">${formatDate(person.dateOfJoining)}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Qualification:</span>
+                                <span class="detail-value">${person.qualification || 'N/A'}</span>
+                            </div>
+                            ${person.assignment ? `
+                            <div class="responsibilities">
+                                <strong>Assignments:</strong><br>
+                                ${person.assignment}
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                // Add click event to open image viewer
+                card.addEventListener('click', () => {
+                    openImageViewer(person.img, person.name, person.designation);
+                });
+                
+                facultyGrid.appendChild(card);
+            });
+        }
+
+        // Get department name for display
+        function getDepartmentName(department) {
+            const departments = {
+                'mathematics': 'Mathematics',
+                'science': 'Science',
+                'humanities': 'Humanities',
+                'languages': 'Languages',
+                'islamic': 'Islamic Studies',
+                'computer': 'Computer Science'
+            };
+            return departments[department] || department;
+        }
+
+        // Full-screen Image Viewer functionality
+        function openImageViewer(imgSrc, name, designation) {
+            const viewer = document.querySelector('.fullscreen-viewer');
+            const viewerImg = document.getElementById('viewerImage');
+            const viewerName = document.getElementById('viewerName');
+            const viewerDesignation = document.getElementById('viewerDesignation');
+            
+            viewerImg.src = imgSrc;
+            viewerName.textContent = name;
+            viewerDesignation.textContent = designation;
+            
+            // Reset zoom and position when opening new image
+            resetZoomAndPosition();
+            
+            viewer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageViewer() {
+            const viewer = document.querySelector('.fullscreen-viewer');
+            viewer.classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset zoom when closing
+            resetZoomAndPosition();
+        }
+
+        // Zoom functionality
+        function updateZoom() {
+            const viewerImg = document.getElementById('viewerImage');
+            const zoomLevel = document.getElementById('zoomLevel');
+            
+            viewerImg.style.transform = `scale(${currentZoom})`;
+            zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
+        }
+
+        function zoomIn() {
+            if (currentZoom < maxZoom) {
+                currentZoom += zoomStep;
+                updateZoom();
+            }
+        }
+
+        function zoomOut() {
+            if (currentZoom > minZoom) {
+                currentZoom -= zoomStep;
+                updateZoom();
+            }
+        }
+
+        function resetZoomAndPosition() {
+            currentZoom = 1;
+            const viewerImg = document.getElementById('viewerImage');
+            viewerImg.style.transform = `scale(1)`;
+            viewerImg.style.left = '0';
+            viewerImg.style.top = '0';
+            updateZoom();
+        }
+
+        // Drag functionality for panning
+        function initDrag() {
+            const viewerImg = document.getElementById('viewerImage');
+            const container = document.querySelector('.viewer-image-container');
+            
+            viewerImg.addEventListener('mousedown', startDrag);
+            viewerImg.addEventListener('touchstart', startDrag);
+            
+            function startDrag(e) {
+                isDragging = true;
+                viewerImg.style.cursor = 'grabbing';
+                
+                // Get initial position
+                const rect = viewerImg.getBoundingClientRect();
+                startX = (e.clientX || e.touches[0].clientX) - rect.left;
+                startY = (e.clientY || e.touches[0].clientY) - rect.top;
+                
+                // Add event listeners for dragging
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchend', stopDrag);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const x = (e.clientX || e.touches[0].clientX) - startX;
+                const y = (e.clientY || e.touches[0].clientY) - startY;
+                
+                viewerImg.style.left = `${x}px`;
+                viewerImg.style.top = `${y}px`;
+            }
+            
+            function stopDrag() {
+                isDragging = false;
+                viewerImg.style.cursor = 'grab';
+                
+                // Remove event listeners
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', stopDrag);
+                document.removeEventListener('touchend', stopDrag);
+            }
+        }
+
+        // Filter functionality
+        function setupFilterButtons() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    if (filter === 'all') {
+                        generateFacultyCards(facultyData);
+                    } else {
+                        const filteredFaculty = facultyData.filter(person => person.department === filter);
+                        generateFacultyCards(filteredFaculty);
+                    }
+                });
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll to content function
+            document.getElementById('scrollToContent').addEventListener('click', function() {
+                document.querySelector('.main-content').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            });
+
+            // Viewer controls
+            document.getElementById('zoomInBtn').addEventListener('click', zoomIn);
+            document.getElementById('zoomOutBtn').addEventListener('click', zoomOut);
+            document.getElementById('resetZoomBtn').addEventListener('click', resetZoomAndPosition);
+            document.getElementById('closeViewerBtn').addEventListener('click', closeImageViewer);
+            
+            // Close viewer when clicking outside the image
+            document.querySelector('.fullscreen-viewer').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeImageViewer();
+                }
+            });
+            
+            // Close viewer with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeImageViewer();
+                }
+            });
+
+            // Mouse wheel zoom
+            document.querySelector('.viewer-image-container').addEventListener('wheel', function(e) {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoomIn();
+                } else {
+                    zoomOut();
+                }
+            });
+
+            // Initialize drag functionality
+            initDrag();
+
+            generateLeadershipCards();
+            generateFacultyCards(facultyData);
+            setupFilterButtons();
+        });
+    </script>
+</body>
+</html>
